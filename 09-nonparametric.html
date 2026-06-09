@@ -196,7 +196,7 @@
 <p class="page-subtitle">מה עושים כשאי אפשר להניח התפלגות נורמלית.</p>
 
 <p class="lead">
-  עד עכשיו הנחנו שהאוכלוסייה מתפלגת נורמלית — אבל מתי באמת אפשר להניח את זה? כשהמשתנה רציף, ניתן למדידה מדויקת, מספיק תצפיות. במציאות הרבה פעמים יש <strong>משתני סדר</strong> (ציון 1–5 בסקר), <strong>מדגמים קטנים</strong> שעוד לא ראינו אם נורמליים, או <strong>התפלגויות שבדקנו ולא נורמליות</strong>. אז עוברים למבחנים א־פרמטריים: לא דורשים נורמליות, רוב פעם רק <strong>דירוגים</strong> במקום ערכים. החיסרון: עוצמה נמוכה יותר משל מבחן פרמטרי באותם נתונים. שלושה מבחנים נכסה: Wilcoxon (מזווג), Sign (מזווג חלש יותר אבל מספיק לסדר), Mann−Whitney (בלתי־תלויים).
+  עד עכשיו הנחנו שהאוכלוסייה מתפלגת נורמלית — אבל מתי באמת אפשר להניח את זה? כשהמשתנה רציף, ניתן למדידה מדויקת, מספיק תצפיות. במציאות הרבה פעמים יש <strong>משתני סדר</strong> (ציון 1–5 בסקר), <strong>מדגמים קטנים</strong> שעוד לא ראינו אם נורמליים, או <strong>התפלגויות שבדקנו ולא נורמליות</strong>. אז עוברים למבחנים א־פרמטריים: לא דורשים נורמליות, ברוב המקרים רק <strong>דירוגים</strong> במקום ערכים. החיסרון: עוצמה נמוכה יותר משל מבחן פרמטרי באותם נתונים. שלושה מבחנים נכסה: Wilcoxon (מזווג), Sign (מזווג חלש יותר אבל מספיק לסדר), Mann−Whitney (בלתי־תלויים).
 </p>
 
 <h2>1 · המוטיבציה</h2>
@@ -230,7 +230,7 @@
     <ol>
       <li>בכל זוג, חשב הפרש <span class="term">D<sub>i</sub> = X<sub>i</sub> − Y<sub>i</sub></span>.</li>
       <li>"זרוק" את ההפרשים השווים ל־0. נסמן <span class="term">n*</span> = מספר ההפרשים האפקטיביים (לא־אפסיים).</li>
-      <li>דרג את ה<strong>ערכים המוחלטים</strong> של ההפרשים מהקטן לגדול. הפרשים זהים → דרגה ממוצעת.</li>
+      <li>דרג את ה<strong>ערכים המוחלטים</strong> של ההפרשים מהקטן לגדול. הפרשים זהים ← דרגה ממוצעת.</li>
       <li>חשב <span class="term">R<sub>+</sub><sup>S</sup></span> = סכום הדרגות של ההפרשים <strong>החיוביים</strong> במדגם.</li>
       <li>חשב את מובהקות התוצאה.</li>
     </ol>
@@ -247,8 +247,10 @@
     <ul>
       <li>חד־צדדי ימני (H<sub>1</sub>: X &gt; Y): <span class="term">p.v = P(R<sub>+</sub> ≥ R<sub>+</sub><sup>S</sup>)</span></li>
       <li>חד־צדדי שמאלי: <span class="term">p.v = P(R<sub>+</sub> ≤ R<sub>+</sub><sup>S</sup>)</span></li>
-      <li>דו־צדדי: פי 2 מהקטן מבין השניים (כפוף לבחירת הזנב הנכון).</li>
+      <li>דו־צדדי: פי 2 מהקטן מבין השניים (תלוי בכיוון שבו <span class="term">R<sub>+</sub><sup>S</sup></span> רחוק מהתוחלת).</li>
     </ul>
+    <p><strong>תיקון רציפות:</strong> <span class="term">R<sub>+</sub></span> בדיד — מקרבים <span class="term">P(R<sub>+</sub> ≥ k)</span> ב־<span class="term">P(Y ≥ k − 0.5)</span> ו־<span class="term">P(R<sub>+</sub> ≤ k)</span> ב־<span class="term">P(Y ≤ k + 0.5)</span>. למדגמים קטנים (n* בערך 12–20) זה הבדל משמעותי.</p>
+    <p><strong>מדגם קטן מאוד</strong> (n* &lt; 8): חישוב מדויק על־ידי ספירת כל הצירופים האפשריים של סימני ההפרשים, כפי שמדגימה דוגמה 1.</p>
   </div>
 </div>
 
@@ -267,13 +269,14 @@
   <div class="box-head"><span class="icon">📐</span>שלבי המבחן + התפלגות</div>
   <div class="box-body">
     <ol>
-      <li>סופרים בכמה זוגות ההפרש שונה מ־0 → <span class="term">n*</span>.</li>
-      <li>סופרים בכמה ההפרש חיובי → <span class="term">S<sub>+</sub><sup>S</sup></span>.</li>
+      <li>סופרים בכמה זוגות ההפרש שונה מ־0 ← <span class="term">n*</span>.</li>
+      <li>סופרים בכמה ההפרש חיובי ← <span class="term">S<sub>+</sub><sup>S</sup></span>.</li>
       <li>תחת H<sub>0</sub>, <span class="term">S<sub>+</sub> ~ B(n*, 0.5)</span> בינומית.</li>
       <li>לקירוב נורמלי (n* גדול):</li>
     </ol>
     <p>$$S_+ \sim_{H_0} N(0.5 n^*,\ 0.25 n^*)$$</p>
     <p>p-value מחושב כרגיל לפי הכיוון.</p>
+    <p><strong>תיקון רציפות:</strong> <span class="term">S<sub>+</sub></span> בדיד (סופר אירועים), והקירוב הוא רציף. כשמחשבים <span class="term">P(S<sub>+</sub> ≥ k)</span> מקרבים ב־<span class="term">P(Y ≥ k − 0.5)</span>, וכן <span class="term">P(S<sub>+</sub> ≤ k)</span> ב־<span class="term">P(Y ≤ k + 0.5)</span> (בדומה לפרק 2).</p>
   </div>
 </div>
 
@@ -292,7 +295,7 @@
   <div class="box-head"><span class="icon">📐</span>שלבי המבחן</div>
   <div class="box-body">
     <ol>
-      <li>דרג את <strong>כל</strong> התצפיות ביחד (משתי הקבוצות) מהקטן לגדול. ערכים זהים → דרגה ממוצעת.</li>
+      <li>דרג את <strong>כל</strong> התצפיות ביחד (משתי הקבוצות) מהקטן לגדול. ערכים זהים ← דרגה ממוצעת.</li>
       <li>חשב <span class="term">R<sub>X</sub><sup>S</sup></span> = סכום הדרגות של הנתונים במדגם X.</li>
       <li>חשב p-value לפי הכיוון.</li>
     </ol>
@@ -308,13 +311,14 @@
     <p>כאשר <span class="term">max{n<sub>X</sub>, n<sub>Y</sub>} ≥ 10</span>:</p>
     <p>$$R_X \sim_{H_0} N\!\left(\frac{n_X(n+1)}{2},\ \frac{n_X n_Y (n+1)}{12}\right)$$</p>
     <p>(ו־R<sub>Y</sub> סימטרית.) p-value כרגיל לפי הכיוון.</p>
+    <p><strong>תיקון רציפות:</strong> <span class="term">R<sub>X</sub></span> בדיד (סכום דרגות) — מקרבים <span class="term">P(R<sub>X</sub> ≥ k)</span> ב־<span class="term">P(Y ≥ k − 0.5)</span> ו־<span class="term">P(R<sub>X</sub> ≤ k)</span> ב־<span class="term">P(Y ≤ k + 0.5)</span>. במדגמים קטנים זה משמעותי.</p>
   </div>
 </div>
 
 <div class="box theory">
   <div class="box-head"><span class="icon">📘</span>סטטיסטי U של Mann−Whitney (שקול)</div>
   <div class="box-body">
-    <p>סטטיסטי שקול: לכל תצפית ב־X, סופרים כמה תצפיות בקבוצת Y קטנות־שווה לה. נסכם → <span class="term">M<sub>X</sub></span>. הקשר:</p>
+    <p>סטטיסטי שקול: לכל תצפית ב־X, סופרים כמה תצפיות בקבוצת Y קטנות־שווה לה. נסכם ← <span class="term">M<sub>X</sub></span>. הקשר:</p>
     <p>$$M_X = R_X - \frac{n_X(n_X + 1)}{2}$$</p>
     <p>תחת H<sub>0</sub>:</p>
     <p>$$M_X \sim_{H_0} N\!\left(\frac{n_X n_Y}{2},\ \frac{n_X n_Y (n+1)}{12}\right)$$</p>
@@ -360,10 +364,10 @@
     <p>בדקו ברמת 0.3 שציוני סטטיסטיקה גבוהים יותר.</p>
     <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
     <div class="solution">
-      <p><span class="term">D = Y − X = (10, −2, 7)</span>. <span class="term">|D| = (10, 2, 7)</span> מסודר: <span class="term">(2, 7, 10)</span> ↔ דרגות 1, 2, 3.</p>
+      <p><span class="term">D = Y − X = (10, −2, 7)</span>. <span class="term">|D| = (10, 2, 7)</span> ממוין מהקטן לגדול: <span class="term">2, 7, 10</span> — וכך הדרגות הן <span class="term">דני=1, דנידין=2, דן=3</span>.</p>
       <p>סימני ההפרשים המקוריים: דן +, דני −, דנידין +.</p>
       <p>דרגות עם סימן +: דנידין (דרגה 3), דן (דרגה 2). <span class="term">R<sub>+</sub><sup>S</sup> = 3 + 2 = 5</span>.</p>
-      <p>n* = 3 קטן מדי לקירוב נורמלי → חישוב מדויק. סך הצירופים: 2<sup>3</sup> = 8. נציב את <span class="term">R<sub>+</sub></span> לכל אפשרות:</p>
+      <p>n* = 3 קטן מדי לקירוב נורמלי ← חישוב מדויק. סך הצירופים: 2<sup>3</sup> = 8. נציב את <span class="term">R<sub>+</sub></span> לכל אפשרות:</p>
       <table>
         <thead><tr><th>1</th><th>2</th><th>3</th><th>R<sub>+</sub></th></tr></thead>
         <tbody>
@@ -377,8 +381,8 @@
           <tr><td>+</td><td>+</td><td>+</td><td class="num">6</td></tr>
         </tbody>
       </table>
-      <p>H<sub>1</sub>: Y &gt; X → חד־צדדי ימני → <span class="term">p.v = P(R<sub>+</sub> ≥ 5) = 2/8 = 0.25</span>.</p>
-      <p><span class="term">0.25 ≤ 0.3</span> → <strong>דוחים</strong> את H<sub>0</sub> ברמת 0.3. הציונים בסטטיסטיקה גבוהים יותר.</p>
+      <p>H<sub>1</sub>: Y &gt; X ← חד־צדדי ימני ← <span class="term">p.v = P(R<sub>+</sub> ≥ 5) = 2/8 = 0.25</span>.</p>
+      <p><span class="term">0.25 ≤ 0.3</span> ← <strong>דוחים</strong> את H<sub>0</sub> ברמת 0.3. הציונים בסטטיסטיקה גבוהים יותר.</p>
     </div>
   </div>
 </div>
@@ -391,10 +395,12 @@
     <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
     <div class="solution">
       <p><span class="term">n* = 27 + 13 = 40</span> (5 השוויונות מתעלמים). <span class="term">S<sub>+</sub><sup>S</sup> = 27</span>.</p>
-      <p>תחת H<sub>0</sub>: <span class="term">S<sub>+</sub> ~ N(20, 10)</span>. <span class="term">σ = √10 ≈ 3.162</span>.</p>
-      <p><span class="term">Z<sub>s</sub> = (27 − 20)/3.162 = 7/3.162 ≈ 2.214</span></p>
-      <p><strong>(א) דו־צדדי.</strong> p.v ≈ <span class="term">2 · (1 − Φ(2.214)) ≈ 2 · 0.0134 ≈ 0.0268</span>. <span class="term">0.0268 &lt; 0.05</span> → <strong>דוחים</strong>. יש הבדל.</p>
-      <p><strong>(ב) חד־צדדי ימני</strong> (H<sub>1</sub>: יום גבוה יותר → S<sub>+</sub> גדול). p.v ≈ <span class="term">1 − Φ(2.214) ≈ 0.0134 &lt; 0.05</span> → <strong>דוחים</strong>. רמת הסוכרים ביום גבוהה יותר.</p>
+      <p>תחת H<sub>0</sub>: <span class="term">S<sub>+</sub> ~ B(40, 0.5) ≈ N(20, 10)</span>. <span class="term">σ = √10 ≈ 3.162</span>.</p>
+      <p><strong>תיקון רציפות:</strong> <span class="term">S<sub>+</sub></span> בדיד, ולכן לחישוב <span class="term">P(S<sub>+</sub> ≥ 27)</span> מקרבים ב־<span class="term">P(Y ≥ 26.5)</span>.</p>
+      <p><span class="term">Z<sub>s</sub> = (26.5 − 20)/3.162 = 6.5/3.162 ≈ 2.056</span></p>
+      <p><strong>(א) דו־צדדי.</strong> p.v ≈ <span class="term">2 · (1 − Φ(2.056)) ≈ 2 · 0.0199 ≈ 0.0398</span>. <span class="term">0.0398 &lt; 0.05</span> ← <strong>דוחים</strong>. יש הבדל.</p>
+      <p><strong>(ב) חד־צדדי ימני</strong> (H<sub>1</sub>: יום גבוה יותר ← S<sub>+</sub> גדול). p.v ≈ <span class="term">1 − Φ(2.056) ≈ 0.0199 &lt; 0.05</span> ← <strong>דוחים</strong>. רמת הסוכרים ביום גבוהה יותר.</p>
+      <p><em>(בלי תיקון רציפות היינו מקבלים <span class="term">Z<sub>s</sub> ≈ 2.214</span> ו־p.v ≈ 0.0268 — קצת נמוך מדי, וזה ההבדל שמצדיק את התיקון.)</em></p>
     </div>
   </div>
 </div>
@@ -410,14 +416,15 @@
       <p>(מערך סולם סדר — חובה Mann−Whitney.)</p>
       <p>נסדר את כל 17 הערכים יחד מהקטן לגדול ונדרג. בגלל הקשרים — דרגות ממוצעות.</p>
       <p>סידור (תוקן עם תיוג A/B): 4(B), 4(B), 5(A), 5(A), 5(B), 6(A), 6(A), 6(B), 6(B), 6(B), 7(A), 7(A), 7(A), 8(A), 8(A), 8(B), 9(A).</p>
-      <p>דרגות: 4 → ממוצע (1,2) = 1.5; 5 → ממוצע (3,4,5) = 4; 6 → ממוצע (6,7,8,9,10) = 8; 7 → ממוצע (11,12,13) = 12; 8 → ממוצע (14,15,16) = 15; 9 → 17.</p>
-      <p>סכום דרגות קבוצה A (אלה עם השם): <span class="term">5,5,7,6,6,7,7,8,9,8</span> → 4+4+12+8+8+12+12+15+17+15 = <strong>107</strong>.</p>
+      <p>דרגות: 4 ← ממוצע (1,2) = 1.5; 5 ← ממוצע (3,4,5) = 4; 6 ← ממוצע (6,7,8,9,10) = 8; 7 ← ממוצע (11,12,13) = 12; 8 ← ממוצע (14,15,16) = 15; 9 ← 17.</p>
+      <p>סכום דרגות קבוצה A (אלה עם השם): <span class="term">5,5,7,6,6,7,7,8,9,8</span> ← 4+4+12+8+8+12+12+15+17+15 = <strong>107</strong>.</p>
       <p>נמיר ל־<span class="term">R<sub>B</sub><sup>S</sup></span> (האנונימיים — H<sub>1</sub>: נמוכים יותר): <span class="term">R<sub>A</sub> + R<sub>B</sub> = 17·18/2 = 153</span>. <span class="term">R<sub>B</sub><sup>S</sup> = 153 − 107 = 46</span>.</p>
       <p>תחת H<sub>0</sub>: <span class="term">R<sub>B</sub> ~ N(7·18/2, 10·7·18/12) = N(63, 105)</span>. <span class="term">σ = √105 ≈ 10.25</span>.</p>
-      <p>H<sub>1</sub>: אנונימיים נמוכים יותר → R<sub>B</sub> קטן → חד־צדדי שמאלי.</p>
-      <p><span class="term">Z<sub>s</sub> = (46 − 63)/10.25 ≈ −1.659</span>. <span class="term">p.v = Φ(−1.659) ≈ 0.0486</span>.</p>
-      <p><span class="term">0.0486 &gt; 0.01</span> → <strong>לא דוחים</strong> ברמת 0.01. (היו דוחים ברמת 0.05.)</p>
-      <p>(scipy מחזיר p.v ≈ 0.050 — סטייה קטנה מהקירוב הנורמלי כי n קטן.)</p>
+      <p>H<sub>1</sub>: אנונימיים נמוכים יותר ← R<sub>B</sub> קטן ← חד־צדדי שמאלי.</p>
+      <p><strong>תיקון רציפות:</strong> <span class="term">R<sub>B</sub></span> בדיד (סכום דרגות), ולכן לחישוב <span class="term">P(R<sub>B</sub> ≤ 46)</span> מקרבים ב־<span class="term">P(Y ≤ 46.5)</span>.</p>
+      <p><span class="term">Z<sub>s</sub> = (46.5 − 63)/10.25 ≈ −1.610</span>. <span class="term">p.v = Φ(−1.610) ≈ 0.0537</span>.</p>
+      <p><span class="term">0.0537 &gt; 0.01</span> ← <strong>לא דוחים</strong> ברמת 0.01.</p>
+      <p>שימו לב שגם ברמת 0.05 לא היינו דוחים (<span class="term">0.0537 &gt; 0.05</span>). זה מתיישב יפה עם scipy שמחזיר <span class="term">p.v ≈ 0.050</span> (בגבול).</p>
     </div>
   </div>
 </div>
@@ -432,10 +439,10 @@
     <p>(ד) ציון של "טוב/סביר/גרוע" של מוצר חדש לעומת הישן, אותם נבדקים.</p>
     <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
     <div class="solution">
-      <p>(א) <strong>Mann−Whitney</strong>: סולם סדר (ציון 1–7), 2 ב"ת. אפשר להניח נורמליות בגלל n=30 + מ.ה.מ — וגם t לב"ת תקף. אבל כי המשתנה סולם סדר, יותר נכון מ"מ.</p>
+      <p>(א) <strong>Mann−Whitney</strong>: 2 ב"ת, סולם סדר (ציון 1–7). מ.ה.מ. לא חל פה כי הערכים אינם רציפים ולא ניתן להניח שמרחק "1 ל־2" שווה למרחק "3 ל־4". לכן t לב"ת לא חוקי, גם עם n=30. Mann-Whitney הוא הבחירה הנכונה.</p>
       <p>(ב) <strong>Wilcoxon</strong>: מזווג, ערכים מספריים, סימטריה ידועה. עדיף על Sign כי משתמש בערכים, לא רק בסימן.</p>
-      <p>(ג) <strong>t מזווג</strong>: מזווג, נורמליות → המבחן הפרמטרי תקף ועוצמתי יותר.</p>
-      <p>(ד) <strong>Sign</strong>: מזווג, סולם סדר בלבד (אין הפרש מספרי) → Sign היחיד שתקף.</p>
+      <p>(ג) <strong>t מזווג</strong>: מזווג, נורמליות ← המבחן הפרמטרי תקף ועוצמתי יותר.</p>
+      <p>(ד) <strong>Sign</strong>: מזווג, סולם סדר בלבד (אין הפרש מספרי) ← Sign היחיד שתקף.</p>
     </div>
   </div>
 </div>

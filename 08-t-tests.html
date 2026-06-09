@@ -364,7 +364,7 @@
       <li>לא סימטרית.</li>
       <li>אין נוסחאות סגורות — טבלאות או scipy.</li>
     </ul>
-    <p>אם <span class="term">F</span> רחוק מ־1 (לכל אחד מהכיוונים) → דוחים את שוויון השונויות.</p>
+    <p>אם <span class="term">F</span> רחוק מ־1 (לכל אחד מהכיוונים) ← דוחים את שוויון השונויות.</p>
   </div>
 </div>
 
@@ -374,7 +374,8 @@
     <ol>
       <li>חישוב <span class="term">X̄, Ȳ, S<sub>X</sub><sup>2</sup>, S<sub>Y</sub><sup>2</sup></span>.</li>
       <li>מבחן F לשוויון שונויות.</li>
-      <li>אם לא דחינו שוויון → pooled t. אם דחינו → Welch t.</li>
+      <li>אם לא דחינו שוויון ← השתמש ב־<strong>pooled t</strong>.</li>
+      <li>אם דחינו שוויון ← השתמש ב־<strong>Welch t</strong>.</li>
       <li>השוואה ל־α הראשי של מבחן ההפרש בתוחלות.</li>
     </ol>
   </div>
@@ -394,18 +395,18 @@
       <p><span class="term">∑X<sub>i</sub> = 92, X̄ = 18.4</span></p>
       <p><span class="term">∑(X<sub>i</sub> − X̄)<sup>2</sup> = (−0.4)<sup>2</sup>+(−1.4)<sup>2</sup>+(−0.4)<sup>2</sup>+(0.6)<sup>2</sup>+(1.6)<sup>2</sup> = 5.20</span></p>
       <p><span class="term">S<sup>2</sup> = 5.20/4 = 1.30, S = 1.140</span></p>
-      <p>הערה: בשאלה נאמר "אולי גם סטיית התקן השתנתה" → אי אפשר להניח שהשונות עדיין 4 → לא ידועה → מבחן <strong>t</strong> (לא z).</p>
+      <p>הערה: בשאלה נאמר "אולי גם סטיית התקן השתנתה" ← אי אפשר להניח שהשונות עדיין 4 ← לא ידועה ← מבחן <strong>t</strong> (לא z).</p>
 
       <p><strong>שיטה 1 — סטטיסטי t מול ערך קריטי</strong></p>
       <p><span class="term">t<sub>s</sub> = (X̄ − μ<sub>0</sub>) / (S/√n) = (18.4 − 20) / (1.140/√5) = −1.6 / 0.5099 ≈ −3.14</span></p>
-      <p>ערך קריטי (חד־צדדי שמאלי, df=4, α=0.05): <span class="term">−t<sub>4, 0.95</sub> = −2.132</span>. <span class="term">−3.14 &lt; −2.132</span> → <strong>דוחים</strong>.</p>
+      <p>ערך קריטי (חד־צדדי שמאלי, df=4, α=0.05): <span class="term">−t<sub>4, 0.95</sub> = −2.132</span>. <span class="term">−3.14 &lt; −2.132</span> ← <strong>דוחים</strong>.</p>
 
       <p><strong>שיטה 2 — אזור דחייה C על X̄</strong></p>
       <p><span class="term">C = {X̄ ≤ μ<sub>0</sub> − t<sub>4, 0.95</sub> · S/√n} = {X̄ ≤ 20 − 2.132·0.5099} = {X̄ ≤ 18.913}</span></p>
-      <p>הממוצע <span class="term">X̄ = 18.4 &lt; 18.913</span> → בתוך אזור הדחייה → <strong>דוחים</strong>.</p>
+      <p>הממוצע <span class="term">X̄ = 18.4 &lt; 18.913</span> ← בתוך אזור הדחייה ← <strong>דוחים</strong>.</p>
 
       <p><strong>שיטה 3 — p-value</strong></p>
-      <p><span class="term">p.v = P(t<sub>4</sub> ≤ −3.14) ≈ 0.0173</span> (מ־scipy.stats.t.cdf). <span class="term">0.0173 &lt; 0.05</span> → <strong>דוחים</strong>.</p>
+      <p><span class="term">p.v = P(t<sub>4</sub> ≤ −3.14) ≈ 0.0173</span> (מ־scipy.stats.t.cdf). <span class="term">0.0173 &lt; 0.05</span> ← <strong>דוחים</strong>.</p>
       <p>שלוש השיטות מסכימות: תוחלת המרחק קטנה ביקום המקבילי.</p>
     </div>
   </div>
@@ -422,29 +423,29 @@
       <p><strong>(א) חד־צדדי שמאלי.</strong> <span class="term">H<sub>0</sub>: μ = 79, H<sub>1</sub>: μ &lt; 79</span>.</p>
 
       <p><em>שיטה 1 — סטטיסטי t מול ערך קריטי:</em></p>
-      <p><span class="term">t<sub>s</sub> = (70.44 − 79) / 3.03 ≈ −2.82</span>. קריטי <span class="term">−t<sub>8, 0.95</sub> = −1.860</span>. <span class="term">−2.82 &lt; −1.860</span> → <strong>דוחים</strong>.</p>
+      <p><span class="term">t<sub>s</sub> = (70.44 − 79) / 3.03 ≈ −2.82</span>. קריטי <span class="term">−t<sub>8, 0.95</sub> = −1.860</span>. <span class="term">−2.82 &lt; −1.860</span> ← <strong>דוחים</strong>.</p>
 
       <p><em>שיטה 2 — אזור דחייה C:</em></p>
-      <p><span class="term">C = {X̄ ≤ 79 − 1.860·3.03} = {X̄ ≤ 73.36}</span>. <span class="term">X̄ = 70.44 &lt; 73.36</span> → <strong>דוחים</strong>.</p>
+      <p><span class="term">C = {X̄ ≤ 79 − 1.860·3.03} = {X̄ ≤ 73.36}</span>. <span class="term">X̄ = 70.44 &lt; 73.36</span> ← <strong>דוחים</strong>.</p>
 
       <p><em>שיטה 3 — p-value:</em></p>
-      <p><span class="term">p.v = P(t<sub>8</sub> ≤ −2.82) ≈ 0.0112</span>. <span class="term">0.0112 &lt; 0.05</span> → <strong>דוחים</strong>.</p>
+      <p><span class="term">p.v = P(t<sub>8</sub> ≤ −2.82) ≈ 0.0112</span>. <span class="term">0.0112 &lt; 0.05</span> ← <strong>דוחים</strong>.</p>
 
       <p><strong>(ב) דו־צדדי.</strong> <span class="term">H<sub>0</sub>: μ = 79, H<sub>1</sub>: μ ≠ 79</span>.</p>
 
-      <p><em>שיטה 1:</em> אותו <span class="term">|t<sub>s</sub>| = 2.82</span>. קריטי <span class="term">t<sub>8, 0.975</sub> = 2.306</span>. <span class="term">2.82 &gt; 2.306</span> → <strong>דוחים</strong>.</p>
+      <p><em>שיטה 1:</em> אותו <span class="term">|t<sub>s</sub>| = 2.82</span>. קריטי <span class="term">t<sub>8, 0.975</sub> = 2.306</span>. <span class="term">2.82 &gt; 2.306</span> ← <strong>דוחים</strong>.</p>
 
       <p><em>שיטה 2 — אזור דחייה C:</em></p>
       <p><span class="term">C = {X̄ ≤ 79 − 2.306·3.03} ∪ {X̄ ≥ 79 + 2.306·3.03} = {X̄ ≤ 72.01} ∪ {X̄ ≥ 85.99}</span></p>
-      <p><span class="term">X̄ = 70.44 &lt; 72.01</span> → באזור הדחייה השמאלי → <strong>דוחים</strong>.</p>
+      <p><span class="term">X̄ = 70.44 &lt; 72.01</span> ← באזור הדחייה השמאלי ← <strong>דוחים</strong>.</p>
 
-      <p><em>שיטה 3 — p-value:</em> <span class="term">p.v = 2 · 0.0112 ≈ 0.0225 &lt; 0.05</span> → <strong>דוחים</strong>.</p>
+      <p><em>שיטה 3 — p-value:</em> <span class="term">p.v = 2 · 0.0112 ≈ 0.0225 &lt; 0.05</span> ← <strong>דוחים</strong>.</p>
 
-      <p><em>שיטה 4 — דרך רווח הסמך (תוצאת ג'):</em> <span class="term">79 ∉ [63.45, 77.43]</span> → <strong>דוחים</strong>.</p>
+      <p><em>שיטה 4 — דרך רווח הסמך (תוצאת ג'):</em> <span class="term">79 ∉ [63.45, 77.43]</span> ← <strong>דוחים</strong>.</p>
 
       <p><strong>(ג) רווח סמך 95%:</strong></p>
       <p><span class="term">[X̄ ± t<sub>8, 0.975</sub> · S/√n] = [70.44 ± 2.306·3.03] = [70.44 ± 6.99] = [63.45, 77.43]</span></p>
-      <p>79 מחוץ → מאשר את הדחייה בסעיף (ב).</p>
+      <p>79 מחוץ ← מאשר את הדחייה בסעיף (ב).</p>
     </div>
   </div>
 </div>
@@ -465,7 +466,7 @@
     <p>בדקו ברמת 0.1 שטלוויזיה ארוכה יותר.</p>
     <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
     <div class="solution">
-      <p>זה מדגם מזווג (אותו ילד בכל שבוע) → t על <span class="term">D</span>. n = 4, α = 0.1.</p>
+      <p>זה מדגם מזווג (אותו ילד בכל שבוע) ← t על <span class="term">D</span>. n = 4, α = 0.1.</p>
       <p><span class="term">H<sub>0</sub>: μ<sub>D</sub> = 0, H<sub>1</sub>: μ<sub>D</sub> &gt; 0</span> (טלוויזיה ארוכה יותר).</p>
 
       <p><strong>הכנה — חישובים על ההפרשים:</strong></p>
@@ -475,14 +476,14 @@
 
       <p><strong>שיטה 1 — סטטיסטי t מול ערך קריטי</strong></p>
       <p><span class="term">t<sub>s</sub> = (D̄ − 0) / (S<sub>D</sub>/√n) = 0.225 / 0.111 = 2.03</span></p>
-      <p>קריטי (חד־צדדי ימני, df=3): <span class="term">t<sub>3, 0.9</sub> = 1.638</span>. <span class="term">2.03 &gt; 1.638</span> → <strong>דוחים</strong>.</p>
+      <p>קריטי (חד־צדדי ימני, df=3): <span class="term">t<sub>3, 0.9</sub> = 1.638</span>. <span class="term">2.03 &gt; 1.638</span> ← <strong>דוחים</strong>.</p>
 
       <p><strong>שיטה 2 — אזור דחייה C על D̄</strong></p>
       <p><span class="term">C = {D̄ ≥ 0 + t<sub>3, 0.9</sub>·S<sub>D</sub>/√n} = {D̄ ≥ 1.638·0.111} = {D̄ ≥ 0.182}</span></p>
-      <p><span class="term">D̄ = 0.225 ≥ 0.182</span> → באזור הדחייה → <strong>דוחים</strong>.</p>
+      <p><span class="term">D̄ = 0.225 ≥ 0.182</span> ← באזור הדחייה ← <strong>דוחים</strong>.</p>
 
       <p><strong>שיטה 3 — p-value</strong></p>
-      <p><span class="term">p.v = P(t<sub>3</sub> ≥ 2.03) ≈ 0.0676</span>. <span class="term">0.0676 &lt; 0.1</span> → <strong>דוחים</strong>.</p>
+      <p><span class="term">p.v = P(t<sub>3</sub> ≥ 2.03) ≈ 0.0676</span>. <span class="term">0.0676 &lt; 0.1</span> ← <strong>דוחים</strong>.</p>
       <p>(שימו לב: ברמת 5% לא היו דוחים כאן — <span class="term">0.0676 &gt; 0.05</span>.) תוחלת זמן הטלוויזיה ארוכה יותר ברמת 10%.</p>
     </div>
   </div>
@@ -496,11 +497,11 @@
     <div class="solution">
       <p><strong>שלב 1: מבחן F לשוויון שונויות.</strong></p>
       <p><span class="term">F<sub>s</sub> = S<sub>Y</sub><sup>2</sup>/S<sub>X</sub><sup>2</sup> = 900<sup>2</sup>/600<sup>2</sup> = 810,000/360,000 = 2.25</span>. (לוקחים את הגדול במונה כדי לחפש בזנב הימני.)</p>
-      <p>קריטי דו־צדדי <span class="term">F<sub>10, 20, 0.995</sub> ≈ 3.85</span> (טבלת F). <span class="term">2.25 &lt; 3.85</span> → <strong>לא דוחים</strong> שוויון שונויות.</p>
+      <p>קריטי דו־צדדי <span class="term">F<sub>10, 20, 0.995</sub> ≈ 3.85</span> (טבלת F). <span class="term">2.25 &lt; 3.85</span> ← <strong>לא דוחים</strong> שוויון שונויות.</p>
       <p><strong>שלב 2: pooled t-test.</strong></p>
       <p><span class="term">S<sub>p</sub><sup>2</sup> = [(20)·360,000 + (10)·810,000] / 30 = [7,200,000 + 8,100,000]/30 = 510,000</span>. <span class="term">S<sub>p</sub> ≈ 714.1</span>.</p>
       <p><span class="term">t<sub>s</sub> = (5500 − 4900) / √(510,000·(1/21 + 1/11)) = 600 / √(510,000·0.1385) = 600 / 266.0 = 2.26</span></p>
-      <p>קריטי דו־צדדי <span class="term">t<sub>30, 0.995</sub> ≈ 2.750</span>. <span class="term">2.26 &lt; 2.750</span> → <strong>לא דוחים</strong> H<sub>0</sub> ברמת 1%. אין מספיק ראיות להבדל בהכנסות.</p>
+      <p>קריטי דו־צדדי <span class="term">t<sub>30, 0.995</sub> ≈ 2.750</span>. <span class="term">2.26 &lt; 2.750</span> ← <strong>לא דוחים</strong> H<sub>0</sub> ברמת 1%. אין מספיק ראיות להבדל בהכנסות.</p>
       <p>(הערה: ברמת 5% — קריטי <span class="term">t<sub>30, 0.975</sub> ≈ 2.042</span>, ושם <strong>היו דוחים</strong>.)</p>
     </div>
   </div>

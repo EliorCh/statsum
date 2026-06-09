@@ -273,7 +273,7 @@
 <div class="box warn">
   <div class="box-head"><span class="icon">⚠️</span>תמיד לעבוד ב־log</div>
   <div class="box-body">
-    <p>כפל הרבה הסתברויות קטנות → underflow מספרי. נחשב <strong>ln V<sub>i</sub>(ℓ)</strong> במקום <strong>V<sub>i</sub>(ℓ)</strong>. בזכות:</p>
+    <p>כפל הרבה הסתברויות קטנות ← underflow מספרי. נחשב <strong>ln V<sub>i</sub>(ℓ)</strong> במקום <strong>V<sub>i</sub>(ℓ)</strong>. בזכות:</p>
     <p>$$\ln(p \cdot q) = \ln(p) + \ln(q)$$</p>
     <p>במקום כפל — חיבור. ההסתברות הקטנה ביותר הופכת ל־ln השלילי הגדול ביותר; הסדר נשמר. (בדוגמת פרופסור מודי עם 4 שעות בלבד — בלי log; בקזינו עם 300 הטלות — חובה log.)</p>
   </div>
@@ -360,7 +360,7 @@
       <li><span class="term">V<sub>3</sub>(שמח) = 0.8 · max{0.056·0.7, 0.096·0.4} = 0.8 · 0.0392 = 0.03136</span> ← מ־שמח</li>
       <li><span class="term">V<sub>3</sub>(עצבני) = 0.2 · max{0.056·0.3, 0.096·0.6} = 0.2 · 0.0576 = 0.01152</span> ← מ־עצבני</li>
     </ul>
-    <p><strong>שחזור:</strong> <span class="term">V<sub>3</sub>(שמח) &gt; V<sub>3</sub>(עצבני)</span> ← <span class="term">h*<sub>3</sub> = שמח</span>. ה־P שלו מצביע על שמח → <span class="term">h*<sub>2</sub> = שמח</span>. וה־P של V<sub>2</sub>(שמח) גם → <span class="term">h*<sub>1</sub> = שמח</span>.</p>
+    <p><strong>שחזור:</strong> <span class="term">V<sub>3</sub>(שמח) &gt; V<sub>3</sub>(עצבני)</span> ← <span class="term">h*<sub>3</sub> = שמח</span>. ה־P שלו מצביע על שמח ← <span class="term">h*<sub>2</sub> = שמח</span>. וה־P של V<sub>2</sub>(שמח) גם ← <span class="term">h*<sub>1</sub> = שמח</span>.</p>
     <p><strong>מסקנה:</strong> הסדרה הסבירה ביותר היא <strong>שמח, שמח, שמח</strong>.</p>
   </div>
 </div>
@@ -382,7 +382,7 @@
         <li><span class="term">V<sub>4</sub>(שמח) = 0.8 · max{0.03136·0.7, 0.01152·0.4} = 0.8 · max{0.02195, 0.00461} = 0.8 · 0.02195 = 0.01756</span> ← מ־שמח</li>
         <li><span class="term">V<sub>4</sub>(עצבני) = 0.2 · max{0.03136·0.3, 0.01152·0.6} = 0.2 · max{0.00941, 0.00691} = 0.2 · 0.00941 = 0.00188</span> ← מ־שמח</li>
       </ul>
-      <p><strong>שחזור:</strong> <span class="term">V<sub>4</sub>(שמח) ≫ V<sub>4</sub>(עצבני)</span> → <span class="term">h*<sub>4</sub> = שמח</span>. כל ה־P מצביעים על שמח. <strong>החיזוי: כל 4 השעות מודי שמח</strong>.</p>
+      <p><strong>שחזור:</strong> <span class="term">V<sub>4</sub>(שמח) ≫ V<sub>4</sub>(עצבני)</span> ← <span class="term">h*<sub>4</sub> = שמח</span>. כל ה־P מצביעים על שמח. <strong>החיזוי: כל 4 השעות מודי שמח</strong>.</p>
       <p>זה הגיוני: הוא חייך 3 מתוך 4 פעמים, ובמודל הוא מחייך בשמח עם הסת׳ 0.8.</p>
     </div>
   </div>
@@ -394,9 +394,9 @@
     <p>אנדרו מקיים חזרות לשירים עבור מחזמר. יש 3 זמרים אפשריים, כל חזרה כוללת בין 0 ל־3 מהם. ביום שבו <span class="term">i</span> זמרים בחזרה, מספר העוזבים ביום למחרת מתפלג <span class="term">U{0, 1, …, i}</span> בדידה אחידה. ביום שבו <span class="term">j</span> זמרים <strong>לא</strong> בחזרה, מספר המצטרפים ביום למחרת מתפלג <span class="term">U{0, …, j}</span>. ביום הראשון כל 3 הזמרים השתתפו.</p>
     <p>כל שיר בחזרה הוא 'יפה מאד' או 'נהדר' לפי:</p>
     <ul>
-      <li>פחות מ־2 זמרים → תמיד 'יפה מאד'.</li>
-      <li>2 זמרים → 'יפה מאד' בהסת׳ 0.5, 'נהדר' בהסת׳ 0.5.</li>
-      <li>3 זמרים → תמיד 'נהדר'.</li>
+      <li>פחות מ־2 זמרים ← תמיד 'יפה מאד'.</li>
+      <li>2 זמרים ← 'יפה מאד' בהסת׳ 0.5, 'נהדר' בהסת׳ 0.5.</li>
+      <li>3 זמרים ← תמיד 'נהדר'.</li>
     </ul>
     <p>נדגמו 3 החזרות הראשונות; השיר הראשון 'נהדר', השני 'נהדר', השלישי 'יפה מאד'. חזו בעזרת ויטרבי כמה זמרים בכל אחת מ־3 החזרות.</p>
     <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
@@ -442,7 +442,7 @@
       </ul>
       <p><strong>שחזור:</strong> <span class="term">V<sub>3</sub>(0) = V<sub>3</sub>(1) = 0.0625</span> — תיקו! נחזיר את שתי האפשרויות (אם יש זמרים <span class="term">0</span> או <span class="term">1</span> בחזרה 3, מ־<span class="term">i<sub>2</sub>=3</span>, מ־<span class="term">i<sub>1</sub>=3</span>):</p>
       <p>סדרה אפשרית 1: <strong>3, 3, 0</strong>. סדרה אפשרית 2: <strong>3, 3, 1</strong>. שתיהן ממקסמות.</p>
-      <p>אינטואיציה: 'נהדר' פעמיים → כנראה היו 3 זמרים בחזרות 1, 2. ואז 'יפה מאד' → לא 3 זמרים בחזרה 3.</p>
+      <p>אינטואיציה: 'נהדר' פעמיים ← כנראה היו 3 זמרים בחזרות 1, 2. ואז 'יפה מאד' ← לא 3 זמרים בחזרה 3.</p>
     </div>
   </div>
 </div>

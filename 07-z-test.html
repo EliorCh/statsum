@@ -369,7 +369,7 @@
   <div class="box-head"><span class="icon">📐</span>אורך הרווח</div>
   <div class="box-body">
     <p>$$\text{אורך} = 2 \cdot Z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt n}$$</p>
-    <p>תלוי ב־3 דברים: <strong>רמת הסמך</strong> (גבוהה → רחב יותר), <strong>שונות האוכלוסייה</strong> (גדולה → רחב), <strong>גודל המדגם</strong> (גדול → צר). כדי לחתוך את אורך הרווח לחצי — צריך מדגם פי 4 בגודל.</p>
+    <p>תלוי ב־3 דברים: <strong>רמת הסמך</strong> (גבוהה ← רחב יותר), <strong>שונות האוכלוסייה</strong> (גדולה ← רחב), <strong>גודל המדגם</strong> (גדול ← צר). כדי לחתוך את אורך הרווח לחצי — צריך מדגם פי 4 בגודל.</p>
   </div>
 </div>
 
@@ -400,14 +400,14 @@
 
       <p><strong>שיטה 1 — סטטיסטי Z מול ערך קריטי</strong></p>
       <p><span class="term">Z<sub>s</sub> = (x<sub>s</sub> − μ<sub>0</sub>) / (σ/√n) = (73 − 70) / (15/4) = 3 / 3.75 = 0.8</span></p>
-      <p>ערך קריטי לחד־צדדי ימני: <span class="term">Z<sub>1−α</sub> = Z<sub>0.95</sub> = 1.645</span>. כיוון ש־<span class="term">Z<sub>s</sub> = 0.8 &lt; 1.645</span> → <strong>לא דוחים</strong> את H<sub>0</sub>.</p>
+      <p>ערך קריטי לחד־צדדי ימני: <span class="term">Z<sub>1−α</sub> = Z<sub>0.95</sub> = 1.645</span>. כיוון ש־<span class="term">Z<sub>s</sub> = 0.8 &lt; 1.645</span> ← <strong>לא דוחים</strong> את H<sub>0</sub>.</p>
 
       <p><strong>שיטה 2 — אזור דחייה C על ממוצע המדגם</strong></p>
       <p><span class="term">C = {X̄ ≥ μ<sub>0</sub> + Z<sub>1−α</sub> · σ/√n} = {X̄ ≥ 70 + 1.645 · 3.75} = {X̄ ≥ 76.17}</span></p>
-      <p>הממוצע שהתקבל <span class="term">x<sub>s</sub> = 73 &lt; 76.17</span> → לא באזור הדחייה → <strong>לא דוחים</strong>.</p>
+      <p>הממוצע שהתקבל <span class="term">x<sub>s</sub> = 73 &lt; 76.17</span> ← לא באזור הדחייה ← <strong>לא דוחים</strong>.</p>
 
       <p><strong>שיטה 3 — p-value</strong></p>
-      <p><span class="term">p.v = 1 − Φ(Z<sub>s</sub>) = 1 − Φ(0.8) ≈ 1 − 0.7881 = 0.2119</span>. כיוון ש־<span class="term">0.2119 &gt; 0.05</span> → <strong>לא דוחים</strong>.</p>
+      <p><span class="term">p.v = 1 − Φ(Z<sub>s</sub>) = 1 − Φ(0.8) ≈ 1 − 0.7881 = 0.2119</span>. כיוון ש־<span class="term">0.2119 &gt; 0.05</span> ← <strong>לא דוחים</strong>.</p>
       <p>שלוש השיטות מסכימות (כצפוי). אין מספיק ראיות שהיסטו טוב יותר.</p>
 
       <p><strong>(ב)</strong> מתוך p-value שחישבנו, נדחה את H<sub>0</sub> כאשר <span class="term">α ≥ p.v ≈ 0.2119</span> — רק רמות מובהקות גבוהות מאוד (מעל 21%). אף אחת מהרמות המקובלות (1%, 5%, 10%) לא תוביל לדחייה.</p>
@@ -432,17 +432,17 @@
 
       <p><strong>שיטה 1 — סטטיסטי Z מול ערך קריטי</strong></p>
       <p><span class="term">Z<sub>s</sub> = (1.8 − 2) / 0.0791 ≈ −2.53</span></p>
-      <p>ערך קריטי דו־צדדי: <span class="term">Z<sub>1−α/2</sub> = Z<sub>0.975</sub> = 1.96</span>. כיוון ש־<span class="term">|−2.53| = 2.53 &gt; 1.96</span> → <strong>דוחים</strong> את H<sub>0</sub>.</p>
+      <p>ערך קריטי דו־צדדי: <span class="term">Z<sub>1−α/2</sub> = Z<sub>0.975</sub> = 1.96</span>. כיוון ש־<span class="term">|−2.53| = 2.53 &gt; 1.96</span> ← <strong>דוחים</strong> את H<sub>0</sub>.</p>
 
       <p><strong>שיטה 2 — אזור דחייה C</strong></p>
       <p><span class="term">C = {X̄ ≤ 2 − 1.96·0.0791} ∪ {X̄ ≥ 2 + 1.96·0.0791} = {X̄ ≤ 1.845} ∪ {X̄ ≥ 2.155}</span></p>
-      <p>הממוצע <span class="term">x<sub>s</sub> = 1.8 ≤ 1.845</span> → בתוך אזור הדחייה השמאלי → <strong>דוחים</strong>.</p>
+      <p>הממוצע <span class="term">x<sub>s</sub> = 1.8 ≤ 1.845</span> ← בתוך אזור הדחייה השמאלי ← <strong>דוחים</strong>.</p>
 
       <p><strong>שיטה 3 — p-value</strong></p>
-      <p><span class="term">p.v = 2 · Φ(−2.53) ≈ 2 · 0.0057 ≈ 0.0114</span>. כיוון ש־<span class="term">0.0114 &lt; 0.05</span> → <strong>דוחים</strong>.</p>
+      <p><span class="term">p.v = 2 · Φ(−2.53) ≈ 2 · 0.0057 ≈ 0.0114</span>. כיוון ש־<span class="term">0.0114 &lt; 0.05</span> ← <strong>דוחים</strong>.</p>
 
       <p><strong>שיטה 4 — דרך רווח הסמך (תוצאת סעיף ב')</strong></p>
-      <p>כפי שנראה בסעיף ב', רווח הסמך 95% הוא <span class="term">[1.645, 1.955]</span>. <span class="term">μ<sub>0</sub> = 2</span> <strong>מחוץ</strong> לרווח → <strong>דוחים</strong> H<sub>0</sub> ברמה 5%.</p>
+      <p>כפי שנראה בסעיף ב', רווח הסמך 95% הוא <span class="term">[1.645, 1.955]</span>. <span class="term">μ<sub>0</sub> = 2</span> <strong>מחוץ</strong> לרווח ← <strong>דוחים</strong> H<sub>0</sub> ברמה 5%.</p>
       <p>ארבע השיטות שקולות לחלוטין ומסכימות.</p>
 
       <p><strong>(ב)</strong> רווח סמך 95%:</p>
