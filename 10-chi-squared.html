@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 10 · χ² – טיב התאמה ואי־תלות</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a class="active" href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow">פרק 10 · בדיקת השערות</span>
+<h1 class="page-title">מבחני χ²<br>טיב התאמה · אי־תלות</h1>
+<p class="page-subtitle">השוואה בין שכיחויות נצפות לצפויות. תמיד חד־צדדי ימני.</p>
+
+<p class="lead">
+  הפרק האחרון של הקורס. עד עכשיו בדקנו השערות על <strong>פרמטר ספציפי</strong> (תוחלת, שונות). כאן השאלה כללית יותר: האם <strong>ההתפלגות עצמה</strong> מתאימה למודל מסוים? שני סוגי שאלות: <strong>טיב התאמה</strong> (האם המדגם תואם להתפלגות תיאורטית? למשל אפוני מנדל 9:3:3:1) ו<strong>אי־תלות</strong> (האם שני משתנים שמיים בלתי־תלויים?). שני המבחנים מבוססים על אותו רעיון: בונים טבלת Observed מהמדגם, טבלת Expected מ־H<sub>0</sub>, ומשווים. ההבדל גדול ← דחייה. תמיד חד־צדדי ימני (קטן = טוב, גדול = רע).
+</p>
+
+<h2>1 · מבחן χ² לטיב התאמה</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>הסיטואציה</div>
+  <div class="box-body">
+    <p>נתון משתנה מקרי שיכול לקבל ערכים ב־<span class="term">k</span> קטגוריות. החוקר טוען שההתפלגות שלהן היא <span class="term">(p<sub>1</sub>, …, p<sub>k</sub>)</span> מסוימת. נדגום <span class="term">n</span> תצפיות, ונספור את השכיחות בכל קטגוריה.</p>
+    <p><strong>H<sub>0</sub>:</strong> ההתפלגות היא <span class="term">(p<sub>1</sub>, …, p<sub>k</sub>)</span>. <strong>H<sub>1</sub>:</strong> ההתפלגות שונה.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>סטטיסטי המבחן</div>
+  <div class="box-body">
+    <p>נסמן <span class="term">O<sub>i</sub></span> = מספר התצפיות בקטגוריה <span class="term">i</span> במדגם (Observed). תחת H<sub>0</sub>, הציפייה היא:</p>
+    <p>$$E_i = p_i \cdot n$$</p>
+    <p>סטטיסטי המבחן:</p>
+    <p>$$\chi^2_s = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i} \sim_{H_0} \chi^2_{k-1}$$</p>
+    <p>(k−1 דרגות חופש, כי הסכום של O<sub>i</sub> קבוע ב־n.)</p>
+    <p>p-value:</p>
+    <p>$$p.v = P(\chi^2_{k-1} \ge \chi^2_s)$$</p>
+    <p><strong>תמיד חד־צדדי ימני</strong>: ערך נמוך → התאמה טובה → תומך ב־H<sub>0</sub>. ערך גבוה → התאמה גרועה → תומך בדחייה.</p>
+  </div>
+</div>
+
+<div class="figure">
+  <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" dir="ltr">
+    <defs>
+      <linearGradient id="chig" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#4f46e5" stop-opacity="0.5"/>
+        <stop offset="1" stop-color="#4f46e5" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+    <line x1="40" y1="180" x2="500" y2="180" stroke="#78716c" stroke-width="1"/>
+    <g font-family="JetBrains Mono, monospace" font-size="11" fill="#78716c">
+      <text x="40" y="200" text-anchor="middle">0</text>
+      <text x="120" y="200" text-anchor="middle">2</text>
+      <text x="200" y="200" text-anchor="middle">4</text>
+      <text x="280" y="200" text-anchor="middle">6</text>
+      <text x="360" y="200" text-anchor="middle">8</text>
+      <text x="440" y="200" text-anchor="middle">10</text>
+    </g>
+
+    <!-- chi-square df=3: peak around x=1 (x=80) -->
+    <path d="M 40 180 L 50 120 C 70 90 90 95 110 110 C 140 135 180 160 220 170 C 280 178 360 180 500 180 Z"
+          fill="url(#chig)"/>
+    <path d="M 40 180 L 50 120 C 70 90 90 95 110 110 C 140 135 180 160 220 170 C 280 178 360 180 500 180"
+          stroke="#4f46e5" stroke-width="2" fill="none"/>
+
+    <!-- Critical value at x=7.815 (around svg x=355) for df=3, α=0.05 -->
+    <line x1="355" y1="175" x2="355" y2="60" stroke="#1c1917" stroke-width="1.2" stroke-dasharray="5 4"/>
+    <text x="355" y="50" font-family="JetBrains Mono, monospace" font-size="11" fill="#1c1917" text-anchor="middle">χ²₃,₀.₉₅ = 7.815</text>
+
+    <!-- Right tail shaded (α=0.05) -->
+    <path d="M 355 178 C 400 179 460 180 500 180 L 355 180 Z" fill="#ef4444" opacity="0.65"/>
+    <text x="410" y="170" font-family="Frank Ruhl Libre, serif" font-size="16" fill="#b91c1c" font-weight="700" font-style="italic">α</text>
+
+    <text x="40" y="220" font-family="Assistant, sans-serif" font-size="12" fill="#1c1917">תמיד חד־צדדי ימני: דחייה אם χ²<tspan font-style="italic" font-size="10">s</tspan> נופל באזור האדום</text>
+  </svg>
+  <div class="cap">התפלגות χ² (כאן <span dir="ltr">df=3</span>): א־סימטרית, ערכים אי־שליליים. אזור הדחייה תמיד בזנב הימני — ערך גבוה של הסטטיסטי הוא הוכחה ל־"חוסר התאמה".</div>
+</div>
+
+<div class="box warn">
+  <div class="box-head"><span class="icon">⚠️</span>תנאי תקפות</div>
+  <div class="box-body">
+    <p>המבחן מבוסס על קירוב נורמלי לבינום (כל <span class="term">O<sub>i</sub></span> בינומית). דרישה: <strong>בכל תא של ה־Expected</strong> ערך ≥ 5. אם לא — מאחדים קטגוריות ומקטינים את <span class="term">k</span>.</p>
+  </div>
+</div>
+
+<div class="box summary">
+  <div class="box-head"><span class="icon">📋</span>שלבי המבחן — טיב התאמה</div>
+  <div class="box-body">
+    <ol>
+      <li>בניית טבלת Observed מהמדגם.</li>
+      <li>בניית טבלת Expected: <span class="term">E<sub>i</sub> = p<sub>i</sub> · n</span>.</li>
+      <li>וודא <span class="term">E<sub>i</sub> ≥ 5</span> בכל תא.</li>
+      <li>חישוב <span class="term">χ²<sub>s</sub></span>.</li>
+      <li>חישוב <span class="term">p.v = P(χ²<sub>k−1</sub> ≥ χ²<sub>s</sub>)</span> מטבלה או scipy.</li>
+      <li>השוואה ל־α. אם <span class="term">p.v ≤ α</span> → דחה.</li>
+    </ol>
+  </div>
+</div>
+
+<h2>2 · מבחן χ² לאי־תלות</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>הסיטואציה</div>
+  <div class="box-body">
+    <p>נתון מדגם של n תצפיות, בכל אחת שני משתנים שמיים. משתנה A עם <span class="term">r</span> קטגוריות, משתנה B עם <span class="term">c</span> קטגוריות. השאלה: האם A ו־B בלתי־תלויים?</p>
+    <p><strong>H<sub>0</sub>:</strong> A ו־B בלתי־תלויים. <strong>H<sub>1</sub>:</strong> תלויים.</p>
+    <p>תזכורת: A ו־B בלתי־תלויים ⇔ <span class="term">P(A<sub>i</sub> ∩ B<sub>j</sub>) = P(A<sub>i</sub>) · P(B<sub>j</sub>)</span> לכל (i, j).</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>חישוב Expected מתחת ל־H<sub>0</sub></div>
+  <div class="box-body">
+    <p>נסמן <span class="term">O<sub>i,j</sub></span> = שכיחות בצירוף <span class="term">(A<sub>i</sub>, B<sub>j</sub>)</span> במדגם. תחת H<sub>0</sub>:</p>
+    <p>$$E_{i,j} = \frac{(\text{סכום שורה }i)(\text{סכום עמודה }j)}{\text{סך הכל }n}$$</p>
+    <p>(זה ההסת׳ של A<sub>i</sub> כפול הסת׳ של B<sub>j</sub>, כפול n.)</p>
+    <p>סטטיסטי המבחן:</p>
+    <p>$$\chi^2_s = \sum_{i=1}^r \sum_{j=1}^c \frac{(O_{i,j} - E_{i,j})^2}{E_{i,j}} \sim_{H_0} \chi^2_{(r-1)(c-1)}$$</p>
+    <p>דרגות חופש: <span class="term">(r−1)(c−1)</span>. אינטואיציה: ברגע שמילאת <span class="term">(r−1)·(c−1)</span> תאים, השאר נקבעים מסכומי השורות והעמודות.</p>
+    <p>p-value: <span class="term">P(χ²<sub>(r−1)(c−1)</sub> ≥ χ²<sub>s</sub>)</span>. שוב — חד־צדדי ימני.</p>
+  </div>
+</div>
+
+<h2>3 · ערכים קריטיים — חי בריבוע</h2>
+
+<div class="box summary">
+  <div class="box-head"><span class="icon">📋</span>טבלה מקוצרת (ערכים קריטיים <span class="term">χ²<sub>df, 0.95</sub></span> ו־<span class="term">χ²<sub>df, 0.99</sub></span>)</div>
+  <div class="box-body">
+    <table>
+      <thead><tr><th>df</th><th>α=0.05</th><th>α=0.01</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td class="num">3.841</td><td class="num">6.635</td></tr>
+        <tr><td class="num">2</td><td class="num">5.991</td><td class="num">9.210</td></tr>
+        <tr><td class="num">3</td><td class="num">7.815</td><td class="num">11.345</td></tr>
+        <tr><td class="num">4</td><td class="num">9.488</td><td class="num">13.277</td></tr>
+        <tr><td class="num">5</td><td class="num">11.070</td><td class="num">15.086</td></tr>
+        <tr><td class="num">6</td><td class="num">12.592</td><td class="num">16.812</td></tr>
+        <tr><td class="num">8</td><td class="num">15.507</td><td class="num">20.090</td></tr>
+        <tr><td class="num">10</td><td class="num">18.307</td><td class="num">23.209</td></tr>
+      </tbody>
+    </table>
+    <p>אם <span class="term">χ²<sub>s</sub> &gt;</span> ערך קריטי → דחייה.</p>
+  </div>
+</div>
+
+<h2>4 · תרגילי מבחן</h2>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 1 — אפוני מנדל (דוגמה 5 מההרצאה)</div>
+  <div class="box-body">
+    <p>מנדל מצא: 315 עגול־צהוב, 108 עגול־ירוק, 101 מקומט־צהוב, 32 מקומט־ירוק. לפי התיאוריה: יחס 9:3:3:1. בדקו טיב התאמה ברמת מובהקות 5%.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p>סה"כ <span class="term">n = 315 + 108 + 101 + 32 = 556</span>.</p>
+      <p>הסת׳ צפויות: <span class="term">9/16, 3/16, 3/16, 1/16</span>.</p>
+      <p>Expected: <span class="term">E<sub>1</sub> = 556·9/16 = 312.75, E<sub>2</sub> = E<sub>3</sub> = 556·3/16 = 104.25, E<sub>4</sub> = 556·1/16 = 34.75</span>.</p>
+      <p>בכל תא E ≥ 5 ✓.</p>
+      <table>
+        <thead><tr><th>קטגוריה</th><th>O</th><th>E</th><th>(O−E)²/E</th></tr></thead>
+        <tbody>
+          <tr><td>עגול צהוב</td><td class="num">315</td><td class="num">312.75</td><td class="num">0.0162</td></tr>
+          <tr><td>עגול ירוק</td><td class="num">108</td><td class="num">104.25</td><td class="num">0.1349</td></tr>
+          <tr><td>מקומט צהוב</td><td class="num">101</td><td class="num">104.25</td><td class="num">0.1014</td></tr>
+          <tr><td>מקומט ירוק</td><td class="num">32</td><td class="num">34.75</td><td class="num">0.2176</td></tr>
+        </tbody>
+      </table>
+      <p><span class="term">χ²<sub>s</sub> = 0.0162 + 0.1349 + 0.1014 + 0.2176 ≈ 0.470</span></p>
+      <p>df = k − 1 = 3. קריטי <span class="term">χ²<sub>3, 0.95</sub> = 7.815</span>. <span class="term">0.470 ≪ 7.815</span> → <strong>לא דוחים</strong>. הנתונים מתאימים מצוין למודל של מנדל.</p>
+      <p>(p-value ≈ 0.925 — התאמה כל כך טובה שיש חושדים שמנדל "ביישר" את הנתונים. אבל זה דיון לקורס היסטוריה של המדע.)</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 2 — אי־תלות נסיכות ופירות (דוגמה 3 מההרצאה)</div>
+  <div class="box-body">
+    <p>שלגייה אכלה במשך 100 ימים: 60 תפוחים אדומים, 30 תפוחים ירוקים, 10 אגסים ירוקים. סינדרלה אכלה: 50 תפוחים אדומים, 30 תפוחים ירוקים, 20 אגסים ירוקים. בדקו ברמת 5% שיש תלות בין הנסיכה לפרי.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><strong>טבלת Observed:</strong></p>
+      <table>
+        <thead><tr><th></th><th>אדום</th><th>ירוק</th><th>אגס</th><th>שורה</th></tr></thead>
+        <tbody>
+          <tr><td>שלגייה</td><td class="num">60</td><td class="num">30</td><td class="num">10</td><td class="num">100</td></tr>
+          <tr><td>סינדרלה</td><td class="num">50</td><td class="num">30</td><td class="num">20</td><td class="num">100</td></tr>
+          <tr><td><strong>עמודה</strong></td><td class="num">110</td><td class="num">60</td><td class="num">30</td><td class="num">200</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Expected = (שורה · עמודה)/200:</strong></p>
+      <table>
+        <thead><tr><th></th><th>אדום</th><th>ירוק</th><th>אגס</th></tr></thead>
+        <tbody>
+          <tr><td>שלגייה</td><td class="num">55</td><td class="num">30</td><td class="num">15</td></tr>
+          <tr><td>סינדרלה</td><td class="num">55</td><td class="num">30</td><td class="num">15</td></tr>
+        </tbody>
+      </table>
+      <p>בכל תא E ≥ 5 ✓.</p>
+      <p><span class="term">χ²<sub>s</sub> = (60−55)²/55 + (30−30)²/30 + (10−15)²/15 + (50−55)²/55 + (30−30)²/30 + (20−15)²/15</span></p>
+      <p><span class="term">= 25/55 + 0 + 25/15 + 25/55 + 0 + 25/15 = 0.4545 + 1.6667 + 0.4545 + 1.6667 ≈ 4.242</span></p>
+      <p>df = (r−1)(c−1) = 1·2 = 2. קריטי <span class="term">χ²<sub>2, 0.95</sub> = 5.991</span>. <span class="term">4.242 &lt; 5.991</span> → <strong>לא דוחים</strong>. אין מספיק ראיות לתלות.</p>
+      <p>(p-value ≈ 0.120 — מאשר scipy שראינו בהרצאה.)</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 3 — אי־תלות מגדר ומדע בדיוני (דוגמה 4 מההרצאה)</div>
+  <div class="box-body">
+    <p>נשאלו 80 נשים ו־120 גברים אם נהנים ממדע בדיוני. 20 נשים ענו "כן", 60 גברים ענו "כן". בדקו ברמת 1% תלות בין מגדר להנאה.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><strong>טבלת Observed:</strong></p>
+      <table>
+        <thead><tr><th></th><th>נהנים</th><th>לא נהנים</th><th>שורה</th></tr></thead>
+        <tbody>
+          <tr><td>גברים</td><td class="num">60</td><td class="num">60</td><td class="num">120</td></tr>
+          <tr><td>נשים</td><td class="num">20</td><td class="num">60</td><td class="num">80</td></tr>
+          <tr><td><strong>עמודה</strong></td><td class="num">80</td><td class="num">120</td><td class="num">200</td></tr>
+        </tbody>
+      </table>
+      <p><strong>Expected:</strong></p>
+      <table>
+        <thead><tr><th></th><th>נהנים</th><th>לא נהנים</th></tr></thead>
+        <tbody>
+          <tr><td>גברים</td><td class="num">48</td><td class="num">72</td></tr>
+          <tr><td>נשים</td><td class="num">32</td><td class="num">48</td></tr>
+        </tbody>
+      </table>
+      <p>בכל תא E ≥ 5 ✓.</p>
+      <p><strong>חישוב הסטטיסטי:</strong></p>
+      <p><span class="term">χ²<sub>s</sub> = (60−48)²/48 + (60−72)²/72 + (20−32)²/32 + (60−48)²/48</span></p>
+      <p><span class="term">= 144/48 + 144/72 + 144/32 + 144/48 = 3 + 2 + 4.5 + 3 = 12.5</span></p>
+      <p>df = (r−1)(c−1) = 1·1 = 1.</p>
+
+      <p><strong>שיטה 1 — סטטיסטי מול ערך קריטי</strong></p>
+      <p>קריטי ברמה α=0.01: <span class="term">χ²<sub>1, 0.99</sub> = 6.635</span>. <span class="term">12.5 &gt; 6.635</span> → <strong>דוחים</strong>.</p>
+
+      <p><strong>שיטה 2 — p-value</strong></p>
+      <p><span class="term">p.v = P(χ²<sub>1</sub> ≥ 12.5) ≈ 0.0004</span> (מ־scipy.stats.chi2.sf). <span class="term">0.0004 ≪ 0.01</span> → <strong>דוחים</strong>.</p>
+      <p>שתי השיטות מסכימות, ועם הפרש דרמטי: יש תלות חזקה בין מגדר להנאה ממדע בדיוני. שיעור הנהנים בקרב הגברים (50%) גבוה בהרבה משיעור הנהנות בקרב הנשים (25%).</p>
+    </div>
+  </div>
+</div>
+
+<div class="chap-nav">
+  <a class="prev" href="09-nonparametric.html">→ פרק 9: מבחנים א־פרמטריים</a>
+  <a class="next" href="cheat-sheet.html">Cheat sheet ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>

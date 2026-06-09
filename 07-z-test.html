@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 7 · מבחן z (σ ידועה)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a class="active" href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow">פרק 7 · בדיקת השערות</span>
+<h1 class="page-title">מבחן z<br>(σ ידועה)</h1>
+<p class="page-subtitle">בדיקת השערות על תוחלת — חד־צדדי, דו־צדדי, p-value, רווח סמך.</p>
+
+<p class="lead">
+  הפרק הזה הוא ה־<strong>פרק הראשון של "המבחנים האמיתיים"</strong>. מעכשיו ועד סוף הקורס נדבר על "אם הנתונים מתפלגים נורמלית והשונות ידועה / לא ידועה / ב־2 מדגמים / וכו'", ונשאל אותה שאלה: האם תוחלת האוכלוסייה היא <span class="term">μ<sub>0</sub></span>, או משהו אחר? המקרה הפשוט ביותר — שמוכר במקרים אקדמיים יותר מבתעשייה — הוא <strong>σ ידועה</strong>. כאן הפיזור באוכלוסייה נתון בשאלה (לרוב מנתונים היסטוריים), ורק התוחלת לא ידועה. שלוש הצורות בפרק (חד שמאלית, חד ימנית, דו צדדית) חוזרות בדיוק עם אותה לוגיקה בפרק 8 — רק עם <span class="term">S</span> במקום <span class="term">σ</span> ו־<span class="term">t<sub>n−1</sub></span> במקום Z.
+</p>
+
+<h2>1 · המסגרת — שלוש בדיקות אפשריות</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>אותה <span class="term">H<sub>0</sub></span>, שלוש <span class="term">H<sub>1</sub></span></div>
+  <div class="box-body">
+    <p>בכל המקרים: אוכלוסייה נורמלית, <span class="term">σ<sup>2</sup></span> ידוע, <span class="term">μ</span> לא ידוע. <span class="term">H<sub>0</sub>: μ = μ<sub>0</sub></span>. שלוש האפשרויות ל־<span class="term">H<sub>1</sub></span>:</p>
+    <table>
+      <thead><tr><th>סוג מבחן</th><th>H<sub>1</sub></th><th>כיוון הראיה לדחייה</th></tr></thead>
+      <tbody>
+        <tr><td>חד־צדדי שמאלי</td><td><span class="term">μ &lt; μ<sub>0</sub></span></td><td>X̄ <strong>נמוך</strong> מ־μ<sub>0</sub></td></tr>
+        <tr><td>חד־צדדי ימני</td><td><span class="term">μ &gt; μ<sub>0</sub></span></td><td>X̄ <strong>גבוה</strong> מ־μ<sub>0</sub></td></tr>
+        <tr><td>דו־צדדי</td><td><span class="term">μ ≠ μ<sub>0</sub></span></td><td>X̄ <strong>רחוק</strong> מ־μ<sub>0</sub> (שני הכיוונים)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2>2 · המבחן עצמו — חישוב אזור הדחייה</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>התפלגות הממוצע</div>
+  <div class="box-body">
+    <p>תחת <span class="term">H<sub>0</sub></span> (וכאשר האוכלוסייה נורמלית, או n גדול לפי מ.ה.מ):</p>
+    <p>$$\bar X_n \sim N\!\left(\mu_0,\ \frac{\sigma^2}{n}\right)$$</p>
+    <p>כלומר הסטטיסטי המתוקנן:</p>
+    <p>$$Z = \frac{\bar X_n - \mu_0}{\sigma/\sqrt n} \sim N(0,1)$$</p>
+    <p>זה מאפשר לחשב כל הסת׳ דרך טבלת Φ.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>אזורי דחייה — סיכום מלא</div>
+  <div class="box-body">
+    <p><strong>חד־צדדי שמאלי</strong> (<span class="term">H<sub>1</sub>: μ &lt; μ<sub>0</sub></span>):</p>
+    <p>$$C = \left\{ \bar X_n \le \mu_0 - Z_{1-\alpha} \cdot \frac{\sigma}{\sqrt n} \right\}$$</p>
+    <p><strong>חד־צדדי ימני</strong> (<span class="term">H<sub>1</sub>: μ &gt; μ<sub>0</sub></span>):</p>
+    <p>$$C = \left\{ \bar X_n \ge \mu_0 + Z_{1-\alpha} \cdot \frac{\sigma}{\sqrt n} \right\}$$</p>
+    <p><strong>דו־צדדי</strong> (<span class="term">H<sub>1</sub>: μ ≠ μ<sub>0</sub></span>):</p>
+    <p>$$C = \left\{ \bar X_n \le \mu_0 - Z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt n} \ \text{or}\ \bar X_n \ge \mu_0 + Z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt n} \right\}$$</p>
+    <p>שימו לב: בדו־צדדי משתמשים ב־<span class="term">Z<sub>1−α/2</sub></span> במקום <span class="term">Z<sub>1−α</sub></span>, כי ה־α מתחלק בין שני הזנבות.</p>
+  </div>
+</div>
+
+<div class="figure">
+  <svg viewBox="0 0 720 260" xmlns="http://www.w3.org/2000/svg" dir="ltr">
+    <defs>
+      <linearGradient id="zg" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#4f46e5" stop-opacity="0.5"/>
+        <stop offset="1" stop-color="#4f46e5" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+
+    <!-- LEFT: left-tailed -->
+    <g transform="translate(0,0)">
+      <line x1="20" y1="180" x2="220" y2="180" stroke="#78716c" stroke-width="1"/>
+      <path d="M 20 180 C 40 180 60 175 75 165 C 90 150 105 115 120 75 C 135 115 150 150 165 165 C 180 175 200 180 220 180 Z" fill="url(#zg)"/>
+      <path d="M 20 180 C 40 180 60 175 75 165 C 90 150 105 115 120 75 C 135 115 150 150 165 165 C 180 175 200 180 220 180" stroke="#4f46e5" stroke-width="2" fill="none"/>
+      <!-- left tail shaded -->
+      <path d="M 20 180 C 40 180 60 175 75 165 L 75 180 Z" fill="#ef4444" opacity="0.6"/>
+      <line x1="75" y1="60" x2="75" y2="180" stroke="#1c1917" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="75" y="200" font-family="JetBrains Mono, monospace" font-size="10" fill="#1c1917" text-anchor="middle">−Z₁₋α</text>
+      <text x="120" y="200" font-family="JetBrains Mono, monospace" font-size="10" fill="#78716c" text-anchor="middle">μ₀</text>
+      <text x="50" y="222" font-family="Frank Ruhl Libre, serif" font-size="16" fill="#b91c1c" font-weight="700" font-style="italic">α</text>
+      <text x="120" y="245" font-family="Frank Ruhl Libre, serif" font-size="14" fill="#1c1917" text-anchor="middle" font-weight="700">חד־צדדי שמאלי</text>
+      <text x="120" y="20" font-family="JetBrains Mono, monospace" font-size="11" fill="#1c1917" text-anchor="middle">H₁: μ &lt; μ₀</text>
+    </g>
+
+    <!-- MIDDLE: right-tailed -->
+    <g transform="translate(250,0)">
+      <line x1="20" y1="180" x2="220" y2="180" stroke="#78716c" stroke-width="1"/>
+      <path d="M 20 180 C 40 180 60 175 75 165 C 90 150 105 115 120 75 C 135 115 150 150 165 165 C 180 175 200 180 220 180 Z" fill="url(#zg)"/>
+      <path d="M 20 180 C 40 180 60 175 75 165 C 90 150 105 115 120 75 C 135 115 150 150 165 165 C 180 175 200 180 220 180" stroke="#4f46e5" stroke-width="2" fill="none"/>
+      <!-- right tail shaded -->
+      <path d="M 165 165 C 180 175 200 180 220 180 L 165 180 Z" fill="#ef4444" opacity="0.6"/>
+      <line x1="165" y1="60" x2="165" y2="180" stroke="#1c1917" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="165" y="200" font-family="JetBrains Mono, monospace" font-size="10" fill="#1c1917" text-anchor="middle">+Z₁₋α</text>
+      <text x="120" y="200" font-family="JetBrains Mono, monospace" font-size="10" fill="#78716c" text-anchor="middle">μ₀</text>
+      <text x="195" y="222" font-family="Frank Ruhl Libre, serif" font-size="16" fill="#b91c1c" font-weight="700" font-style="italic">α</text>
+      <text x="120" y="245" font-family="Frank Ruhl Libre, serif" font-size="14" fill="#1c1917" text-anchor="middle" font-weight="700">חד־צדדי ימני</text>
+      <text x="120" y="20" font-family="JetBrains Mono, monospace" font-size="11" fill="#1c1917" text-anchor="middle">H₁: μ &gt; μ₀</text>
+    </g>
+
+    <!-- RIGHT: two-tailed -->
+    <g transform="translate(500,0)">
+      <line x1="20" y1="180" x2="220" y2="180" stroke="#78716c" stroke-width="1"/>
+      <path d="M 20 180 C 40 180 60 175 75 165 C 90 150 105 115 120 75 C 135 115 150 150 165 165 C 180 175 200 180 220 180 Z" fill="url(#zg)"/>
+      <path d="M 20 180 C 40 180 60 175 75 165 C 90 150 105 115 120 75 C 135 115 150 150 165 165 C 180 175 200 180 220 180" stroke="#4f46e5" stroke-width="2" fill="none"/>
+      <!-- both tails shaded -->
+      <path d="M 20 180 C 40 180 60 177 65 172 L 65 180 Z" fill="#ef4444" opacity="0.6"/>
+      <path d="M 175 172 C 185 177 200 180 220 180 L 175 180 Z" fill="#ef4444" opacity="0.6"/>
+      <line x1="65" y1="80" x2="65" y2="180" stroke="#1c1917" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <line x1="175" y1="80" x2="175" y2="180" stroke="#1c1917" stroke-width="1.2" stroke-dasharray="4 3"/>
+      <text x="65" y="200" font-family="JetBrains Mono, monospace" font-size="9" fill="#1c1917" text-anchor="middle">−Z₁₋α/₂</text>
+      <text x="175" y="200" font-family="JetBrains Mono, monospace" font-size="9" fill="#1c1917" text-anchor="middle">+Z₁₋α/₂</text>
+      <text x="120" y="200" font-family="JetBrains Mono, monospace" font-size="10" fill="#78716c" text-anchor="middle">μ₀</text>
+      <text x="42" y="222" font-family="Frank Ruhl Libre, serif" font-size="14" fill="#b91c1c" font-weight="700" font-style="italic">α/2</text>
+      <text x="200" y="222" font-family="Frank Ruhl Libre, serif" font-size="14" fill="#b91c1c" font-weight="700" font-style="italic">α/2</text>
+      <text x="120" y="245" font-family="Frank Ruhl Libre, serif" font-size="14" fill="#1c1917" text-anchor="middle" font-weight="700">דו־צדדי</text>
+      <text x="120" y="20" font-family="JetBrains Mono, monospace" font-size="11" fill="#1c1917" text-anchor="middle">H₁: μ ≠ μ₀</text>
+    </g>
+  </svg>
+  <div class="cap">שלושת אזורי הדחייה. בדו־צדדי <span dir="ltr">α</span> מתחלק לשני זנבות, ולכן צריך <span dir="ltr">Z<sub>1−α/2</sub></span> במקום <span dir="ltr">Z<sub>1−α</sub></span>.</div>
+</div>
+
+<div class="box summary">
+  <div class="box-head"><span class="icon">📋</span>ערכי Z חשובים</div>
+  <div class="box-body">
+    <table>
+      <thead><tr><th>α</th><th>חד־צדדי <span class="term">Z<sub>1−α</sub></span></th><th>דו־צדדי <span class="term">Z<sub>1−α/2</sub></span></th></tr></thead>
+      <tbody>
+        <tr><td class="num">0.10</td><td class="num">1.282</td><td class="num">1.645</td></tr>
+        <tr><td class="num">0.05</td><td class="num">1.645</td><td class="num">1.960</td></tr>
+        <tr><td class="num">0.025</td><td class="num">1.960</td><td class="num">2.241</td></tr>
+        <tr><td class="num">0.01</td><td class="num">2.326</td><td class="num">2.576</td></tr>
+        <tr><td class="num">0.005</td><td class="num">2.576</td><td class="num">2.807</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2>3 · מובהקות התוצאה (p-value)</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>חישוב p-value</div>
+  <div class="box-body">
+    <p>נסמן ב־<span class="term">x<sub>s</sub></span> את ממוצע המדגם שהתקבל.</p>
+    <p><strong>חד־צדדי שמאלי:</strong></p>
+    <p>$$p.v(x_s) = P_{H_0}(\bar X_n \le x_s) = \Phi\!\left(\frac{x_s - \mu_0}{\sigma/\sqrt n}\right)$$</p>
+    <p><strong>חד־צדדי ימני:</strong></p>
+    <p>$$p.v(x_s) = P_{H_0}(\bar X_n \ge x_s) = 1 - \Phi\!\left(\frac{x_s - \mu_0}{\sigma/\sqrt n}\right)$$</p>
+    <p><strong>דו־צדדי</strong> (פי 2 כי "קיצוני בשני הצדדים"):</p>
+    <p>$$p.v(x_s) = 2 \cdot \min\bigl\{ \Phi(z_s),\ 1 - \Phi(z_s) \bigr\}$$</p>
+    <p>כאשר <span class="term">z<sub>s</sub> = (x<sub>s</sub> − μ<sub>0</sub>)/(σ/√n)</span>. כלל ההחלטה: <span class="term">p.v ≤ α</span> ← דחה.</p>
+  </div>
+</div>
+
+<h2>4 · עוצמת המבחן</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>חישוב עוצמה</div>
+  <div class="box-body">
+    <p>נדרשים שני דברים: (1) אזור דחייה <strong>מפורש</strong>, (2) השערת מחקר <strong>פשוטה</strong> (כלומר ערך ספציפי של μ, לא רק "μ &lt; μ<sub>0</sub>").</p>
+    <p>למשל, חד־צדדי שמאלי. אזור הדחייה הוא <span class="term">{X̄<sub>n</sub> ≤ c}</span> כאשר <span class="term">c = μ<sub>0</sub> − Z<sub>1−α</sub>·σ/√n</span>. נניח האמת היא <span class="term">μ = μ<sub>1</sub> &lt; μ<sub>0</sub></span>. אז:</p>
+    <p>$$\pi = P_{\mu_1}(\bar X_n \le c) = \Phi\!\left(\frac{c - \mu_1}{\sigma/\sqrt n}\right) = \Phi\!\left(\frac{\mu_0 - \mu_1}{\sigma/\sqrt n} - Z_{1-\alpha}\right)$$</p>
+    <p>ככל ש־<span class="term">μ<sub>1</sub></span> רחוקה יותר מ־<span class="term">μ<sub>0</sub></span> ← π עולה (קל יותר להבחין). ככל ש־n גדל ← π עולה. ככל ש־σ קטנה ← π עולה.</p>
+  </div>
+</div>
+
+<h2>5 · רווח סמך (Confidence Interval)</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>רווח בר־סמך לתוחלת ברמת סמך <span class="term">1 − α</span></div>
+  <div class="box-body">
+    <p>תנאים: אוכלוסייה נורמלית (או n גדול), σ ידועה.</p>
+    <p>$$\left[\ \bar X_n - Z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt n},\ \ \bar X_n + Z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt n}\ \right]$$</p>
+    <p>הפירוש: אם נחזור על הניסוי הרבה פעמים, ב־<span class="term">(1 − α) · 100%</span> מהפעמים הרווח שיתקבל יכיל את <span class="term">μ</span> האמיתית.</p>
+  </div>
+</div>
+
+<div class="box warn">
+  <div class="box-head"><span class="icon">⚠️</span>פירוש שגוי נפוץ</div>
+  <div class="box-body">
+    <p>"ההסת׳ ש־μ נמצא ברווח 0.95" — שגוי. μ הוא ערך קבוע ולא מקרי. הרווח עצמו הוא שמקרי (משתנה ממדגם למדגם). הניסוח הנכון: "0.95 מהרווחים שתקבל יכילו את μ".</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>אורך הרווח</div>
+  <div class="box-body">
+    <p>$$\text{אורך} = 2 \cdot Z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt n}$$</p>
+    <p>תלוי ב־3 דברים: <strong>רמת הסמך</strong> (גבוהה → רחב יותר), <strong>שונות האוכלוסייה</strong> (גדולה → רחב), <strong>גודל המדגם</strong> (גדול → צר). כדי לחתוך את אורך הרווח לחצי — צריך מדגם פי 4 בגודל.</p>
+  </div>
+</div>
+
+<h2>6 · הקשר בין רווח סמך לבדיקת השערות דו־צדדית</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>שתי דרכים, מסקנה אחת</div>
+  <div class="box-body">
+    <p>בדיקת השערות דו־צדדית <span class="term">H<sub>0</sub>: μ = μ<sub>0</sub></span> נגד <span class="term">H<sub>1</sub>: μ ≠ μ<sub>0</sub></span> ברמת מובהקות α, שקולה לחישוב רווח סמך ברמת סמך <span class="term">1 − α</span>:</p>
+    <ul>
+      <li>אם <span class="term">μ<sub>0</sub></span> <strong>נמצא בתוך</strong> הרווח ← לא דוחים את H<sub>0</sub>.</li>
+      <li>אם <span class="term">μ<sub>0</sub></span> <strong>מחוץ</strong> לרווח ← דוחים את H<sub>0</sub>.</li>
+    </ul>
+    <p>זה גשר נוח מאוד: ברגע שחישבת רווח סמך, יש לך את כל בדיקות ההשערות הדו־צדדיות באותה רמת מובהקות.</p>
+  </div>
+</div>
+
+<h2>7 · תרגילי מבחן</h2>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 1 — מבחן חד־צדדי ימני (תרגיל בית 7, שאלה 1)</div>
+  <div class="box-body">
+    <p>ציוני המבחנים בהיסטוריה בכלל בתי הספר: <span class="term">N(70, 15<sup>2</sup>)</span>. במדגם של 16 תלמידים מבית הספר "היסטו" התקבל ממוצע 73. סטיית התקן זהה לכלל בתי הספר.</p>
+    <p>(א) בדקו ברמת מובהקות 5% את ההשערה שבית הספר היסטו טוב יותר מהממוצע. (ב) עבור אילו רמות מובהקות נסיק שהיסטו טוב יותר? (ג) אם תוחלת היסטו האמיתית היא 74, מהו הסיכוי שמבחן ברמת 5% עם n=16 יגלה זאת?</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><strong>(א)</strong> <span class="term">H<sub>0</sub>: μ = 70, H<sub>1</sub>: μ &gt; 70</span> (היסטו טוב יותר). α = 0.05. נתון: <span class="term">n = 16, σ = 15, x<sub>s</sub> = 73, μ<sub>0</sub> = 70</span>.</p>
+
+      <p><strong>שיטה 1 — סטטיסטי Z מול ערך קריטי</strong></p>
+      <p><span class="term">Z<sub>s</sub> = (x<sub>s</sub> − μ<sub>0</sub>) / (σ/√n) = (73 − 70) / (15/4) = 3 / 3.75 = 0.8</span></p>
+      <p>ערך קריטי לחד־צדדי ימני: <span class="term">Z<sub>1−α</sub> = Z<sub>0.95</sub> = 1.645</span>. כיוון ש־<span class="term">Z<sub>s</sub> = 0.8 &lt; 1.645</span> → <strong>לא דוחים</strong> את H<sub>0</sub>.</p>
+
+      <p><strong>שיטה 2 — אזור דחייה C על ממוצע המדגם</strong></p>
+      <p><span class="term">C = {X̄ ≥ μ<sub>0</sub> + Z<sub>1−α</sub> · σ/√n} = {X̄ ≥ 70 + 1.645 · 3.75} = {X̄ ≥ 76.17}</span></p>
+      <p>הממוצע שהתקבל <span class="term">x<sub>s</sub> = 73 &lt; 76.17</span> → לא באזור הדחייה → <strong>לא דוחים</strong>.</p>
+
+      <p><strong>שיטה 3 — p-value</strong></p>
+      <p><span class="term">p.v = 1 − Φ(Z<sub>s</sub>) = 1 − Φ(0.8) ≈ 1 − 0.7881 = 0.2119</span>. כיוון ש־<span class="term">0.2119 &gt; 0.05</span> → <strong>לא דוחים</strong>.</p>
+      <p>שלוש השיטות מסכימות (כצפוי). אין מספיק ראיות שהיסטו טוב יותר.</p>
+
+      <p><strong>(ב)</strong> מתוך p-value שחישבנו, נדחה את H<sub>0</sub> כאשר <span class="term">α ≥ p.v ≈ 0.2119</span> — רק רמות מובהקות גבוהות מאוד (מעל 21%). אף אחת מהרמות המקובלות (1%, 5%, 10%) לא תוביל לדחייה.</p>
+
+      <p><strong>(ג)</strong> עוצמה כאשר <span class="term">μ<sub>1</sub> = 74</span>:</p>
+      <p>נשתמש באזור הדחייה משיטה 2: <span class="term">C = {X̄ ≥ 76.17}</span>.</p>
+      <p>תחת <span class="term">μ<sub>1</sub> = 74</span>: <span class="term">X̄ ~ N(74, (15/4)<sup>2</sup>)</span>.</p>
+      <p>$$\pi = P_{\mu_1}(\bar X \ge 76.17) = P\!\left(Z \ge \frac{76.17 - 74}{3.75}\right) = P(Z \ge 0.579) \approx 1 - \Phi(0.58) ≈ 0.281$$</p>
+      <p>עוצמה ≈ 28%. נמוכה — המדגם קטן יחסית להפרש בין 70 ל־74 (בסטיות תקן).</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 2 — מבחן דו־צדדי + רווח סמך (תרגיל בית 7, שאלה 2 + רפונזל)</div>
+  <div class="box-body">
+    <p>זמן הסירוק של רפונזל: <span class="term">N(2, 0.25<sup>2</sup>)</span> שעות. פלין קנה לה מברשת ובוחן אם תוחלת הזמן השתנתה. במדגם של 10 ימים התקבל ממוצע 1.8 שעות.</p>
+    <p>(א) בדקו אם הזמן <strong>השתנה</strong> (דו־צדדי) ברמת 5%. (ב) חשבו רווח סמך 95% לתוחלת.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><strong>(א)</strong> <span class="term">H<sub>0</sub>: μ = 2, H<sub>1</sub>: μ ≠ 2</span>. נתון: <span class="term">n = 10, σ = 0.25, x<sub>s</sub> = 1.8, μ<sub>0</sub> = 2</span>. סטיית התקן של הממוצע: <span class="term">σ/√n = 0.25/√10 ≈ 0.0791</span>.</p>
+
+      <p><strong>שיטה 1 — סטטיסטי Z מול ערך קריטי</strong></p>
+      <p><span class="term">Z<sub>s</sub> = (1.8 − 2) / 0.0791 ≈ −2.53</span></p>
+      <p>ערך קריטי דו־צדדי: <span class="term">Z<sub>1−α/2</sub> = Z<sub>0.975</sub> = 1.96</span>. כיוון ש־<span class="term">|−2.53| = 2.53 &gt; 1.96</span> → <strong>דוחים</strong> את H<sub>0</sub>.</p>
+
+      <p><strong>שיטה 2 — אזור דחייה C</strong></p>
+      <p><span class="term">C = {X̄ ≤ 2 − 1.96·0.0791} ∪ {X̄ ≥ 2 + 1.96·0.0791} = {X̄ ≤ 1.845} ∪ {X̄ ≥ 2.155}</span></p>
+      <p>הממוצע <span class="term">x<sub>s</sub> = 1.8 ≤ 1.845</span> → בתוך אזור הדחייה השמאלי → <strong>דוחים</strong>.</p>
+
+      <p><strong>שיטה 3 — p-value</strong></p>
+      <p><span class="term">p.v = 2 · Φ(−2.53) ≈ 2 · 0.0057 ≈ 0.0114</span>. כיוון ש־<span class="term">0.0114 &lt; 0.05</span> → <strong>דוחים</strong>.</p>
+
+      <p><strong>שיטה 4 — דרך רווח הסמך (תוצאת סעיף ב')</strong></p>
+      <p>כפי שנראה בסעיף ב', רווח הסמך 95% הוא <span class="term">[1.645, 1.955]</span>. <span class="term">μ<sub>0</sub> = 2</span> <strong>מחוץ</strong> לרווח → <strong>דוחים</strong> H<sub>0</sub> ברמה 5%.</p>
+      <p>ארבע השיטות שקולות לחלוטין ומסכימות.</p>
+
+      <p><strong>(ב)</strong> רווח סמך 95%:</p>
+      <p><span class="term">[x<sub>s</sub> − Z<sub>0.975</sub>·σ/√n, x<sub>s</sub> + Z<sub>0.975</sub>·σ/√n] = [1.8 − 1.96·0.0791, 1.8 + 1.96·0.0791] = [1.645, 1.955]</span></p>
+      <p>הקשר עם סעיף א': כאמור, 2 לא נמצא ברווח, מה שעקבי עם הדחייה ברמת 5%.</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 3 — חישוב גודל מדגם מינימלי (דוגמה 7 מההרצאה)</div>
+  <div class="box-body">
+    <p>טמפרטורה ביום חורף תל־אביבי: σ = 1 מעלה. נלקח מדגם של 25 ימים, התקבל ממוצע 12. מצאו רווח סמך 95%. מהו גודל המדגם המינימלי כדי שאורך הרווח ≤ 0.15 מעלות?</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><strong>רווח עם n=25:</strong> <span class="term">[12 − 1.96·(1/5), 12 + 1.96·(1/5)] = [12 − 0.392, 12 + 0.392] = [11.608, 12.392]</span>. אורך = 0.784.</p>
+      <p><strong>גודל מדגם מינימלי:</strong> אורך הרווח = <span class="term">2 · Z<sub>0.975</sub> · σ/√n = 2 · 1.96 · 1/√n</span>. דורש:</p>
+      <p>$$\frac{3.92}{\sqrt n} \le 0.15 \;\Leftrightarrow\; \sqrt n \ge \frac{3.92}{0.15} = 26.13 \;\Leftrightarrow\; n \ge 683$$</p>
+      <p>צריך לפחות <strong>683 ימים</strong>. גודל המדגם גדל ברבועי כאשר רוצים לחתוך אורך פי 5.</p>
+    </div>
+  </div>
+</div>
+
+<div class="chap-nav">
+  <a class="prev" href="06-hypothesis-intro.html">→ פרק 6: יסודות בדיקת השערות</a>
+  <a class="next" href="08-t-tests.html">פרק 8: מבחני t · F ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>

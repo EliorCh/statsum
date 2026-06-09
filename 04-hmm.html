@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 4 · Hidden Markov Model</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a class="active" href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow">פרק 4 · תהליכים סטוכסטיים</span>
+<h1 class="page-title">Hidden Markov Model<br>(שרשרת מרקוב חבויה)</h1>
+<p class="page-subtitle">כשהמצב לא נצפה — רק הפלט. ויטרבי, Forward, ו־Posterior.</p>
+
+<p class="lead">
+  בפרק 3 ראינו שרשרת מרקוב שבה <strong>המצב נצפה</strong>. ב־HMM זה הפוך: המצב <strong>חבוי</strong>, אנחנו רואים רק <strong>פלט</strong> שכל מצב פולט עם הסתברות מסוימת. השאלה הקלאסית: בהינתן רצף הפלטים, מה כנראה היה רצף המצבים? כל שלוש האלגוריתמים בפרק (ויטרבי, Forward, Posterior) הם תכנון דינמי על שתי טבלאות הסתברות, A ו־B.
+</p>
+
+<h2>1 · ההגדרה</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>HMM = שלישייה (Σ, Q, θ)</div>
+  <div class="box-body">
+    <p>מודל מרקוב חבוי מורכב מ:</p>
+    <ul>
+      <li><strong>Σ</strong> — אלף־בית של סמלי פלט (מה אפשר לראות).</li>
+      <li><strong>Q</strong> — קבוצה סופית של מצבים חבויים.</li>
+      <li><strong>θ</strong> — שלוש קבוצות הסתברויות:
+        <ul>
+          <li>הסתברויות התחלה <span class="term">S<sub>k</sub> = P(H<sub>1</sub> = k)</span> — איזה מצב מתחילים בו.</li>
+          <li>הסתברויות מעבר <span class="term">A<sub>k,ℓ</sub> = P(H<sub>i+1</sub> = ℓ | H<sub>i</sub> = k)</span> — בדיוק כמו בשרשרת מרקוב רגילה.</li>
+          <li>הסתברויות פלט <span class="term">B<sub>k,a</sub> = P(X<sub>i</sub> = a | H<sub>i</sub> = k)</span> — מה הסיכוי לראות סמל <span class="term">a</span> בהינתן שהמצב הוא <span class="term">k</span>.</li>
+        </ul>
+      </li>
+    </ul>
+    <p>הנחת המודל: הפלט תלוי <strong>אך ורק במצב הנוכחי</strong> (לא בפלטים קודמים, לא במצבים קודמים). זה Markov property מורחב.</p>
+  </div>
+</div>
+
+<div class="box example">
+  <div class="box-head"><span class="icon">💡</span>דוגמה: פרופסור מודי</div>
+  <div class="box-body">
+    <p>למודי שני מצבי רוח: <strong>שמח</strong> ו<strong>עצבני</strong>, שמתעדכנים מדי שעה. הפלט שאנחנו רואים: <strong>מחייך</strong> או <strong>לא מחייך</strong>.</p>
+    <p><strong>פלט (B):</strong></p>
+    <ul>
+      <li>שמח ← מחייך בהסת׳ 0.8, לא מחייך 0.2.</li>
+      <li>עצבני ← מחייך בהסת׳ 0.2, לא מחייך 0.8.</li>
+    </ul>
+    <p><strong>מעבר (A):</strong> שמח→שמח 0.7, שמח→עצבני 0.3, עצבני→שמח 0.4, עצבני→עצבני 0.6.</p>
+    <p><strong>התחלה (S):</strong> שמח 0.5, עצבני 0.5.</p>
+    <p>אנחנו רואים סדרת חיוכים, ומנסים לנחש את סדרת מצבי הרוח. זה בדיוק מה שויטרבי פותר.</p>
+  </div>
+</div>
+
+<h2>2 · ההסתברות של מסלול מלא</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>הסתברות מסלול הסתברות־פלט יחד</div>
+  <div class="box-body">
+    <p>נתון מסלול חבוי <span class="term">H<sub>1</sub>=h<sub>1</sub>, …, H<sub>n</sub>=h<sub>n</sub></span> וסדרת פלט <span class="term">X<sub>1</sub>=x<sub>1</sub>, …, X<sub>n</sub>=x<sub>n</sub></span>. ההסתברות המשותפת:</p>
+    <p>$$P(X_1=x_1,\ldots,X_n=x_n,\ H_1=h_1,\ldots,H_n=h_n) = S_{h_1} \cdot B_{h_1,x_1} \cdot \prod_{i=1}^{n-1} A_{h_i,h_{i+1}} \cdot B_{h_{i+1},x_{i+1}}$$</p>
+    <p>הרעיון: כפלת ההסתברות להתחיל ב־<span class="term">h<sub>1</sub></span>, לפלוט <span class="term">x<sub>1</sub></span>, לעבור ל־<span class="term">h<sub>2</sub></span>, לפלוט <span class="term">x<sub>2</sub></span>, וכן הלאה.</p>
+  </div>
+</div>
+
+<h2>3 · אלגוריתם ויטרבי — המסלול האופטימלי</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>מה ויטרבי פותר</div>
+  <div class="box-body">
+    <p>בהינתן סדרת פלט <span class="term">x<sub>1</sub>, …, x<sub>n</sub></span>, נמצא את הסדרה החבויה <span class="term">h*<sub>1</sub>, …, h*<sub>n</sub></span> ש<strong>ממקסמת</strong> את ההסתברות המשותפת:</p>
+    <p>$$h^* = \arg\max_{h_1,\ldots,h_n} P(X_1=x_1,\ldots,X_n=x_n,\ H_1=h_1,\ldots,H_n=h_n)$$</p>
+    <p>הפתרון הנאיבי (לעבור על כל הסדרות) — אקספוננציאלי <span class="term">|Q|<sup>n</sup></span>. ויטרבי משתמש בתכנון דינמי וירד ל־<span class="term">O(n·|Q|<sup>2</sup>)</span>.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>אלגוריתם ויטרבי</div>
+  <div class="box-body">
+    <p>נגדיר <span class="term">V<sub>i</sub>(ℓ)</span> = ההסתברות המקסימלית של תת־סדרה <span class="term">h<sub>1</sub>, …, h<sub>i</sub></span> שמסתיימת ב־<span class="term">ℓ</span>, יחד עם הפלט הנצפה עד שלב <span class="term">i</span>.</p>
+    <p><strong>אתחול</strong> (i=1):</p>
+    <p>$$V_1(\ell) = S_\ell \cdot B_{\ell,x_1}$$</p>
+    <p><strong>צעד רקורסיבי</strong> (i = 1, …, n−1):</p>
+    <p>$$V_{i+1}(\ell) = B_{\ell,x_{i+1}} \cdot \max_{k \in Q} \bigl\{ V_i(k) \cdot A_{k,\ell} \bigr\}$$</p>
+    <p>$$P_{i+1}(\ell) = \arg\max_{k \in Q} \bigl\{ V_i(k) \cdot A_{k,\ell} \bigr\}$$</p>
+    <p><strong>שחזור (backtrace)</strong>: בוחרים את <span class="term">h*<sub>n</sub> = arg max V<sub>n</sub>(ℓ)</span>, ואז עוקבים אחורה <span class="term">h*<sub>i</sub> = P<sub>i+1</sub>(h*<sub>i+1</sub>)</span>.</p>
+  </div>
+</div>
+
+<div class="box warn">
+  <div class="box-head"><span class="icon">⚠️</span>תמיד לעבוד ב־log</div>
+  <div class="box-body">
+    <p>כפל הרבה הסתברויות קטנות → underflow מספרי. נחשב <strong>ln V<sub>i</sub>(ℓ)</strong> במקום <strong>V<sub>i</sub>(ℓ)</strong>. בזכות:</p>
+    <p>$$\ln(p \cdot q) = \ln(p) + \ln(q)$$</p>
+    <p>במקום כפל — חיבור. ההסתברות הקטנה ביותר הופכת ל־ln השלילי הגדול ביותר; הסדר נשמר. (בדוגמת פרופסור מודי עם 4 שעות בלבד — בלי log; בקזינו עם 300 הטלות — חובה log.)</p>
+  </div>
+</div>
+
+<h2>4 · אלגוריתם Forward — הסתברות סדרת הפלט</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>מה Forward פותר</div>
+  <div class="box-body">
+    <p>בהינתן סדרת פלט <span class="term">x<sub>1</sub>, …, x<sub>n</sub></span>, נחשב את ההסתברות לקבל את הסדרה הזו <strong>על פני כל המסלולים האפשריים</strong>:</p>
+    <p>$$P(X_1=x_1, \ldots, X_n=x_n) = \sum_{h_1,\ldots,h_n} P(X_1=x_1,\ldots,X_n=x_n, H_1=h_1,\ldots,H_n=h_n)$$</p>
+    <p>שוב, סכימה ישירה אקספוננציאלית — Forward משתמש בתכנון דינמי דומה לויטרבי, עם <span class="term">∑</span> במקום <span class="term">max</span>.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>אלגוריתם Forward</div>
+  <div class="box-body">
+    <p>נגדיר <span class="term">f<sub>i</sub>(ℓ) = P(X<sub>1</sub>=x<sub>1</sub>, …, X<sub>i</sub>=x<sub>i</sub>, H<sub>i</sub>=ℓ)</span>.</p>
+    <p><strong>אתחול</strong>:</p>
+    <p>$$f_1(\ell) = S_\ell \cdot B_{\ell,x_1}$$</p>
+    <p><strong>צעד רקורסיבי</strong>:</p>
+    <p>$$f_{i+1}(\ell) = B_{\ell,x_{i+1}} \cdot \sum_{k \in Q} \bigl\{ f_i(k) \cdot A_{k,\ell} \bigr\}$$</p>
+    <p><strong>סיכום</strong>:</p>
+    <p>$$P(x_1, \ldots, x_n) = \sum_{\ell \in Q} f_n(\ell)$$</p>
+  </div>
+</div>
+
+<div class="box summary">
+  <div class="box-head"><span class="icon">📋</span>ויטרבי לעומת Forward</div>
+  <div class="box-body">
+    <table>
+      <thead><tr><th>שאלה</th><th>אלגוריתם</th><th>אופרציה</th></tr></thead>
+      <tbody>
+        <tr><td>מה כנראה היה המסלול?</td><td>ויטרבי</td><td class="num">max</td></tr>
+        <tr><td>מה הסיכוי לפלט?</td><td>Forward</td><td class="num">∑</td></tr>
+      </tbody>
+    </table>
+    <p>אותה רקורסיה בדיוק, רק האופרטור שונה. ושניהם זקוקים לאותם נתונים: <span class="term">S, A, B</span>.</p>
+  </div>
+</div>
+
+<h2>5 · Posterior — ההסתברות בדיעבד למצב מסוים</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>מה Posterior פותר</div>
+  <div class="box-body">
+    <p>בהינתן <strong>כל</strong> סדרת הפלט (גם זו שאחרי הזמן <span class="term">i</span>), מה ההסתברות שבזמן <span class="term">i</span> היינו במצב <span class="term">k</span>?</p>
+    <p>$$P(H_i = k \mid X_1=x_1, \ldots, X_n=x_n) = \frac{P(X_1, \ldots, X_n, H_i = k)}{P(X_1, \ldots, X_n)}$$</p>
+    <p>שימוש: בכל זמן <span class="term">i</span> נבחר את המצב עם <span class="term">P</span> הגדול ביותר. <strong>שונה</strong> מויטרבי — ויטרבי מקסם את הסדרה כולה, Posterior מקסם מצב מצב.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>Forward + Backward</div>
+  <div class="box-body">
+    <p>נגדיר Backward:</p>
+    <p>$$b_i(k) = P(X_{i+1}=x_{i+1}, \ldots, X_n=x_n \mid H_i = k)$$</p>
+    <p>ואז:</p>
+    <p>$$P(H_i=k \mid X_1, \ldots, X_n) = \frac{f_i(k) \cdot b_i(k)}{P(X_1, \ldots, X_n)}$$</p>
+    <p>כאשר המכנה מחושב מ־Forward בדיוק כפי שראינו. כלומר: רץ Forward מקדימה, Backward מהסוף, מכפיל באמצע.</p>
+  </div>
+</div>
+
+<h2>6 · דוגמה — הפעלת ויטרבי על פרופסור מודי</h2>
+
+<div class="box example">
+  <div class="box-head"><span class="icon">💡</span>חישוב מלא — 3 צעדים</div>
+  <div class="box-body">
+    <p>הסדרה הנצפית: <span class="term">x = (מחייך, לא מחייך, מחייך)</span>. הפרמטרים מ־דוגמת מודי לעיל. נחשב V ו־P:</p>
+    <p><strong>אתחול (i=1, x<sub>1</sub>=מחייך):</strong></p>
+    <ul>
+      <li><span class="term">V<sub>1</sub>(שמח) = S<sub>שמח</sub> · B<sub>שמח,מחייך</sub> = 0.5 · 0.8 = 0.4</span></li>
+      <li><span class="term">V<sub>1</sub>(עצבני) = 0.5 · 0.2 = 0.1</span></li>
+    </ul>
+    <p><strong>צעד (i=2, x<sub>2</sub>=לא מחייך):</strong></p>
+    <ul>
+      <li><span class="term">V<sub>2</sub>(שמח) = B<sub>שמח,לא</sub> · max{V<sub>1</sub>(שמח)·A<sub>שמח,שמח</sub>, V<sub>1</sub>(עצבני)·A<sub>עצבני,שמח</sub>} = 0.2 · max{0.4·0.7, 0.1·0.4} = 0.2 · 0.28 = 0.056</span> ← מ־שמח</li>
+      <li><span class="term">V<sub>2</sub>(עצבני) = 0.8 · max{0.4·0.3, 0.1·0.6} = 0.8 · 0.12 = 0.096</span> ← מ־שמח</li>
+    </ul>
+    <p><strong>צעד (i=3, x<sub>3</sub>=מחייך):</strong></p>
+    <ul>
+      <li><span class="term">V<sub>3</sub>(שמח) = 0.8 · max{0.056·0.7, 0.096·0.4} = 0.8 · 0.0392 = 0.03136</span> ← מ־שמח</li>
+      <li><span class="term">V<sub>3</sub>(עצבני) = 0.2 · max{0.056·0.3, 0.096·0.6} = 0.2 · 0.0576 = 0.01152</span> ← מ־עצבני</li>
+    </ul>
+    <p><strong>שחזור:</strong> <span class="term">V<sub>3</sub>(שמח) &gt; V<sub>3</sub>(עצבני)</span> ← <span class="term">h*<sub>3</sub> = שמח</span>. ה־P שלו מצביע על שמח → <span class="term">h*<sub>2</sub> = שמח</span>. וה־P של V<sub>2</sub>(שמח) גם → <span class="term">h*<sub>1</sub> = שמח</span>.</p>
+    <p><strong>מסקנה:</strong> הסדרה הסבירה ביותר היא <strong>שמח, שמח, שמח</strong>.</p>
+  </div>
+</div>
+
+<h2>7 · תרגילי מבחן</h2>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 1 — חיזוי מצב הרוח של מודי (תרגיל בית 6, שאלה 1)</div>
+  <div class="box-body">
+    <p>השתמשו במודל ה־HMM של פרופסור מודי שהוגדר בדוגמה. בתצפית של 4 שעות נצפתה הסדרה (משמאל לימין):</p>
+    <p><strong>(מחייך, לא מחייך, מחייך, מחייך)</strong></p>
+    <p>חשבו (בלי מחשב) מהו החיזוי עבור מצב רוחו של מודי. פרטו את כל החישובים. כיוון שיש רק 4 תצפיות — אין צורך ב־log.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p>נמשיך את החישוב מהדוגמה לעיל (3 שעות) — הוספנו אחרי <span class="term">V<sub>3</sub></span> עוד שלב.</p>
+      <p><strong>נזכיר את הערכים אחרי 3 שעות:</strong> <span class="term">V<sub>3</sub>(שמח) = 0.03136, V<sub>3</sub>(עצבני) = 0.01152</span>.</p>
+      <p><strong>צעד 4 (x<sub>4</sub> = מחייך):</strong></p>
+      <ul>
+        <li><span class="term">V<sub>4</sub>(שמח) = 0.8 · max{0.03136·0.7, 0.01152·0.4} = 0.8 · max{0.02195, 0.00461} = 0.8 · 0.02195 = 0.01756</span> ← מ־שמח</li>
+        <li><span class="term">V<sub>4</sub>(עצבני) = 0.2 · max{0.03136·0.3, 0.01152·0.6} = 0.2 · max{0.00941, 0.00691} = 0.2 · 0.00941 = 0.00188</span> ← מ־שמח</li>
+      </ul>
+      <p><strong>שחזור:</strong> <span class="term">V<sub>4</sub>(שמח) ≫ V<sub>4</sub>(עצבני)</span> → <span class="term">h*<sub>4</sub> = שמח</span>. כל ה־P מצביעים על שמח. <strong>החיזוי: כל 4 השעות מודי שמח</strong>.</p>
+      <p>זה הגיוני: הוא חייך 3 מתוך 4 פעמים, ובמודל הוא מחייך בשמח עם הסת׳ 0.8.</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 2 — חזרות אנדרו לפנטום (שאלה לדוגמה HMM)</div>
+  <div class="box-body">
+    <p>אנדרו מקיים חזרות לשירים עבור מחזמר. יש 3 זמרים אפשריים, כל חזרה כוללת בין 0 ל־3 מהם. ביום שבו <span class="term">i</span> זמרים בחזרה, מספר העוזבים ביום למחרת מתפלג <span class="term">U{0, 1, …, i}</span> בדידה אחידה. ביום שבו <span class="term">j</span> זמרים <strong>לא</strong> בחזרה, מספר המצטרפים ביום למחרת מתפלג <span class="term">U{0, …, j}</span>. ביום הראשון כל 3 הזמרים השתתפו.</p>
+    <p>כל שיר בחזרה הוא 'יפה מאד' או 'נהדר' לפי:</p>
+    <ul>
+      <li>פחות מ־2 זמרים → תמיד 'יפה מאד'.</li>
+      <li>2 זמרים → 'יפה מאד' בהסת׳ 0.5, 'נהדר' בהסת׳ 0.5.</li>
+      <li>3 זמרים → תמיד 'נהדר'.</li>
+    </ul>
+    <p>נדגמו 3 החזרות הראשונות; השיר הראשון 'נהדר', השני 'נהדר', השלישי 'יפה מאד'. חזו בעזרת ויטרבי כמה זמרים בכל אחת מ־3 החזרות.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><strong>1) שרשרת המעבר (A).</strong> מצבים <span class="term">Q = {0, 1, 2, 3}</span>. מ־<span class="term">i</span> זמרים: עוזבים <span class="term">L ~ U{0,…,i}</span>, מצטרפים <span class="term">J ~ U{0,…,3−i}</span>, <span class="term">L</span> ו־<span class="term">J</span> בלתי תלויים. המצב הבא <span class="term">i' = i − L + J</span>.</p>
+      <p>למשל מ־<span class="term">i=3</span>: <span class="term">L∈{0,1,2,3}</span> כל אחד בהסת׳ <span class="term">¼</span>, <span class="term">J=0</span> בודאות (אין מי שיצטרף). אז <span class="term">i' = 3 − L</span> מתפלג <span class="term">U{0,1,2,3}</span> בהסת׳ <span class="term">¼</span> לכל ערך.</p>
+      <p>למשל מ־<span class="term">i=0</span>: <span class="term">L=0</span>, <span class="term">J∈{0,1,2,3}</span> כל אחד <span class="term">¼</span>. <span class="term">i' = J</span> מתפלג <span class="term">U{0,1,2,3}</span>.</p>
+      <p>למשל מ־<span class="term">i=2</span>: <span class="term">L∈{0,1,2}</span> כל אחד <span class="term">⅓</span>, <span class="term">J∈{0,1}</span> כל אחד <span class="term">½</span>. <span class="term">i' = 2−L+J</span>; ערכים אפשריים <span class="term">{0,1,2,3}</span>.</p>
+      <p>מ־<span class="term">i=1</span>: <span class="term">L∈{0,1}</span> כל אחד <span class="term">½</span>, <span class="term">J∈{0,1,2}</span> כל אחד <span class="term">⅓</span>. <span class="term">i' = 1−L+J</span>.</p>
+      <p>מטריצת המעבר (שורה = מצב נוכחי <span class="term">i</span>, עמודה = מצב הבא):</p>
+      <table>
+        <thead><tr><th></th><th>i'=0</th><th>i'=1</th><th>i'=2</th><th>i'=3</th></tr></thead>
+        <tbody>
+          <tr><td>i=0</td><td class="num">¼</td><td class="num">¼</td><td class="num">¼</td><td class="num">¼</td></tr>
+          <tr><td>i=1</td><td class="num">⅙</td><td class="num">⅓</td><td class="num">⅓</td><td class="num">⅙</td></tr>
+          <tr><td>i=2</td><td class="num">⅙</td><td class="num">⅓</td><td class="num">⅓</td><td class="num">⅙</td></tr>
+          <tr><td>i=3</td><td class="num">¼</td><td class="num">¼</td><td class="num">¼</td><td class="num">¼</td></tr>
+        </tbody>
+      </table>
+      <p><strong>2) מטריצת פלט (B).</strong> פלט 'נהדר' = N, 'יפה מאד' = Y.</p>
+      <table>
+        <thead><tr><th></th><th>N (נהדר)</th><th>Y (יפה מאד)</th></tr></thead>
+        <tbody>
+          <tr><td>i=0</td><td class="num">0</td><td class="num">1</td></tr>
+          <tr><td>i=1</td><td class="num">0</td><td class="num">1</td></tr>
+          <tr><td>i=2</td><td class="num">½</td><td class="num">½</td></tr>
+          <tr><td>i=3</td><td class="num">1</td><td class="num">0</td></tr>
+        </tbody>
+      </table>
+      <p><strong>3) ויטרבי.</strong> אתחול: ביום 1 כל 3 הזמרים, כלומר <span class="term">P(H<sub>1</sub>=3) = 1</span>. הפלט הראשון 'נהדר':</p>
+      <p><span class="term">V<sub>1</sub>(3) = 1 · 1 = 1</span>, <span class="term">V<sub>1</sub>(0) = V<sub>1</sub>(1) = V<sub>1</sub>(2) = 0</span>.</p>
+      <p><strong>צעד 2 (x<sub>2</sub> = N):</strong> רק מצבים שפולטים N בהסת׳ &gt; 0 רלוונטיים — i=2 (½) ו־i=3 (1). מה־"באים" — רק <span class="term">V<sub>1</sub>(3) = 1</span> חיובי.</p>
+      <ul>
+        <li><span class="term">V<sub>2</sub>(2) = B<sub>2,N</sub> · V<sub>1</sub>(3) · A<sub>3,2</sub> = ½ · 1 · ¼ = ⅛ = 0.125</span></li>
+        <li><span class="term">V<sub>2</sub>(3) = 1 · 1 · ¼ = ¼ = 0.25</span></li>
+      </ul>
+      <p><strong>צעד 3 (x<sub>3</sub> = Y):</strong> פולטים Y: i=0 (1), i=1 (1), i=2 (½), i=3 (0).</p>
+      <ul>
+        <li><span class="term">V<sub>3</sub>(0) = 1 · max{0.125·⅙, 0.25·¼} = max{0.0208, 0.0625} = 0.0625</span> ← מ־i=3</li>
+        <li><span class="term">V<sub>3</sub>(1) = 1 · max{0.125·⅓, 0.25·¼} = max{0.0417, 0.0625} = 0.0625</span> ← מ־i=3</li>
+        <li><span class="term">V<sub>3</sub>(2) = ½ · max{0.125·⅓, 0.25·¼} = ½ · 0.0625 = 0.03125</span> ← מ־i=3</li>
+        <li><span class="term">V<sub>3</sub>(3) = 0 · ... = 0</span></li>
+      </ul>
+      <p><strong>שחזור:</strong> <span class="term">V<sub>3</sub>(0) = V<sub>3</sub>(1) = 0.0625</span> — תיקו! נחזיר את שתי האפשרויות (אם יש זמרים <span class="term">0</span> או <span class="term">1</span> בחזרה 3, מ־<span class="term">i<sub>2</sub>=3</span>, מ־<span class="term">i<sub>1</sub>=3</span>):</p>
+      <p>סדרה אפשרית 1: <strong>3, 3, 0</strong>. סדרה אפשרית 2: <strong>3, 3, 1</strong>. שתיהן ממקסמות.</p>
+      <p>אינטואיציה: 'נהדר' פעמיים → כנראה היו 3 זמרים בחזרות 1, 2. ואז 'יפה מאד' → לא 3 זמרים בחזרה 3.</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 3 — בעיית קונספט</div>
+  <div class="box-body">
+    <p>בקזינו לא הוגן, יש קוביה הוגנת (פלט 1–6 בהסת׳ <span class="term">⅙</span>) וקוביה מוטה (פלט 6 בהסת׳ 0.5, שאר ב־0.1). מעבר מהוגנת למוטה: 0.05. ממוטה להוגנת: 0.1. ההתחלה הוגנת בהסת׳ 1.</p>
+    <p>(א) רשמו את <span class="term">A</span>, <span class="term">B</span>, <span class="term">S</span>. (ב) חשבו את <span class="term">V<sub>2</sub></span> אם הסדרה היא (6, 6). (ג) אם אנחנו רואים סדרה (6, 6, 6, 6, 6) — איזה מסלול אתם <strong>צופים</strong> שויטרבי יחזיר, ומדוע?</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><strong>(א)</strong> <span class="term">Q = {הוגנת, מוטה}</span>, <span class="term">Σ = {1,2,3,4,5,6}</span>.</p>
+      <p><span class="term">S<sub>הוגנת</sub> = 1, S<sub>מוטה</sub> = 0</span>.</p>
+      <p><span class="term">A</span>: <span class="term">A<sub>הוג,הוג</sub>=0.95, A<sub>הוג,מוט</sub>=0.05, A<sub>מוט,הוג</sub>=0.1, A<sub>מוט,מוט</sub>=0.9</span>.</p>
+      <p><span class="term">B<sub>הוג,6</sub>=⅙ ≈ 0.167, B<sub>מוט,6</sub>=0.5</span>.</p>
+      <p><strong>(ב)</strong> <span class="term">V<sub>1</sub>(הוג) = 1 · ⅙ = 0.167, V<sub>1</sub>(מוט) = 0 · 0.5 = 0</span>.</p>
+      <p><span class="term">V<sub>2</sub>(הוג) = ⅙ · max{0.167·0.95, 0·0.1} = ⅙ · 0.159 = 0.0265</span>.</p>
+      <p><span class="term">V<sub>2</sub>(מוט) = 0.5 · max{0.167·0.05, 0·0.9} = 0.5 · 0.00833 = 0.00417</span>.</p>
+      <p>אחרי 2 שלבים — עדיין הוגנת מובילה.</p>
+      <p><strong>(ג)</strong> ההסת׳ ה־apriori להישאר הוגנת היא מאוד גבוהה (0.95), אבל הסת׳ ה־conditional לראות 6 חמש פעמים ברצף בקובייה הוגנת היא <span class="term">(⅙)<sup>5</sup> ≈ 0.00013</span>; במוטה <span class="term">0.5<sup>5</sup> = 0.03125</span> — פי 240. בשלב מסוים העובדה שראינו רצף ארוך של 6 גוברת על אינרציית המעבר. ויטרבי כנראה יצביע על <strong>מוטה</strong> מהשלב השני־שלישי והלאה.</p>
+    </div>
+  </div>
+</div>
+
+<div class="chap-nav">
+  <a class="prev" href="03-markov.html">→ פרק 3: שרשרת מרקוב</a>
+  <a class="next" href="05-descriptive.html">פרק 5: סטטיסטיקה תיאורית ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 2 · התפלגות נורמלית ומשפט הגבול המרכזי</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a class="active" href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow">פרק 2 · בסיס הסתברותי</span>
+<h1 class="page-title">משתנה מקרי נורמלי<br>ומשפט הגבול המרכזי</h1>
+<p class="page-subtitle">תקנון, חישוב הסתברויות בעזרת Φ, ההתנהגות של סכומים וממוצעים, ומ.ה.מ. ככלי לקירוב.</p>
+
+<p class="lead">
+  הפרק הכי בסיסי שתיגע בו בכל מבחן השערות (פרקים 6–10) ובכל שאלת ההכלות מ.ה.מ. אם אתה תוקע בתקנון, אתה תוקע בכל המבחן. <strong>השקעה פה משתלמת מאוד.</strong>
+</p>
+
+<h2>1 · ההתפלגות הנורמלית</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>הגדרה ותכונות</div>
+  <div class="box-body">
+    <p>$X \sim N(\mu, \sigma^2)$ אם פונקציית הצפיפות שלו היא צורת פעמון:</p>
+    $$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
+    <p>אז $E(X) = \mu$ ו־$V(X) = \sigma^2$.</p>
+    <p><strong>סימון חשוב — שונות לעומת סטיית תקן:</strong> כאשר רואים $N(\mu, \sigma^2)$, הפרמטר השני <em>תמיד</em> הוא השונות $\sigma^2$ ולא סטיית התקן. אם כתוב "סטיית תקן 3" — אז $\sigma = 3$ ו־$\sigma^2 = 9$, כותבים $N(\mu, 9)$.</p>
+    <p><strong>חוק 68-95-99.7:</strong> בנורמלית, כ־68% מהמסה ב־$\mu \pm \sigma$, כ־95% ב־$\mu \pm 2\sigma$, וכ־99.7% ב־$\mu \pm 3\sigma$. שווה לשנן — חוסך תקנון בשאלות "סדר גודל".</p>
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>הנורמלית הסטנדרטית · Z ~ N(0,1)</div>
+  <div class="box-body">
+    <p>נסמן ב־$\Phi(z) = P(Z \le z)$ את ה־CDF של הנורמלית הסטנדרטית. <strong>זו הטבלה שתעבוד איתה במבחן</strong>. כל חישוב הסתברות בנורמלית מסתכם בשני שלבים: (1) תקנון; (2) קריאה מהטבלה.</p>
+  </div>
+</div>
+
+<div class="figure">
+  <svg viewBox="0 0 520 220" xmlns="http://www.w3.org/2000/svg" dir="ltr">
+    <defs>
+      <linearGradient id="ngrad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#4f46e5" stop-opacity="0.55"/>
+        <stop offset="1" stop-color="#4f46e5" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+    <!-- axes -->
+    <line x1="40" y1="180" x2="500" y2="180" stroke="#78716c" stroke-width="1"/>
+    <!-- tick labels -->
+    <g font-family="JetBrains Mono, monospace" font-size="11" fill="#78716c" text-anchor="middle">
+      <text x="100" y="200">−3</text>
+      <text x="170" y="200">−2</text>
+      <text x="240" y="200">−1</text>
+      <text x="310" y="200">0</text>
+      <text x="380" y="200">1</text>
+      <text x="450" y="200">2</text>
+    </g>
+    <!-- normal curve, mu=0, sigma=1, mapping z -> x = 310 + 70z, y = 180 - 130*exp(-z^2/2) -->
+    <!-- shaded region z <= 0.7 (Phi(0.7)) -->
+    <path d="M 40 180
+             Q 100 180 160 175
+             Q 220 165 280 130
+             Q 295 110 310 70
+             L 359 95
+             Q 354 105 350 115
+             L 350 180 Z" fill="url(#ngrad)"/>
+    <!-- bell curve -->
+    <path d="M 40 180
+             C 100 180 160 175 200 165
+             C 240 152 270 125 310 70
+             C 350 125 380 152 420 165
+             C 460 175 480 180 500 180"
+          stroke="#4f46e5" stroke-width="2" fill="none"/>
+    <!-- vertical line at z=0.7 -->
+    <line x1="359" y1="180" x2="359" y2="100" stroke="#1e1b4b" stroke-width="1.2" stroke-dasharray="4 3"/>
+    <!-- z label -->
+    <text x="359" y="216" font-family="JetBrains Mono, monospace" font-size="12" fill="#1e1b4b" text-anchor="middle" font-weight="700">z</text>
+    <!-- Phi(z) label inside shaded area -->
+    <text x="240" y="160" font-family="Frank Ruhl Libre, serif" font-size="20" fill="#312e81" text-anchor="middle" font-style="italic">Φ(z)</text>
+    <!-- axis label -->
+    <text x="500" y="174" font-family="JetBrains Mono, monospace" font-size="13" fill="#1c1917">z</text>
+  </svg>
+  <div class="cap">פונקציית ההתפלגות המצטברת <span dir="ltr">Φ(z) = P(Z ≤ z)</span> — שטח השטח הצבוע מתחת לעקומה משמאל ל־<span dir="ltr">z</span>.</div>
+</div>
+
+<h2>2 · תקנון</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>נוסחת התקנון</div>
+  <div class="box-body">
+    <p>אם $X \sim N(\mu, \sigma^2)$ אז:</p>
+    $$Z = \frac{X - \mu}{\sigma} \sim N(0,1)$$
+    <p>$Z$ נקרא <em>ציון תקן</em>. הוא אומר: "כמה סטיות תקן רחוק מהמוצע".</p>
+    <div class="keypoint">
+      <strong>סימן חיוני:</strong> מחלקים בסטיית התקן $\sigma$, <em>לא</em> בשונות $\sigma^2$. טעות נפוצה.
+    </div>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>חישובי הסתברות בנורמלית סטנדרטית</div>
+  <div class="box-body">
+    $$P(Z < z) = \Phi(z)$$
+    $$P(Z > z) = 1 - \Phi(z)$$
+    $$P(Z < -z) = 1 - \Phi(z) \quad \text{(סימטריה סביב 0)}$$
+    $$P(z_1 < Z < z_2) = \Phi(z_2) - \Phi(z_1)$$
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>אחוזונים</div>
+  <div class="box-body">
+    <p>האחוזון $z_p$ הוא הערך שמקיים $P(Z \le z_p) = p$. כלומר $z_p = \Phi^{-1}(p)$.</p>
+    <p>הקשר בין אחוזון בנורמלית סטנדרטית לאחוזון בנורמלית הכללית:</p>
+    $$X_p = \mu + \sigma \cdot z_p$$
+    <p>סימטריה: $z_p = -z_{1-p}$. למשל $z_{0.05} = -z_{0.95} = -1.645$.</p>
+    <p><strong>אחוזונים שכדאי לדעת בעל פה:</strong></p>
+    <table>
+      <tr><th class="num">p</th><th class="num">0.90</th><th class="num">0.95</th><th class="num">0.975</th><th class="num">0.99</th><th class="num">0.995</th></tr>
+      <tr><td class="num">z_p</td><td class="num">1.282</td><td class="num">1.645</td><td class="num">1.960</td><td class="num">2.326</td><td class="num">2.576</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2>3 · סכום וממוצע של נורמליים בלתי־תלויים</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>סכום נורמליים ב"ת</div>
+  <div class="box-body">
+    <p>אם $X_i \sim N(\mu_i, \sigma_i^2)$ בלתי־תלויים, אז:</p>
+    $$\sum_{i=1}^n X_i \;\sim\; N\!\left(\sum_{i=1}^n \mu_i,\ \sum_{i=1}^n \sigma_i^2\right)$$
+    <p><strong>תכונה חזקה:</strong> כל קומבינציה ליניארית של נורמליים ב"ת היא נורמלית. כפל בקבוע, חיבור קבוע, סכום — הכול נשאר נורמלי.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>סכום וממוצע — שווי תוחלת ושונות</div>
+  <div class="box-body">
+    <p>אם $X_i \sim N(\mu, \sigma^2)$ ב"ת ו־$\bar X = \frac{1}{n}\sum X_i$, אז:</p>
+    $$\sum_{i=1}^n X_i \sim N(n\mu,\, n\sigma^2)$$
+    $$\bar X \sim N\!\left(\mu,\, \frac{\sigma^2}{n}\right)$$
+    <div class="keypoint">
+      <strong>זכור:</strong> בממוצע, התוחלת לא משתנה אבל השונות יורדת פי $n$ (וסטיית התקן יורדת פי $\sqrt{n}$). זה למה דגימה גדולה נותנת אמדן מדויק יותר.
+    </div>
+  </div>
+</div>
+
+<h2>4 · משפט הגבול המרכזי (מ.ה.מ.)</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>המשפט המרכזי בקורס</div>
+  <div class="box-body">
+    <p>אם $X_1, X_2, \ldots, X_n$ סדרה של מ"מ <strong>בלתי־תלויים, שווי התפלגות</strong>, עם $E(X_i)=\mu$ ו־$V(X_i)=\sigma^2$, אז עבור $n$ "מספיק גדול" מתקיים בקירוב:</p>
+    $$\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i \;\approx\; N\!\left(\mu,\,\frac{\sigma^2}{n}\right)$$
+    $$\sum_{i=1}^n X_i \;\approx\; N(n\mu,\, n\sigma^2)$$
+    <p><strong>החידוש המרשים:</strong> זה תופס לכל התפלגות שהיא — בדידה, רציפה, סימטרית, מוטה — לא חשוב. הסכום או הממוצע <em>תמיד</em> מתקרב לנורמלית.</p>
+  </div>
+</div>
+
+<div class="box warn">
+  <div class="box-head"><span class="icon">⚠</span>מתי לא להפעיל את מ.ה.מ.</div>
+  <div class="box-body">
+    <ol>
+      <li>
+        <strong>כשהמ"מים כבר נורמליים מלכתחילה.</strong>
+        אז זה לא קירוב — זה מדויק. הניסוח "לפי מ.ה.מ." יראה לא מקצועי. תכתוב פשוט "מסכום של נורמליים ב"ת" ותחבר תוחלות ושונויות.
+      </li>
+      <li>
+        <strong>כש־n קטן (מתחת ל־30 בערך) וההתפלגות מאוד לא־סימטרית.</strong>
+        הקירוב לא טוב. אם נכון לזיהוי השאלה — בדוק את n.
+      </li>
+      <li>
+        <strong>כשהמ"מים לא ב"ת או לא שווי התפלגות.</strong>
+        מ.ה.מ. דורש שניהם.
+      </li>
+    </ol>
+  </div>
+</div>
+
+<h2>5 · קירוב נורמלי לבינום + תיקון רציפות</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>הקירוב הבסיסי</div>
+  <div class="box-body">
+    <p>אם $X \sim B(n,p)$ אז בקירוב:</p>
+    $$X \;\approx\; N\!\bigl(np,\, np(1-p)\bigr)$$
+    <p><strong>תנאי השימוש:</strong> $np \ge 5$ <em>וגם</em> $n(1-p) \ge 5$.</p>
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>תיקון רציפות — Continuity correction</div>
+  <div class="box-body">
+    <p>מקרבים התפלגות בדידה לרציפה. בבדיד יש "פערים" ב־$P(X=k)$, ברציף לא. כדי לתקן, נשייך לכל ערך שלם $k$ את הקטע $(k-0.5,\ k+0.5)$.</p>
+    <table>
+      <tr><th>סיכוי בינומי</th><th>בקירוב נורמלי</th></tr>
+      <tr><td class="num">P(X = k)</td><td class="num">P(k − 0.5 &lt; X ≤ k + 0.5)</td></tr>
+      <tr><td class="num">P(X ≤ k)</td><td class="num">P(X ≤ k + 0.5)</td></tr>
+      <tr><td class="num">P(X &lt; k)</td><td class="num">P(X ≤ k − 0.5)</td></tr>
+      <tr><td class="num">P(X ≥ k)</td><td class="num">P(X &gt; k − 0.5)</td></tr>
+      <tr><td class="num">P(X &gt; k)</td><td class="num">P(X &gt; k + 0.5)</td></tr>
+    </table>
+    <div class="keypoint">
+      <strong>טריק מנמוני:</strong> "כולל k" ⇐ מרחיב את הגבול ב־0.5 לכיוון K (כלומר $\le k$ הופך ל־$\le k+0.5$). "לא כולל" ⇐ מצמצם ($< k$ הופך ל־$\le k - 0.5$).
+    </div>
+  </div>
+</div>
+
+<h2>6 · דוגמה מפורטת — אורפיאוס (תרגיל בית 3, ש' 2)</h2>
+
+<div class="box example">
+  <div class="box-head"><span class="icon">💡</span>שירה, נגינה, ממוצעים ותרגום ליחס</div>
+  <div class="box-body">
+
+    <p>$S \sim N(70, 10^2)$ זמן שירה; $N \sim N(200, 20^2)$ זמן נגינה. ב"ת בין יום ליום וב"ת בין שירה לנגינה.</p>
+
+    <h4>סעיף א · $P(S > 80)$</h4>
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <p>תקנון:</p>
+      $$z = \frac{80 - 70}{10} = 1$$
+      $$P(S > 80) = 1 - \Phi(1) = 1 - 0.8413 = 0.1587$$
+    </div>
+
+    <h4>סעיף ב · ממוצע 10 ימים גדול מ־80</h4>
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <p>נורמליים ב"ת ⇐ הממוצע נורמלי במדויק (לא צריך מ.ה.מ.):</p>
+      $$\bar S_{10} \sim N\!\left(70,\, \frac{100}{10}\right) = N(70, 10)$$
+      <p>הסטייה: $\sqrt{10} \approx 3.162$</p>
+      $$z = \frac{80 - 70}{3.162} \approx 3.16$$
+      $$P(\bar S_{10} > 80) \approx 1 - \Phi(3.16) \approx 0.0008$$
+      <p><strong>הסבר אינטואיטיבי:</strong> ההסתברות ירדה דרמטית כי הממוצע מרוכז סביב 70 הרבה יותר חזק מאשר תצפית בודדת. סטיית התקן ירדה פי $\sqrt{10}$.</p>
+    </div>
+
+    <h4>סעיף ג · $P(N \ge 3S)$</h4>
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <p>נסמן $W = N - 3S$. זה קומבינציה ליניארית של שני נורמליים ב"ת:</p>
+      $$E(W) = 200 - 3 \cdot 70 = -10$$
+      $$V(W) = V(N) + 9\,V(S) = 400 + 900 = 1300$$
+      $$\sigma_W = \sqrt{1300} \approx 36.06$$
+      <p>צריך $P(N \ge 3S) = P(W \ge 0)$:</p>
+      $$z = \frac{0 - (-10)}{36.06} = 0.277$$
+      $$P(W \ge 0) = 1 - \Phi(0.277) \approx 1 - 0.609 = 0.391$$
+    </div>
+
+    <div class="final-answer">
+      $P(S>80) \approx 0.159$ ; $P(\bar S_{10}>80) \approx 0.0008$ ; $P(N \ge 3S) \approx 0.391$.
+    </div>
+
+  </div>
+</div>
+
+<h2>7 · טעויות נפוצות</h2>
+
+<div class="box warn">
+  <div class="box-head"><span class="icon">⚠</span>שש טעויות שגונבות נקודות</div>
+  <div class="box-body">
+    <ol>
+      <li>
+        <strong>חילוק ב־$\sigma^2$ בתקנון.</strong>
+        תמיד $\sigma$, סטיית התקן. אם נתון $N(\mu, 9)$ — הפרמטר 9 הוא <em>שונות</em>, ו־$\sigma=3$.
+      </li>
+      <li>
+        <strong>שכחת לחלק את השונות ב־n כשעוברים לממוצע.</strong>
+        $\bar X \sim N(\mu, \sigma^2/n)$, לא $N(\mu, \sigma^2)$. בקלות מאבדים נקודות.
+      </li>
+      <li>
+        <strong>חישוב P(X<k) במקום P(X≤k) באוכלוסייה רציפה.</strong>
+        ברציף זה אותו דבר — אבל ברגע שעוברים לקירוב נורמלי לבינום, צריך תיקון רציפות.
+      </li>
+      <li>
+        <strong>שימוש במ.ה.מ. כשהמשתנים כבר נורמליים.</strong>
+        אז הסכום/ממוצע מדויק, לא קירוב. נסח "סכום של נורמליים ב"ת" ולא "לפי מ.ה.מ.".
+      </li>
+      <li>
+        <strong>שכחת תנאי השימוש בקירוב לבינום.</strong>
+        $np\ge 5$ וגם $n(1-p)\ge 5$. בשאלה עם $p$ קטן מאוד או $p$ קרוב ל־1 הקירוב לא תקף.
+      </li>
+      <li>
+        <strong>$V(aX - bY) = a^2V(X) - b^2V(Y)$ ⟵ שגוי.</strong>
+        השונויות תמיד מתחברות במכפלה בריבוע: $V(aX - bY) = a^2 V(X) + b^2 V(Y)$ (כשב"ת). הסימן המופחת נעלם בריבוע.
+      </li>
+    </ol>
+  </div>
+</div>
+
+<h2>8 · תרגילים לבחינה</h2>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 1 · ויקטוריה ואלברט (תרגיל בית 2, ש' 4)</div>
+  <div class="box-body">
+    <div class="exercise-card">
+      <div class="exercise-q">
+        <span class="exercise-tag">סכום נורמלי + הפרש</span>
+        <p>אלברט: זמן מכתב $A \sim N(10, 2^2)$. ויקטוריה: $V \sim N(8, 0.5^2)$. בלתי־תלויים.</p>
+        <ol style="margin: 10px 24px;">
+          <li>$P(A > 13)$ — מכתב יחיד של אלברט.</li>
+          <li>$P(\sum_{i=1}^{10} A_i < 90)$ — סכום 10 מכתבי אלברט.</li>
+          <li>אלברט כותב 8 מילים/דקה, ויקטוריה 10 מילים/דקה. כל אחד כותב 16 מכתבים. $W_A = 8\sum A_i$, $W_V = 10\sum V_i$. מה $P(W_A \ge W_V + 100)$?</li>
+        </ol>
+      </div>
+      <button class="reveal-btn" onclick="this.parentElement.classList.toggle('open')">הצג פתרון</button>
+      <div class="solution">
+
+        <div class="step">
+          <div class="step-label">סעיף א · תקנון</div>
+          $$z = \frac{13 - 10}{2} = 1.5$$
+          $$P(A > 13) = 1 - \Phi(1.5) = 1 - 0.9332 = 0.0668$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">סעיף ב · סכום נורמליים</div>
+          <p>$\sum_{i=1}^{10} A_i \sim N(100, 40)$. סטיית תקן $\sqrt{40} \approx 6.32$.</p>
+          $$z = \frac{90 - 100}{6.32} \approx -1.58$$
+          $$P\!\left(\sum A_i < 90\right) = \Phi(-1.58) = 1 - \Phi(1.58) \approx 0.057$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">סעיף ג · הפרש מילים</div>
+          <p>$W_A = 8 \sum_{i=1}^{16} A_i \sim N(8 \cdot 160,\, 64 \cdot 64) = N(1280, 4096)$.</p>
+          <p>$W_V = 10 \sum_{i=1}^{16} V_i \sim N(10 \cdot 128,\, 100 \cdot 4) = N(1280, 400)$.</p>
+          <p>הפרש $D = W_A - W_V \sim N(0,\, 4096 + 400) = N(0, 4496)$. סטייה $\sqrt{4496} \approx 67.05$.</p>
+          $$P(W_A \ge W_V + 100) = P(D \ge 100)$$
+          $$z = \frac{100 - 0}{67.05} \approx 1.49$$
+          $$P(D \ge 100) = 1 - \Phi(1.49) \approx 1 - 0.9319 = 0.0681$$
+        </div>
+
+        <div class="final-answer">
+          $P(A>13)\approx 0.067$ ; $P(\sum A_i<90) \approx 0.057$ ; $P(W_A \ge W_V + 100) \approx 0.068$.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 2 · קוביה הוגנת 200 פעמים (תרגיל בית 3, ש' 5)</div>
+  <div class="box-body">
+    <div class="exercise-card">
+      <div class="exercise-q">
+        <span class="exercise-tag">קירוב נורמלי לבינום + תיקון רציפות</span>
+        <p>מטילים קובייה הוגנת 200 פעמים. $X$ = מספר פעמים שיצא 6. חשבו בקירוב נורמלי:</p>
+        <ol style="margin: 10px 24px;">
+          <li>$P(X \ge 30)$</li>
+          <li>$P(X \ge 40)$</li>
+          <li>$P(X \ge 45)$</li>
+        </ol>
+      </div>
+      <button class="reveal-btn" onclick="this.parentElement.classList.toggle('open')">הצג פתרון</button>
+      <div class="solution">
+
+        <div class="step">
+          <div class="step-label">צעד 1 · התנאים והפרמטרים</div>
+          <p>$X \sim B(200, 1/6)$. $np = 200/6 \approx 33.33 \ge 5$, $n(1-p) = 200 \cdot 5/6 \approx 166.67 \ge 5$. ⇐ הקירוב תקף.</p>
+          $$E(X) = 33.33, \quad V(X) = 200 \cdot \tfrac{1}{6} \cdot \tfrac{5}{6} \approx 27.78$$
+          $$\sigma \approx 5.27$$
+          <p>$X \approx N(33.33,\ 27.78)$.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-label">סעיף א · P(X ≥ 30) עם תיקון רציפות</div>
+          <p>"לפחות 30" ⇐ $P(X \ge 30)$ ⟶ $P(X > 29.5)$ בקירוב.</p>
+          $$z = \frac{29.5 - 33.33}{5.27} \approx -0.727$$
+          $$P(X \ge 30) \approx 1 - \Phi(-0.727) = \Phi(0.727) \approx 0.766$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">סעיף ב · P(X ≥ 40)</div>
+          $$z = \frac{39.5 - 33.33}{5.27} \approx 1.171$$
+          $$P(X \ge 40) \approx 1 - \Phi(1.17) \approx 1 - 0.879 = 0.121$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">סעיף ג · P(X ≥ 45)</div>
+          $$z = \frac{44.5 - 33.33}{5.27} \approx 2.12$$
+          $$P(X \ge 45) \approx 1 - \Phi(2.12) \approx 0.017$$
+        </div>
+
+        <div class="final-answer">
+          $P(X{\ge}30) \approx 0.766$, $P(X{\ge}40) \approx 0.121$, $P(X{\ge}45) \approx 0.017$.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 3 · נאשוויל (תרגיל בית 3, ש' 3)</div>
+  <div class="box-body">
+    <div class="exercise-card">
+      <div class="exercise-q">
+        <span class="exercise-tag">מ.ה.מ. — לא־נורמלי גורר נורמלי</span>
+        <p>$X$ = הזמן שמוקדש למוזיקה בפרק (בשעות, מתוך שעה). $f(x) = 3x^2$ עבור $0 \le x \le 1$.</p>
+        <ol style="margin: 10px 24px;">
+          <li>$P(X < 0.7)$ — פרק יחיד.</li>
+          <li>$P(\bar X_{100} < 0.7)$ — ממוצע על 100 פרקים.</li>
+        </ol>
+      </div>
+      <button class="reveal-btn" onclick="this.parentElement.classList.toggle('open')">הצג פתרון</button>
+      <div class="solution">
+
+        <div class="step">
+          <div class="step-label">סעיף א · CDF ישיר (לא צריך מ.ה.מ.)</div>
+          $$P(X < 0.7) = \int_0^{0.7} 3x^2\,dx = [x^3]_0^{0.7} = 0.343$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">סעיף ב · חישוב μ ו־σ² של X</div>
+          $$E(X) = \int_0^1 x \cdot 3x^2\,dx = \int_0^1 3x^3\,dx = \tfrac{3}{4} = 0.75$$
+          $$E(X^2) = \int_0^1 x^2 \cdot 3x^2\,dx = \int_0^1 3x^4\,dx = \tfrac{3}{5} = 0.6$$
+          $$V(X) = 0.6 - 0.75^2 = 0.0375$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 3 · הפעלת מ.ה.מ. לממוצע 100</div>
+          $$\bar X_{100} \approx N\!\left(0.75,\, \frac{0.0375}{100}\right) = N(0.75,\, 0.000375)$$
+          <p>סטיית תקן $\sqrt{0.000375} \approx 0.01936$.</p>
+          $$z = \frac{0.7 - 0.75}{0.01936} \approx -2.58$$
+          $$P(\bar X_{100} < 0.7) \approx \Phi(-2.58) = 1 - 0.9951 \approx 0.005$$
+        </div>
+
+        <div class="final-answer">
+          $P(X<0.7) = 0.343$ ; $P(\bar X_{100}<0.7) \approx 0.005$. הממוצע מרוכז סביב 0.75 הרבה יותר חזק מתצפית בודדת.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>9 · סיכום מהיר</h2>
+
+<div class="box summary">
+  <div class="box-head"><span class="icon">📌</span>מה לזכור ערב הבחינה</div>
+  <div class="box-body">
+    <ol>
+      <li><strong>תקנון:</strong> $z = (x - \mu)/\sigma$ — מחלקים בסטיית תקן, לא בשונות.</li>
+      <li><strong>סימטריה:</strong> $\Phi(-z) = 1 - \Phi(z)$. במבחן זה חוסך לך חזרה לטבלה.</li>
+      <li><strong>סכום נורמליים ב"ת:</strong> תוחלות מתחברות, שונויות מתחברות, התוצאה נורמלית.</li>
+      <li><strong>ממוצע:</strong> $\bar X \sim N(\mu, \sigma^2/n)$. השונות יורדת פי n.</li>
+      <li><strong>קומבינציה ליניארית:</strong> $aX + bY$ נורמלי עם תוחלת $a\mu_X + b\mu_Y$ ושונות $a^2\sigma_X^2 + b^2\sigma_Y^2$ (כשב"ת). הסימן אינו רלוונטי לשונות.</li>
+      <li><strong>מ.ה.מ.</strong> תקף לכל התפלגות (אפילו בדידה) אם $n$ "מספיק גדול" (לרוב 30+) והמ"מים ב"ת ושווי התפלגות.</li>
+      <li><strong>קירוב לבינום:</strong> $X \sim B(n,p)$ ⇐ $X \approx N(np, np(1-p))$ כאשר $np \ge 5$ וגם $n(1-p) \ge 5$.</li>
+      <li><strong>תיקון רציפות:</strong> "כולל k" ⇐ הרחבה ב־0.5 אל הצד הזה ($\le k$ ⟶ $\le k+0.5$). "לא כולל" ⇐ צמצום ב־0.5 ($< k$ ⟶ $\le k-0.5$).</li>
+    </ol>
+  </div>
+</div>
+
+<div style="height: 60px"></div>
+
+<div style="display:flex; justify-content:space-between; padding-top:32px; border-top:1px solid var(--rule); margin-top:48px;">
+  <a href="01-revision.html" style="color:var(--indigo-7); text-decoration:none; font-weight:600;">→ פרק 1: חזרה — הסתברות ומ"מ</a>
+  <a href="03-markov.html" style="color:var(--indigo-7); text-decoration:none; font-weight:600;">פרק 3: שרשרת מרקוב ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>

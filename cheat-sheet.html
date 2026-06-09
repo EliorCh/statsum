@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗂️ · Cheat sheet ומילון מושגים</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a class="active" href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow">חומרי עזר · Cheat sheet</span>
+<h1 class="page-title">Cheat sheet<br>ומילון מושגים</h1>
+<p class="page-subtitle">סיכום קצר של כל פרק + מפתח מושגים אלפביתי. לרענון מהיר ערב הבחינה.</p>
+
+<style>
+  .cs-card { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px 22px; margin: 12px 0; box-shadow: var(--shadow-sm); }
+  .cs-card h3 { font-family: var(--serif); color: var(--indigo-9); font-size: 19px; margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px dashed var(--rule); }
+  .cs-card .keys { color: var(--ink-mute); font-size: 13px; margin-bottom: 8px; font-family: var(--mono); }
+  .cs-card ul { margin-right: 18px; }
+  .cs-card li { margin-bottom: 4px; font-size: 15px; line-height: 1.55; }
+
+  .glossary { columns: 2; column-gap: 32px; margin-top: 16px; }
+  @media (max-width: 800px) { .glossary { columns: 1; } }
+  .glossary dt { font-weight: 700; color: var(--indigo-9); font-family: var(--serif); margin-top: 12px; font-size: 15.5px; break-after: avoid; }
+  .glossary dd { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 4px 0 0 0; padding-right: 0; break-inside: avoid; }
+  .glossary .he { font-family: var(--serif); }
+  .glossary .en { color: var(--ink-mute); font-size: 13px; font-family: var(--mono); direction: ltr; display: inline-block; }
+
+  .matrix-table { width: 100%; font-size: 14px; margin: 12px 0; border-collapse: collapse; }
+  .matrix-table th, .matrix-table td { padding: 8px 10px; border: 1px solid var(--rule); text-align: right; }
+  .matrix-table th { background: var(--indigo-1); color: var(--indigo-9); font-weight: 700; font-family: var(--serif); }
+</style>
+
+<h2 style="margin-top: 32px;">חלק א · סיכום קצר לפרק</h2>
+
+<div class="cs-card">
+  <h3>פרק 1 · חזרה — הסתברות ומ"מ</h3>
+  <div class="keys">aksiomot · conditional · independence · B · G · U · exp</div>
+  <ul>
+    <li>אקסיומות: <span class="num">0 ≤ P(A) ≤ 1</span>, <span class="num">P(Ω) = 1</span>, ולמאורעות זרים — אדיטיביות.</li>
+    <li>מותנית: <span class="num">P(A|B) = P(A∩B)/P(B)</span>. בייס מהפוך את הכיוון.</li>
+    <li>אי־תלות ≠ זרות. אי־תלות: <span class="num">P(A∩B) = P(A)·P(B)</span>. זרים: <span class="num">P(A∩B) = 0</span>.</li>
+    <li>חוסר זיכרון יש רק ל־exp (רציפה) ו־G (בדידה) — <span class="num">P(X &gt; s+t | X &gt; s) = P(X &gt; t)</span>.</li>
+  </ul>
+</div>
+
+<div class="cs-card">
+  <h3>פרק 2 · נורמלית + מ.ה.מ.</h3>
+  <div class="keys">standardize · Φ · CLT · binom approx</div>
+  <ul>
+    <li><span class="num">X ~ N(μ, σ²)</span> — <strong>σ² היא שונות</strong>, לא ס"ת. בתקנון מחלקים ב־σ, לא ב־σ².</li>
+    <li>סכום נורמליים בלתי־תלויים = נורמלי. שונויות מתחברות, סטיות תקן <strong>לא</strong>.</li>
+    <li>מ.ה.מ.: <span class="num">X̄<sub>n</sub> ≈ N(μ, σ²/n)</span> עבור n גדול, מכל התפלגות. ככלל אצבע n ≥ 30.</li>
+    <li>קירוב לבינום עם תיקון רציפות: <span class="num">P(X = k) ≈ P(k − 0.5 ≤ Y ≤ k + 0.5)</span>.</li>
+  </ul>
+</div>
+
+<div class="cs-card">
+  <h3>פרק 3 · שרשרת מרקוב</h3>
+  <div class="keys">A · φ · regular · stationary</div>
+  <ul>
+    <li>תכונת מרקוב: ההווה מכיל את כל המידע — העתיד לא תלוי בעבר בהינתן ההווה.</li>
+    <li>A — מטריצת מעבר, שורות סוכמות ל־1. <span class="num">φ<sub>m</sub> = φ<sub>0</sub> · A<sup>m</sup></span>.</li>
+    <li>רגולרית: קיים m כך ש־A<sup>m</sup> כל הרכיבים חיוביים. רגולרית ⇐ אי־פריקה + אפריודית.</li>
+    <li>שיווי משקל: <span class="num">πA = π</span>, <span class="num">Σπ<sub>i</sub> = 1</span>. בשרשרת רגולרית — קיים, יחיד, ובלתי תלוי ב־φ<sub>0</sub>.</li>
+  </ul>
+</div>
+
+<div class="cs-card">
+  <h3>פרק 4 · HMM</h3>
+  <div class="keys">A · B · S · Viterbi · Forward · Posterior</div>
+  <ul>
+    <li>שלושה רכיבי המודל: <span class="num">A</span> (מעבר), <span class="num">B</span> (פלט תלוי במצב הנוכחי בלבד), <span class="num">S</span> (התחלה).</li>
+    <li><strong>Viterbi</strong>: מסלול הכי סביר. רקורסיה עם <span class="num">max</span>. עובדים ב־log למניעת underflow.</li>
+    <li><strong>Forward</strong>: P של סדרת הפלט. אותה רקורסיה עם <span class="num">∑</span> במקום <span class="num">max</span>.</li>
+    <li><strong>Posterior</strong>: <span class="num">P(H<sub>i</sub> = k | X) = f<sub>i</sub>(k)·b<sub>i</sub>(k) / P(X)</span>. בוחרים לכל זמן את המצב המקסימלי. שונה מ־Viterbi: viterbi בוחר מסלול שלם, posterior בוחר מצב מצב.</li>
+  </ul>
+</div>
+
+<div class="cs-card">
+  <h3>פרק 5 · סטטיסטיקה תיאורית</h3>
+  <div class="keys">scales · Mo · Me · X̄ · σ² · IQR · skew</div>
+  <ul>
+    <li>סולמות מדידה: שמי / סדר / כמותי. שמי — שכיח בלבד. סדר — + חציון, אחוזונים. כמותי — הכל.</li>
+    <li>שונות כאן עם <strong>חלוקה ב־n</strong> (תיאורית). בהסקה (פרק 8) חלוקה ב־n−1.</li>
+    <li>זנב ימני: <span class="num">Mo &lt; Me &lt; X̄</span>. זנב שמאלי: <span class="num">X̄ &lt; Me &lt; Mo</span>. הממוצע נמשך לזנב.</li>
+    <li>התמרה <span class="num">Y = aX + b</span>: ממוצע <span class="num">→ a·X̄ + b</span>. שונות <span class="num">→ a²σ²</span>. ס"ת <span class="num">→ |a|σ</span>.</li>
+  </ul>
+</div>
+
+<div class="cs-card">
+  <h3>פרק 6 · יסודות בדיקת השערות</h3>
+  <div class="keys">H₀ · H₁ · α · β · π · p.value · Neyman-Pearson</div>
+  <ul>
+    <li>H<sub>0</sub> = המצב הקיים (נטל ההוכחה על מי שמכחיש). H<sub>1</sub> = הטענה החדשה.</li>
+    <li><strong>α</strong> = P(דחיית H<sub>0</sub> | H<sub>0</sub> נכונה). <strong>β</strong> = P(אי־דחיית H<sub>0</sub> | H<sub>1</sub> נכונה). <strong>π = 1 − β</strong>.</li>
+    <li>אזור דחייה גדול ← α↑, β↓. אזור קטן ← α↓, β↑. <strong>סותרים</strong>.</li>
+    <li>"לא דחינו H<sub>0</sub>" ≠ "H<sub>0</sub> נכונה". זו פשוט חוסר ראיות לדחותה.</li>
+    <li>p.v ≤ α ← דחה. p.v &gt; α ← לא תדחה.</li>
+  </ul>
+</div>
+
+<div class="cs-card">
+  <h3>פרק 7 · מבחן z (σ ידועה)</h3>
+  <div class="keys">Z · μ₀ · CI · two-sided ↔ CI</div>
+  <ul>
+    <li><span class="num">Z = (X̄ − μ<sub>0</sub>) / (σ/√n)</span>. אם <span class="num">σ</span> לא ידועה — פרק 8.</li>
+    <li>חד־צדדי משתמש <span class="num">Z<sub>1−α</sub></span>. דו־צדדי משתמש <span class="num">Z<sub>1−α/2</sub></span>.</li>
+    <li>רווח סמך 1−α: <span class="num">[X̄ ± Z<sub>1−α/2</sub> · σ/√n]</span>. אורך = <span class="num">2·Z<sub>1−α/2</sub>·σ/√n</span>.</li>
+    <li>בדיקה דו־צדדית α ↔ רווח סמך (1−α): μ<sub>0</sub> ברווח ← אל תדחה. μ<sub>0</sub> מחוץ ← דחה.</li>
+  </ul>
+</div>
+
+<div class="cs-card">
+  <h3>פרק 8 · מבחני t · F</h3>
+  <div class="keys">S² · t<sub>df</sub> · paired · pooled · Welch · F</div>
+  <ul>
+    <li><span class="num">S² = (1/(n−1)) Σ(X<sub>i</sub> − X̄)²</span> — חסר־הטיה. df = n−1.</li>
+    <li>מדגם בודד: <span class="num">T = (X̄ − μ<sub>0</sub>)/(S/√n) ~ t<sub>n−1</sub></span>.</li>
+    <li>מזווג: רץ <span class="num">t</span> על ההפרשים <span class="num">D<sub>i</sub></span>. <span class="num">H<sub>0</sub>: μ<sub>D</sub> = 0</span>.</li>
+    <li>2 ב"ת: קודם F לשונויות. F לא דחה ← pooled t. F דחה ← Welch t.</li>
+    <li>השונות הפולד <span class="num">S<sub>p</sub>² = [(n<sub>X</sub>−1)S<sub>X</sub>² + (n<sub>Y</sub>−1)S<sub>Y</sub>²]/(n<sub>X</sub>+n<sub>Y</sub>−2)</span>.</li>
+  </ul>
+</div>
+
+<div class="cs-card">
+  <h3>פרק 9 · מבחנים א־פרמטריים</h3>
+  <div class="keys">Wilcoxon · Sign · Mann-Whitney</div>
+  <ul>
+    <li>מתי? סולם סדר, התפלגות לא־נורמלית, או מדגם קטן עם חשד.</li>
+    <li><strong>Wilcoxon מזווג</strong>: ערכים מספריים + סימטריה. דרגות של |ההפרשים|. R<sub>+</sub> = סכום דרגות חיוביות.</li>
+    <li><strong>מבחן הסימן</strong>: רק כיוון ההפרש (חלש יותר). מתאים לסולם סדר. <span class="num">S<sub>+</sub> ~ B(n*, 0.5)</span>.</li>
+    <li><strong>Mann−Whitney</strong>: דירוג של 2 הקבוצות יחד. R<sub>X</sub> = סכום דרגות במדגם X.</li>
+    <li>תמיד חלשים יותר מהפרמטרי המקביל אם הוא תקף.</li>
+  </ul>
+</div>
+
+<div class="cs-card">
+  <h3>פרק 10 · χ²</h3>
+  <div class="keys">Observed · Expected · df · goodness · independence</div>
+  <ul>
+    <li>סטטיסטי: <span class="num">χ²<sub>s</sub> = Σ (O−E)²/E ~ χ²<sub>df</sub></span>.</li>
+    <li>טיב התאמה: <span class="num">E<sub>i</sub> = p<sub>i</sub>·n</span>, df = k−1.</li>
+    <li>אי־תלות: <span class="num">E<sub>i,j</sub> = (שורה·עמודה)/n</span>, df = (r−1)(c−1).</li>
+    <li>תנאי תקפות: <span class="num">E ≥ 5</span> בכל תא. אחרת — איחוד קטגוריות.</li>
+    <li><strong>תמיד חד־צדדי ימני</strong>. ערך גבוה = דחייה.</li>
+  </ul>
+</div>
+
+<h2 style="margin-top: 48px;">חלק ב · החלטה מהירה — איזה מבחן?</h2>
+
+<div class="cs-card">
+  <table class="matrix-table">
+    <thead>
+      <tr><th>סיטואציה</th><th>הנחות</th><th>מבחן</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>תוחלת של מדגם בודד</td><td>נורמלי + σ ידוע</td><td>z (פרק 7)</td></tr>
+      <tr><td>תוחלת של מדגם בודד</td><td>נורמלי + σ לא ידוע</td><td>t חד־מדגם (פרק 8)</td></tr>
+      <tr><td>תוחלת של מדגם בודד</td><td>לא נורמלי</td><td>Sign על median (פרק 9)</td></tr>
+      <tr><td>הפרש תוחלות — מזווג</td><td>נורמלי</td><td>t מזווג (פרק 8)</td></tr>
+      <tr><td>הפרש תוחלות — מזווג</td><td>סימטרי בלי נורמליות</td><td>Wilcoxon (פרק 9)</td></tr>
+      <tr><td>הפרש תוחלות — מזווג</td><td>רק סולם סדר</td><td>Sign (פרק 9)</td></tr>
+      <tr><td>הפרש תוחלות — 2 ב"ת</td><td>נורמלי + שונויות שוות</td><td>pooled t (פרק 8)</td></tr>
+      <tr><td>הפרש תוחלות — 2 ב"ת</td><td>נורמלי + שונויות שונות</td><td>Welch t (פרק 8)</td></tr>
+      <tr><td>הפרש תוחלות — 2 ב"ת</td><td>לא נורמלי / סולם סדר</td><td>Mann−Whitney (פרק 9)</td></tr>
+      <tr><td>שוויון שונויות (מקדים)</td><td>נורמלי</td><td>F (פרק 8)</td></tr>
+      <tr><td>התפלגות תיאורטית?</td><td>קטגוריות בדידות</td><td>χ² טיב התאמה (פרק 10)</td></tr>
+      <tr><td>תלות בין 2 משתנים שמיים?</td><td>טבלת מנייה</td><td>χ² אי־תלות (פרק 10)</td></tr>
+      <tr><td>חיזוי מסלול חבוי</td><td>HMM</td><td>Viterbi (פרק 4)</td></tr>
+      <tr><td>הסת׳ של סדרת תצפיות</td><td>HMM</td><td>Forward (פרק 4)</td></tr>
+      <tr><td>הסת׳ מצב בזמן i</td><td>HMM + תצפיות מלאות</td><td>Posterior (פרק 4)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 style="margin-top: 48px;">חלק ג · מילון מושגים</h2>
+
+<div class="cs-card">
+  <dl class="glossary">
+    <dt>אומד <span class="en">estimator</span></dt>
+    <dd>סטטיסטי ששואפים שיאמוד פרמטר באוכלוסייה. <span dir="ltr">X̄</span> אומד את <span dir="ltr">μ</span>. <span dir="ltr">S²</span> אומד את <span dir="ltr">σ²</span>.</dd>
+
+    <dt>אזור דחייה <span class="en">rejection region (C)</span></dt>
+    <dd>אוסף תוצאות המדגם שעבורן דוחים את <span dir="ltr">H<sub>0</sub></span>. <span dir="ltr">α = P<sub>H<sub>0</sub></sub>(C)</span>.</dd>
+
+    <dt>אזור קבלה <span class="en">acceptance region</span></dt>
+    <dd>המשלים של אזור הדחייה. <span dir="ltr">β = P<sub>H<sub>1</sub></sub>(C̄)</span>.</dd>
+
+    <dt>אי־תלות <span class="en">independence</span></dt>
+    <dd>שני מאורעות הם בלתי תלויים אם <span dir="ltr">P(A∩B) = P(A)·P(B)</span>. ⚠️ ≠ זרות.</dd>
+
+    <dt>אי־תלות (χ²) <span class="en">chi-square independence</span></dt>
+    <dd>בודקת אם 2 משתנים שמיים בלתי־תלויים סטטיסטית. <span dir="ltr">E<sub>i,j</sub> = (שורה·עמודה)/n</span>.</dd>
+
+    <dt>אחוזון <span class="en">percentile</span></dt>
+    <dd><span dir="ltr">X<sub>p</sub></span> — לפחות <span dir="ltr">p·100%</span> מהערכים קטנים שווים לו.</dd>
+
+    <dt>אומד חסר־הטיה <span class="en">unbiased estimator</span></dt>
+    <dd>תוחלת האומד שווה לפרמטר. <span dir="ltr">S²</span> עם n−1 חסר־הטיה; עם n מוטה למטה.</dd>
+
+    <dt>איחוד <span class="en">union (∪)</span></dt>
+    <dd><span dir="ltr">A∪B</span>: אחד מהשניים (או שניהם) קורה. <span dir="ltr">P(A∪B) = P(A)+P(B)−P(A∩B)</span>.</dd>
+
+    <dt>בייס (משפט) <span class="en">Bayes' theorem</span></dt>
+    <dd>הפיכת הסתברות מותנית: <span dir="ltr">P(B|A) = P(A|B)P(B)/P(A)</span>.</dd>
+
+    <dt>בינומית <span class="en">binomial</span></dt>
+    <dd><span dir="ltr">B(n,p)</span> — מספר ההצלחות ב־n ניסיונות בלתי תלויים, כל אחד עם הסת׳ p.</dd>
+
+    <dt>בלתי תלויים (מבחני) <span class="en">independent samples test</span></dt>
+    <dd>שתי קבוצות שונות של נבדקים. דורש F+pooled t או Mann-Whitney.</dd>
+
+    <dt>גיאומטרית <span class="en">geometric</span></dt>
+    <dd><span dir="ltr">G(p)</span> — מספר ניסיונות עד הצלחה ראשונה. חוסר זיכרון.</dd>
+
+    <dt>דרגות חופש <span class="en">degrees of freedom (df)</span></dt>
+    <dd>מספר הפרמטרים העצמאיים בהתפלגות. ב־<span dir="ltr">t<sub>n−1</sub></span>: df = n−1. ב־<span dir="ltr">χ²</span> טיב התאמה: df = k−1. ב־χ² אי־תלות: df = (r−1)(c−1).</dd>
+
+    <dt>החזרה <span class="en">with/without replacement</span></dt>
+    <dd>עם החזרה: כל ניסיון בלתי תלוי. בלי החזרה: התפלגות היפר־גיאומטרית, או G פשוטה.</dd>
+
+    <dt>הטיה <span class="en">skewness</span></dt>
+    <dd>חוסר סימטריה. ימנית: זנב לימין, Mo &lt; Me &lt; X̄. שמאלית: הפוך.</dd>
+
+    <dt>הסקה <span class="en">inference</span></dt>
+    <dd>מסקנות על האוכלוסייה מתוך מדגם. שני ענפים: אמידה + בדיקת השערות.</dd>
+
+    <dt>הסתברות מותנה <span class="en">conditional probability</span></dt>
+    <dd><span dir="ltr">P(A|B) = P(A∩B)/P(B)</span> כאשר <span dir="ltr">P(B) &gt; 0</span>.</dd>
+
+    <dt>השערה <span class="en">hypothesis</span></dt>
+    <dd>טענה על פרמטר. <span dir="ltr">H<sub>0</sub></span>: השערת האפס (המצב הקיים). <span dir="ltr">H<sub>1</sub></span>: השערת המחקר.</dd>
+
+    <dt>השערה פשוטה <span class="en">simple hypothesis</span></dt>
+    <dd>קובעת ערך ספציפי לפרמטר. <span dir="ltr">μ = 7</span> פשוטה. <span dir="ltr">μ &lt; 7</span> מורכבת.</dd>
+
+    <dt>השערה מורכבת <span class="en">composite hypothesis</span></dt>
+    <dd>טווח ערכים אפשרי. כדי לחשב β צריך לקבע נקודה אחת ספציפית.</dd>
+
+    <dt>חוסר זיכרון <span class="en">memorylessness</span></dt>
+    <dd>תכונה ייחודית של exp (רציפה) ו־G (בדידה): <span dir="ltr">P(X &gt; s+t | X &gt; s) = P(X &gt; t)</span>.</dd>
+
+    <dt>חציון <span class="en">median (Me)</span></dt>
+    <dd>הערך האמצעי. תקף מסולם סדר. עמיד לערכים קיצוניים.</dd>
+
+    <dt>טיב התאמה <span class="en">goodness of fit</span></dt>
+    <dd>χ² שבודק אם המדגם תואם התפלגות תיאורטית מוצעת. df = k−1.</dd>
+
+    <dt>טעות מסוג ראשון <span class="en">type I error (α)</span></dt>
+    <dd>דחיית <span dir="ltr">H<sub>0</sub></span> כשהיא נכונה. False positive. נשלטת ע"י α.</dd>
+
+    <dt>טעות מסוג שני <span class="en">type II error (β)</span></dt>
+    <dd>אי־דחיית <span dir="ltr">H<sub>0</sub></span> כשהיא לא נכונה. False negative.</dd>
+
+    <dt>טווח <span class="en">range</span></dt>
+    <dd>הפרש בין ערך גדול לקטן. רגיש מאוד לערכים קיצוניים.</dd>
+
+    <dt>טווח בין־רבעוני <span class="en">IQR</span></dt>
+    <dd><span dir="ltr">Q<sub>3</sub> − Q<sub>1</sub></span>. עמיד לקיצוניים, מציג את 50% האמצעיים.</dd>
+
+    <dt>יחס הנראות <span class="en">likelihood ratio (λ)</span></dt>
+    <dd><span dir="ltr">λ = L<sub>H<sub>1</sub></sub>(X) / L<sub>H<sub>0</sub></sub>(X)</span>. בסיס למבחן ניימן־פירסון.</dd>
+
+    <dt>מאורע <span class="en">event</span></dt>
+    <dd>תת־קבוצה של מרחב המדגם.</dd>
+
+    <dt>מבחן הסימן <span class="en">sign test</span></dt>
+    <dd>א־פרמטרי מזווג, מסתמך רק על כיוון ההפרש. תקף לסולם סדר.</dd>
+
+    <dt>מדגם מזווג <span class="en">paired sample</span></dt>
+    <dd>כל נבדק תורם 2 תצפיות (לפני/אחרי). דורש t מזווג / Wilcoxon / Sign.</dd>
+
+    <dt>מובהקות התוצאה <span class="en">p-value</span></dt>
+    <dd>הסת׳ לקבל תוצאה כמו במדגם או קיצונית ממנה, תחת <span dir="ltr">H<sub>0</sub></span>. p.v ≤ α ← דחה.</dd>
+
+    <dt>מן־ויטני <span class="en">Mann-Whitney U</span></dt>
+    <dd>א־פרמטרי ל־2 ב"ת. דרגות של 2 הקבוצות יחד. <span dir="ltr">U = R<sub>X</sub> − n<sub>X</sub>(n<sub>X</sub>+1)/2</span>.</dd>
+
+    <dt>ממוצע <span class="en">mean (X̄)</span></dt>
+    <dd>סכום ערכים חלקי מספרם. תקף לכמותי. רגיש לקיצוניים.</dd>
+
+    <dt>משתנה אורדינלי <span class="en">ordinal variable</span></dt>
+    <dd>סולם סדר עם סדר אבל בלי מרחקים מוגדרים. לדוגמה: דירוג 1–5 בסקר.</dd>
+
+    <dt>משתנה כמותי <span class="en">quantitative variable</span></dt>
+    <dd>ערכים מספריים עם משמעות. בדיד (n ילדים) או רציף (גובה).</dd>
+
+    <dt>משתנה שמי <span class="en">nominal variable</span></dt>
+    <dd>קטגוריות בלי סדר. צבע, מין, מצב משפחתי. רק שכיח.</dd>
+
+    <dt>מצב סופג <span class="en">absorbing state</span></dt>
+    <dd>מצב בשרשרת מרקוב שאי אפשר לצאת ממנו. <span dir="ltr">A<sub>i,i</sub> = 1</span>.</dd>
+
+    <dt>מ.ה.מ. <span class="en">Central Limit Theorem (CLT)</span></dt>
+    <dd>ממוצע n גדול של תצפיות בלתי־תלויות מתפלג נורמלית, מכל התפלגות מקורית.</dd>
+
+    <dt>ניימן־פירסון <span class="en">Neyman-Pearson lemma</span></dt>
+    <dd>המבחן עם העוצמה המקסימלית ל־α נתון מבוסס על יחס הנראות.</dd>
+
+    <dt>נראות <span class="en">likelihood (L)</span></dt>
+    <dd>פונקציית ההסתברות (או צפיפות) של המדגם בהינתן ערכי הפרמטר.</dd>
+
+    <dt>עוצמה <span class="en">power (π)</span></dt>
+    <dd><span dir="ltr">π = 1 − β</span>. הסת׳ לדחות נכון את <span dir="ltr">H<sub>0</sub></span>. מבחן עם עוצמה גבוהה = "טוב".</dd>
+
+    <dt>פוסטריור (HMM) <span class="en">posterior</span></dt>
+    <dd><span dir="ltr">P(H<sub>i</sub> = k | X)</span> — הסת׳ למצב <span dir="ltr">k</span> בזמן <span dir="ltr">i</span> בהינתן כל הפלט.</dd>
+
+    <dt>פורוורד (HMM) <span class="en">forward algorithm</span></dt>
+    <dd>חישוב <span dir="ltr">P(X)</span> בעזרת תכנון דינמי. רקורסיה זהה לוויטרבי עם <span dir="ltr">∑</span> במקום <span dir="ltr">max</span>.</dd>
+
+    <dt>פרמטר <span class="en">parameter</span></dt>
+    <dd>גודל המאפיין את האוכלוסייה. אותיות יווניות: μ, σ, p.</dd>
+
+    <dt>צפיפות <span class="en">density (PDF)</span></dt>
+    <dd>פונקציה <span dir="ltr">f(x)</span> שבאינטגרל שלה מקבלים הסת׳. רק למשתנים רציפים.</dd>
+
+    <dt>קירוב נורמלי לבינום <span class="en">normal approximation to binomial</span></dt>
+    <dd><span dir="ltr">B(n,p) ≈ N(np, np(1−p))</span>. תקף כש־<span dir="ltr">np ≥ 5</span> ו־<span dir="ltr">n(1−p) ≥ 5</span>. שימוש עם תיקון רציפות.</dd>
+
+    <dt>רבעון <span class="en">quartile</span></dt>
+    <dd><span dir="ltr">Q<sub>1</sub> = X<sub>0.25</sub></span>, <span dir="ltr">Q<sub>3</sub> = X<sub>0.75</sub></span>.</dd>
+
+    <dt>רגולרית <span class="en">regular</span></dt>
+    <dd>שרשרת מרקוב שעבורה קיים m כך ש־A<sup>m</sup> חיובית רכיב־רכיב. ⇐ קיימת התפלגות שיווי משקל יחידה.</dd>
+
+    <dt>רווח בר־סמך <span class="en">confidence interval (CI)</span></dt>
+    <dd>קטע שמכיל את הפרמטר בהסת׳ <span dir="ltr">1−α</span> מהמדגמים. ≠ "ההסת׳ שהפרמטר ברווח".</dd>
+
+    <dt>רמת מובהקות <span class="en">significance level (α)</span></dt>
+    <dd>α — סף המקובל לדחיית <span dir="ltr">H<sub>0</sub></span>. מקובל: 0.05, 0.01, 0.1.</dd>
+
+    <dt>רמת סמך <span class="en">confidence level (1−α)</span></dt>
+    <dd>שיעור הפעמים שבהן הרווח יכיל את הפרמטר על פני חזרות רבות.</dd>
+
+    <dt>שונות <span class="en">variance (σ²)</span></dt>
+    <dd>ממוצע ריבועי הסטיות מהממוצע. סטטיסטיקה תיאורית: ÷n. הסקה: ÷(n−1).</dd>
+
+    <dt>שיווי משקל <span class="en">stationary distribution (π)</span></dt>
+    <dd>וקטור הסת׳ שמקיים <span dir="ltr">πA = π</span>. בשרשרת רגולרית — קיים, יחיד.</dd>
+
+    <dt>שכיח <span class="en">mode (Mo)</span></dt>
+    <dd>הערך השכיח ביותר. תקף לכל סולם. יכול להיות יותר מאחד.</dd>
+
+    <dt>תוחלת <span class="en">expectation (E[X])</span></dt>
+    <dd>ממוצע משוקלל לפי ההסתברויות. <span dir="ltr">E[X] = ∑ x·P(X=x)</span> בדידה, <span dir="ltr">∫ x·f(x) dx</span> רציפה.</dd>
+
+    <dt>תכונת מרקוב <span class="en">Markov property</span></dt>
+    <dd>העתיד לא תלוי בעבר בהינתן ההווה. הצעד הבא תלוי רק במצב הנוכחי.</dd>
+
+    <dt>תקנון <span class="en">standardization</span></dt>
+    <dd><span dir="ltr">Z = (X − μ)/σ</span> — מחלקים בסטיית התקן, לא בשונות. הופך לנורמלית סטנדרטית.</dd>
+
+    <dt>ויטרבי <span class="en">Viterbi algorithm</span></dt>
+    <dd>מציאת מסלול חבוי הסביר ביותר ב־HMM. תכנון דינמי, O(n·|Q|²).</dd>
+
+    <dt>וילקוקסון <span class="en">Wilcoxon signed-rank</span></dt>
+    <dd>א־פרמטרי מזווג. דרגות של ערכים מוחלטים של הפרשים. R<sub>+</sub> = סכום דרגות חיוביות.</dd>
+  </dl>
+</div>
+
+<div class="chap-nav">
+  <a class="prev" href="formulas.html">→ דף נוסחאות</a>
+  <a class="next" href="index.html">חזרה למפת הקורס ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>

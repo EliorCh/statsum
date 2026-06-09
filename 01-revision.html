@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 1 · חזרה – הסתברות ומשתנים מקריים</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a class="active" href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow">פרק 1 · בסיס הסתברותי</span>
+<h1 class="page-title">חזרה — הסתברות<br>ומשתנים מקריים</h1>
+<p class="page-subtitle">כל מה שתצטרך מהקורס "הסתברות לסטטיסטיקאים" כדי להתחיל את הקורס הזה.</p>
+
+<p class="lead">
+  הפרק הזה <strong>לא נבחן בנפרד</strong> — אבל הוא הבסיס לכל מה שיבוא. כל שאלה במ.ה.מ., בשרשרת מרקוב, או במבחן t תניח שאתה יודע לתקנן, לחשב תוחלת ושונות, להבדיל בין בדיד לרציף, ולעבוד עם הסתברות מותנה. בתרגיל בית 1 (השף רמז, קרוליין־קלאוס־טיילור, סשה) ראית בדיוק את החומר הזה במקובץ אחד.
+</p>
+
+<h2>1 · מרחב המדגם ומאורעות</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>הגדרות יסוד</div>
+  <div class="box-body">
+    <p><strong>מרחב המדגם</strong> <span class="term">Ω</span> — אוסף כל התוצאות האפשריות של ניסוי. דוגמאות: הטלת קובייה, מספר צופים באתר ביממה, צבע חולצה.</p>
+    <p><strong>מאורע</strong> — תת־קבוצה של <span class="term">Ω</span>. נסמן באותיות אנגליות גדולות (A, B, ...). המאורע הריק מסומן ב־<span class="term">∅</span> או <span class="term">{ }</span>.</p>
+    <p>כשמתבצע ניסוי מתקבלת רק תוצאה אחת. נאמר שמאורע <span class="term">A</span> "התרחש" אם התוצאה כלולה ב־A.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>אקסיומות פונקציית ההסתברות</div>
+  <div class="box-body">
+    <p>פונקציית ההסתברות $P$ מתאימה לכל מאורע מספר ב־$[0,1]$:</p>
+    $$0 \le P(A) \le 1$$
+    <p>למאורעות זרים (אין חיתוך):</p>
+    $$P(A \cup B) = P(A) + P(B) \quad \text{כאשר } A \cap B = \emptyset$$
+    <p>סיכוי המאורע הוודאי:</p>
+    $$P(\Omega) = 1$$
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>מסקנות שימושיות מהאקסיומות</div>
+  <div class="box-body">
+    <p>המשלים:</p>
+    $$P(A^c) = 1 - P(A), \qquad P(\emptyset) = 0$$
+    <p>איחוד כללי (לא בהכרח זרים):</p>
+    $$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+    <p>הפרש:</p>
+    $$P(A \setminus B) = P(A) - P(A \cap B)$$
+    <div class="keypoint">
+      <strong>מלכודת קלאסית:</strong> זרים ≠ בלתי־תלויים. זרים פירושו <span class="term">P(A∩B)=0</span>; בלתי־תלויים פירושו <span class="term">P(A∩B)=P(A)P(B)</span>. שני מאורעות עם הסתברות חיובית שהם זרים <strong>תמיד תלויים</strong> זה בזה.
+    </div>
+  </div>
+</div>
+
+<h2>2 · הסתברות מותנה ובלתי־תלות</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>הסתברות מותנה</div>
+  <div class="box-body">
+    $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
+    <p>קוראים זאת: "ההסתברות ש־A קורה <em>בהינתן</em> ש־B קרה". מצמצמים את מרחב המדגם רק לאלה ש־B קרה אצלם.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>נוסחת הכפל (כלל השרשרת)</div>
+  <div class="box-body">
+    <p>זוג מאורעות:</p>
+    $$P(A \cap B) = P(A \mid B)\,P(B) = P(B \mid A)\,P(A)$$
+    <p>שרשרת מורחבת — שימושית בעיקר בשאלות "ראשון, אחר־כך, אחר־כך":</p>
+    $$P(A_1 \cap \cdots \cap A_n) = P(A_1)\,P(A_2 \mid A_1)\,P(A_3 \mid A_1 \cap A_2)\,\cdots$$
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>נוסחת ההסתברות השלמה</div>
+  <div class="box-body">
+    <p>אם $A_1, A_2, \ldots, A_n$ הם חלוקה של $\Omega$ (זרים בזוגות, ואיחודם הוא כל $\Omega$), אז לכל מאורע $B$:</p>
+    $$P(B) = \sum_{i=1}^{n} P(B \mid A_i)\,P(A_i)$$
+    <div class="keypoint">
+      זו ה"נשק הראשי" של פרק 1. רוב שאלות תרגיל בית 1 (כולל שאלת השף והריקודים) הן בדיוק הסתברות שלמה בתחפושת.
+    </div>
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>בלתי־תלות (ב"ת)</div>
+  <div class="box-body">
+    <p>שני מאורעות $A, B$ בלתי־תלויים אם ורק אם <em>כל אחד</em> מהבאים מתקיים (השלושה שקולים):</p>
+    <ol>
+      <li>$P(A \cap B) = P(A)\,P(B)$</li>
+      <li>$P(A \mid B) = P(A)$</li>
+      <li>$P(B \mid A) = P(B)$</li>
+    </ol>
+    <p><strong>אינטואיציה:</strong> ידיעה ש־B קרה לא משנה את ההסתברות של A.</p>
+    <p>עבור $n$ מאורעות $A_1, \ldots, A_n$: ב"ת ⇐ לכל תת־קבוצה של אינדקסים, ההסתברות של החיתוך שווה למכפלת ההסתברויות.</p>
+  </div>
+</div>
+
+<h2>3 · משתנה מקרי</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>מ"מ בדיד ומ"מ רציף</div>
+  <div class="box-body">
+    <p><strong>משתנה מקרי (מ"מ)</strong> — פונקציה ממרחב המדגם לישר הממשי.</p>
+    <h4>מ"מ בדיד</h4>
+    <p>מקבל ערכים בדידים $x_1, x_2, \ldots$ עם פונקציית הסתברות $p_X(x_i) = P(X=x_i)$.</p>
+    <p>תכונות: $0 \le p_X(x_i) \le 1$ ו־$\sum_i p_X(x_i) = 1$.</p>
+    <h4>מ"מ רציף</h4>
+    <p>קיימת פונקציית צפיפות $f(x) \ge 0$ כך שלכל $a \le b$:</p>
+    $$P(a \le X \le b) = \int_a^b f(x)\,dx$$
+    <p>תכונה מרכזית: $\int_{-\infty}^{\infty} f(x)\,dx = 1$.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>פונקציית התפלגות מצטברת (CDF)</div>
+  <div class="box-body">
+    $$F_X(t) = P(X \le t)$$
+    <p>מהתכונות:</p>
+    <ul>
+      <li>$P(a \le X \le b) = F_X(b) - F_X(a)$</li>
+      <li>$F_X$ מונוטונית עולה (במובן החלש)</li>
+      <li>$\lim_{t \to -\infty} F_X(t) = 0,\ \lim_{t \to \infty} F_X(t) = 1$</li>
+      <li>במקרה הרציף: $f(x) = F'(x)$ (משפט יסודי של חדו"א)</li>
+    </ul>
+  </div>
+</div>
+
+<h2>4 · תוחלת ושונות</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>תוחלת</div>
+  <div class="box-body">
+    <p><strong>בדיד:</strong></p>
+    $$E(X) = \sum_i x_i \, P(X=x_i)$$
+    <p><strong>רציף:</strong></p>
+    $$E(X) = \int_{-\infty}^{\infty} x \, f(x)\,dx$$
+    <p>התוחלת היא <em>מדד מרכז</em> — איפה ה"מרכז כובד" של ההתפלגות.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>שונות וסטיית תקן</div>
+  <div class="box-body">
+    <p>נוסחת הקיצור (תמיד עדיפה לחישוב):</p>
+    $$V(X) = E(X^2) - \bigl(E(X)\bigr)^2$$
+    <p>כאשר במקרה הבדיד:</p>
+    $$E(X^2) = \sum_i x_i^2 \, P(X=x_i)$$
+    <p>סטיית התקן:</p>
+    $$\sigma(X) = \sqrt{V(X)}$$
+    <p>השונות תמיד אי־שלילית. $V(X)=0$ אם ורק אם $X$ קבוע.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>תכונות התוחלת והשונות</div>
+  <div class="box-body">
+    <p>טרנספורמציה ליניארית של מ"מ יחיד:</p>
+    $$E(aX+b) = aE(X) + b$$
+    $$V(aX+b) = a^2\, V(X)$$
+    <p>סכום של שני מ"מ (לא נדרשת ב"ת):</p>
+    $$E(X+Y) = E(X) + E(Y)$$
+    <div class="keypoint">
+      <strong>שים לב:</strong> השונות של סכום מתנהגת יפה רק אם המ"מים בלתי־תלויים — אחרת יש איבר Cov שלא ראינו כאן. במבחן ב"ת תקבל את הזכות לכתוב $V(X+Y) = V(X) + V(Y)$.
+    </div>
+  </div>
+</div>
+
+<h2>5 · התפלגויות בדידות מיוחדות</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>ברנולי ובינומית · X ~ B(n,p)</div>
+  <div class="box-body">
+    <p><strong>ניסוי ברנולי</strong> — ניסוי עם שתי תוצאות (הצלחה/כשלון).</p>
+    <p><strong>בינומית</strong> — מספר ההצלחות ב־$n$ ניסויי ברנולי בלתי־תלויים, כל אחד בסיכוי הצלחה $p$.</p>
+    $$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0, 1, \ldots, n$$
+    $$E(X) = np, \qquad V(X) = np(1-p)$$
+    <p><strong>סימני זיהוי:</strong> "כמה הצליחו מתוך n ניסויים זהים", "כמה פעמים יצא ראש ב־10 הטלות", "מספר הצרכנים שהאוהבים את המוצר מתוך 50 נדגמים".</p>
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>גיאומטרית · X ~ G(p)</div>
+  <div class="box-body">
+    <p>מספר הניסיונות <strong>עד</strong> ההצלחה הראשונה (כולל ההצלחה).</p>
+    $$P(X = k) = (1-p)^{k-1} p, \quad k = 1, 2, 3, \ldots$$
+    $$E(X) = \frac{1}{p}, \qquad V(X) = \frac{1-p}{p^2}$$
+    <p><strong>תכונת חוסר זיכרון:</strong></p>
+    $$P(X > k+s \mid X > k) = P(X > s)$$
+    <p>במילים: גם אם נכשלת $k$ פעמים, ההתפלגות של מספר הניסיונות הנוספים זהה למקור.</p>
+    <p><strong>סימני זיהוי:</strong> "כמה פעמים תצטרך לנסות עד שתצליח", "באיזה ניסיון יקבל המדען לראשונה תוצאה חיובית".</p>
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>אחידה בדידה · X ~ U[m,n]</div>
+  <div class="box-body">
+    <p>$X$ מקבל את הערכים $m, m+1, \ldots, n$ בהסתברות שווה לכל אחד:</p>
+    $$P(X = k) = \frac{1}{n-m+1}, \quad m \le k \le n$$
+    $$E(X) = \frac{m+n}{2}, \qquad V(X) = \frac{(n-m+1)^2 - 1}{12}$$
+    <p><strong>סימני זיהוי:</strong> "מקום אקראי בשורה", "תוצאת קובייה הוגנת".</p>
+  </div>
+</div>
+
+<h2>6 · התפלגויות רציפות מיוחדות</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>אחידה רציפה · X ~ U(a,b)</div>
+  <div class="box-body">
+    $$f(x) = \frac{1}{b-a}, \quad a \le x \le b$$
+    $$F(t) = \frac{t-a}{b-a}, \quad a \le t \le b$$
+    $$E(X) = \frac{a+b}{2}, \qquad V(X) = \frac{(b-a)^2}{12}$$
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>מעריכית · X ~ exp(λ)</div>
+  <div class="box-body">
+    $$f(x) = \lambda e^{-\lambda x}, \quad x \ge 0$$
+    $$F(t) = 1 - e^{-\lambda t}, \quad t \ge 0$$
+    $$E(X) = \frac{1}{\lambda}, \qquad V(X) = \frac{1}{\lambda^2}$$
+    <p><strong>תכונת חוסר זיכרון</strong> (המקבילה הרציפה של הגיאומטרית):</p>
+    $$P(X > t+s \mid X > t) = P(X > s)$$
+    <p><strong>סימני זיהוי:</strong> "זמן המתנה עד אירוע ראשון" (שיחה במוקד, החלפת חלק, כניסת לקוח).</p>
+  </div>
+</div>
+
+<h2>7 · דוגמה מפורטת — סשה והכפיים (תרגיל בית 1, ש' 3)</h2>
+
+<div class="box example">
+  <div class="box-head"><span class="icon">💡</span>צפיפות עם פרמטר, חוסר זיכרון, ובינומית</div>
+  <div class="box-body">
+
+    <p>נתון משך הזמן $X$ (בדקות) שמוחאים כפיים לסשה:</p>
+    $$f(x) = \begin{cases} a + 0.25ax & 0 \le x < 4 \\ 3a - 0.25ax & 4 \le x < 8 \\ 0 & \text{אחרת} \end{cases}$$
+
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <div style="font-size:11px; font-weight:700; color:#047857; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:var(--mono);">צעד 1 · למצוא את a</div>
+      <p>תנאי הנירמול $\int_0^8 f(x)\,dx = 1$. אינטגרל של פונקציה ליניארית-משולש זוויתית עם בסיס 8 וגובה $3a$ ב־$x{=}4$:</p>
+      $$\int_0^4 (a + 0.25ax)\,dx + \int_4^8 (3a - 0.25ax)\,dx = 1$$
+      <p>אחרי החישוב מגיעים ל־$8a = 1$, כלומר $a = 1/8 = 0.125$.</p>
+    </div>
+
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <div style="font-size:11px; font-weight:700; color:#047857; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:var(--mono);">צעד 2 · סיכוי שיתמשכו ⩾ 2 דק׳ נוספות בהינתן 4</div>
+      <p>צריך $P(X \ge 6 \mid X \ge 4)$. מתוך הצפיפות, על $[4,8]$ הצפיפות מצטמצמת לכמחצית מהמסה (הצורה סימטרית סביב 4), והחישוב המלא נותן:</p>
+      $$P(X \ge 6 \mid X \ge 4) = \frac{P(X \ge 6)}{P(X \ge 4)}$$
+      <p>$P(X \ge 4) = \int_4^8 (3a - 0.25ax)\,dx = 4a = 0.5$. $P(X \ge 6) = \int_6^8 (3a - 0.25ax)\,dx = 0.5a\cdot 2 - 0.5\cdot 0.25a\cdot (64-36) = a/2 = 0.0625$. אז $P(X \ge 6 \mid X \ge 4) = 0.125$.</p>
+    </div>
+
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <div style="font-size:11px; font-weight:700; color:#047857; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:var(--mono);">צעד 3 · תוחלת</div>
+      <p>בגלל סימטריה סביב $x=4$:</p>
+      $$E(X) = 4 \text{ דקות}$$
+    </div>
+
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <div style="font-size:11px; font-weight:700; color:#047857; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:var(--mono);">צעד 4 · מ' מוצלחים מתוך 10 (בינומית)</div>
+      <p>$p = P(X > 6) = a/2 = 0.0625$, ערב מוצלח. נסמן $Y$ מספר הערבים המוצלחים מתוך 10. אז $Y \sim B(10, 0.0625)$.</p>
+      <p>נדרש $P(Y < 2) = P(Y=0) + P(Y=1)$:</p>
+      $$P(Y=0) = 0.9375^{10} \approx 0.524$$
+      $$P(Y=1) = 10 \cdot 0.0625 \cdot 0.9375^9 \approx 0.349$$
+    </div>
+
+    <div class="final-answer">
+      $a = 0.125$, $P(X{\ge}6 \mid X{\ge}4) = 0.125$, $E(X) = 4$ דק׳, $P(Y < 2) \approx 0.873$.
+    </div>
+
+  </div>
+</div>
+
+<h2>8 · טעויות נפוצות</h2>
+
+<div class="box warn">
+  <div class="box-head"><span class="icon">⚠</span>חמש המלכודות הקלאסיות</div>
+  <div class="box-body">
+    <ol>
+      <li>
+        <strong>בלבול בין "זרים" ל"ב"ת".</strong>
+        אם אמרו במפורש "זרים" — סימן ש־$P(A \cap B) = 0$, ולא ש־$P(A \cap B) = P(A)P(B)$. אלא אם אחד מהם בעל הסתברות 0, זרים <em>תלויים</em>.
+      </li>
+      <li>
+        <strong>"לפחות" / "יותר מ־" בבינומית.</strong>
+        "לפחות $k$" משמעו $X \ge k$ ולא $X > k$. בקירוב נורמלי לבינום ההבדל חשוב — תיקון רציפות (פרק 2).
+      </li>
+      <li>
+        <strong>גיאומטרית: מתחיל מ־1, לא מ־0.</strong>
+        $X \sim G(p)$ הוא <em>מספר הניסיונות עד הצלחה</em> — כולל הצלחה. לכן $P(X=1) = p$, לא $1-p$.
+      </li>
+      <li>
+        <strong>$V(aX+b) \ne aV(X)+b$.</strong>
+        תוספת קבוע לא משנה את השונות. כפל בקבוע מעלה את השונות בריבוע: $V(aX+b)=a^2V(X)$.
+      </li>
+      <li>
+        <strong>חישוב תוחלת ע"י "מ"מ ממוצע" — שגוי כשהפונקציה לא ליניארית.</strong>
+        בכלל, $E(g(X)) \ne g(E(X))$ אלא אם $g$ ליניארית. למשל $E(X^2) \ne E(X)^2$ — וזה בדיוק הפער שמודד $V(X)$.
+      </li>
+    </ol>
+  </div>
+</div>
+
+<h2>9 · תרגילים לבחינה</h2>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 1 · השף רמז (תרגיל בית 1, ש' 1)</div>
+  <div class="box-body">
+    <div class="exercise-card">
+      <div class="exercise-q">
+        <span class="exercise-tag">שרשרת הסתברויות מותנות</span>
+        <p>השף רמז מכין מנות במטבח וטועם כל אחת. אם הכין מנה טעימה, הבאה תהיה טעימה בסיכוי 0.7. אם הכין מנה לא טעימה, הבאה תהיה טעימה בסיכוי 0.4. המנה הראשונה תמיד טעימה.</p>
+        <ol style="margin: 10px 24px;">
+          <li>מה ההסתברות שהמנה השלישית טעימה?</li>
+          <li>בהינתן שהמנה השלישית טעימה — מה ההסתברות שהשנייה הייתה טעימה?</li>
+        </ol>
+      </div>
+      <button class="reveal-btn" onclick="this.parentElement.classList.toggle('open')">הצג פתרון</button>
+      <div class="solution">
+
+        <div class="step">
+          <div class="step-label">צעד 1 · סימון</div>
+          <p>נסמן $T_i$ = "המנה ה־$i$ טעימה". נתון: $P(T_1)=1$, $P(T_{i+1} \mid T_i)=0.7$, $P(T_{i+1} \mid T_i^c)=0.4$.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 2 · התפלגות המנה השנייה</div>
+          <p>בהינתן $T_1$:</p>
+          $$P(T_2) = P(T_2 \mid T_1) \cdot P(T_1) = 0.7 \cdot 1 = 0.7$$
+          $$P(T_2^c) = 0.3$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 3 · נוסחת ההסתברות השלמה למנה השלישית</div>
+          $$P(T_3) = P(T_3 \mid T_2)\,P(T_2) + P(T_3 \mid T_2^c)\,P(T_2^c)$$
+          $$= 0.7 \cdot 0.7 + 0.4 \cdot 0.3 = 0.49 + 0.12 = 0.61$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 4 · בייס למנה השנייה בהינתן השלישית</div>
+          $$P(T_2 \mid T_3) = \frac{P(T_3 \mid T_2)\,P(T_2)}{P(T_3)} = \frac{0.7 \cdot 0.7}{0.61} = \frac{0.49}{0.61} \approx 0.803$$
+        </div>
+
+        <div class="final-answer">
+          $P(T_3) = 0.61$ ; $P(T_2 \mid T_3) \approx 0.803$.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 2 · קרוליין־קלאוס־טיילור (תרגיל בית 1, ש' 2)</div>
+  <div class="box-body">
+    <div class="exercise-card">
+      <div class="exercise-q">
+        <span class="exercise-tag">הסתברות שלמה + בינומית</span>
+        <p>בכל ריקוד קרוליין מטילה מטבע הוגן. עץ ⇐ מטילה קובייה אחת; פלי ⇐ מטילה 2 קוביות. סוכמת את ההטלות. סכום $\le 6$ ⇐ רוקדת עם קלאוס, אחרת עם טיילור. סה"כ 12 ריקודים, החלטות בלתי־תלויות.</p>
+        <ol style="margin: 10px 24px;">
+          <li>חשבו $P(\text{ריקוד עם קלאוס})$ בריקוד יחיד.</li>
+          <li>נסמן $Y$ = מספר הריקודים עם קלאוס מתוך 12. מצאו את התפלגות $Y$, $E(Y)$ ו־$V(Y)$.</li>
+          <li>ריקוד עם קלאוס = 5 דק׳, עם טיילור = 2 דק׳. $T$ = סך משך 12 הריקודים. חשבו $E(T)$ ו־$V(T)$.</li>
+        </ol>
+      </div>
+      <button class="reveal-btn" onclick="this.parentElement.classList.toggle('open')">הצג פתרון</button>
+      <div class="solution">
+
+        <div class="step">
+          <div class="step-label">צעד 1 · הסתברות שלמה — סכום ההטלות</div>
+          <p>עץ (סיכוי 0.5): קובייה אחת. $P(\le 6 \mid \text{עץ}) = 1$ (כי קובייה אחת תמיד ≤ 6).</p>
+          <p>פלי (סיכוי 0.5): שתי קוביות. מתוך 36 צירופים, ספרנו שיש 21 צירופים שסכומם ≤ 6 (2,3,4,5,6). אז $P(\le 6 \mid \text{פלי}) = 21/36 = 7/12$.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 2 · חיבור</div>
+          $$P(\text{קלאוס}) = 0.5 \cdot 1 + 0.5 \cdot \frac{7}{12} = \frac{1}{2} + \frac{7}{24} = \frac{19}{24} \approx 0.792$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 3 · התפלגות Y</div>
+          <p>12 ניסויי ברנולי ב"ת, סיכוי הצלחה $p = 19/24$:</p>
+          $$Y \sim B\!\left(12, \tfrac{19}{24}\right)$$
+          $$E(Y) = 12 \cdot \tfrac{19}{24} = 9.5, \quad V(Y) = 12 \cdot \tfrac{19}{24} \cdot \tfrac{5}{24} = \tfrac{1140}{576} \approx 1.979$$
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 4 · T כתוצאה ליניארית של Y</div>
+          <p>אם $Y$ ריקודים עם קלאוס (5 דק') ו־$12-Y$ עם טיילור (2 דק'):</p>
+          $$T = 5Y + 2(12-Y) = 3Y + 24$$
+          $$E(T) = 3 E(Y) + 24 = 3 \cdot 9.5 + 24 = 52.5$$
+          $$V(T) = 9 V(Y) \approx 9 \cdot 1.979 \approx 17.81$$
+        </div>
+
+        <div class="final-answer">
+          $p = 19/24$ ; $Y \sim B(12, 19/24)$ עם $E(Y){=}9.5$, $V(Y){\approx}1.98$ ; $E(T){=}52.5$ דק׳, $V(T){\approx}17.81$.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>10 · סיכום מהיר</h2>
+
+<div class="box summary">
+  <div class="box-head"><span class="icon">📌</span>מה לזכור ערב הבחינה</div>
+  <div class="box-body">
+    <ol>
+      <li><strong>כשרואים "אם A קרה אז…"</strong> — זה הסתברות מותנה. סכמו עם הסתברות שלמה לפי החלוקה.</li>
+      <li><strong>בדיד ⇐ סכומים; רציף ⇐ אינטגרלים.</strong> זה כל ההבדל בשורות התוחלת והשונות.</li>
+      <li><strong>תכונות ליניאריות:</strong> $E(aX+b)=aE(X)+b$; $V(aX+b)=a^2V(X)$. תוספת קבוע <em>לא</em> משנה שונות.</li>
+      <li><strong>זיהוי התפלגות בדידה:</strong> "כמה הצלחות מתוך n" → $B(n,p)$; "עד להצלחה ראשונה" → $G(p)$; "מקום אקראי" → $U[m,n]$.</li>
+      <li><strong>זיהוי התפלגות רציפה:</strong> "זמן המתנה עד אירוע" → $\exp(\lambda)$; "אקראי אחיד בקטע" → $U(a,b)$.</li>
+      <li><strong>תוחלות חשובות:</strong> $B(n,p) \Rightarrow np$ ; $G(p) \Rightarrow 1/p$ ; $\exp(\lambda) \Rightarrow 1/\lambda$.</li>
+      <li><strong>חוסר זיכרון:</strong> רק לגיאומטרית ולמעריכית. שאלות מסוג "בהינתן שכבר חיכינו $k$, מה הסיכוי שניאלץ לחכות עוד $s$?" — התשובה זהה ל־$P(X>s)$.</li>
+      <li><strong>שונות סכום:</strong> רק עבור ב"ת. במבחן יציינו ב"ת — נסה לזהות את זה כסיגנל.</li>
+    </ol>
+  </div>
+</div>
+
+<div style="height: 60px"></div>
+
+<div style="display:flex; justify-content:space-between; padding-top:32px; border-top:1px solid var(--rule); margin-top:48px;">
+  <a href="index.html" style="color:var(--indigo-7); text-decoration:none; font-weight:600;">→ דף הבית</a>
+  <a href="02-normal-clt.html" style="color:var(--indigo-7); text-decoration:none; font-weight:600;">פרק 2: נורמלי + מ.ה.מ. ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>

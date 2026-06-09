@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 9 · מבחנים א־פרמטריים</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a class="active" href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow">פרק 9 · בדיקת השערות</span>
+<h1 class="page-title">מבחנים א־פרמטריים<br>Wilcoxon · Sign · Mann−Whitney</h1>
+<p class="page-subtitle">מה עושים כשאי אפשר להניח התפלגות נורמלית.</p>
+
+<p class="lead">
+  עד עכשיו הנחנו שהאוכלוסייה מתפלגת נורמלית — אבל מתי באמת אפשר להניח את זה? כשהמשתנה רציף, ניתן למדידה מדויקת, מספיק תצפיות. במציאות הרבה פעמים יש <strong>משתני סדר</strong> (ציון 1–5 בסקר), <strong>מדגמים קטנים</strong> שעוד לא ראינו אם נורמליים, או <strong>התפלגויות שבדקנו ולא נורמליות</strong>. אז עוברים למבחנים א־פרמטריים: לא דורשים נורמליות, רוב פעם רק <strong>דירוגים</strong> במקום ערכים. החיסרון: עוצמה נמוכה יותר משל מבחן פרמטרי באותם נתונים. שלושה מבחנים נכסה: Wilcoxon (מזווג), Sign (מזווג חלש יותר אבל מספיק לסדר), Mann−Whitney (בלתי־תלויים).
+</p>
+
+<h2>1 · המוטיבציה</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>מתי עוברים לא־פרמטרי</div>
+  <div class="box-body">
+    <p>שלוש סיבות נפוצות:</p>
+    <ol>
+      <li><strong>משתנה סדר</strong> (אורדינלי). ציון "מהמם / טוב / סביר / גרוע" אי אפשר להפעיל עליו ממוצע ושונות.</li>
+      <li><strong>משתנה כמותי שלא נורמלי</strong>. בדקנו (היסטוגרמה / boxplot / מבחן נורמליות) — לא נורמלי. מבחני t לא תקפים.</li>
+      <li><strong>מדגם קטן עם חשד לחריגות חזקות</strong>. גם אם האוכלוסייה אולי נורמלית, אין מספיק תצפיות לבטוח.</li>
+    </ol>
+    <p><strong>הרעיון העיקרי</strong>: לוותר על הערכים הגולמיים, להסתפק ב<strong>דירוגים</strong>. ההתפלגות של סכום הדירוגים תחת H<sub>0</sub> ניתנת לחישוב מדויק (לקטנים) או לקירוב נורמלי (לגדולים).</p>
+  </div>
+</div>
+
+<h2>2 · מבחן Wilcoxon למדגמים מזווגים</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>מה זה ולמה</div>
+  <div class="box-body">
+    <p>הגרסה הא־פרמטרית של t מזווג. דורש <strong>ערכים מספריים</strong> (כי מחשבים הפרשים) אבל לא דורש נורמליות. הנחה היחידה: התפלגות ההפרשים <strong>סימטרית</strong>. תחת H<sub>0</sub> סימטרית מסביב ל־0.</p>
+    <p><span class="term">H<sub>0</sub>:</span> אין הבדל בין שני הגדלים המושווים. <span class="term">H<sub>1</sub>:</span> יש הבדל (חד־צדדי או דו־צדדי).</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>שלבי המבחן</div>
+  <div class="box-body">
+    <ol>
+      <li>בכל זוג, חשב הפרש <span class="term">D<sub>i</sub> = X<sub>i</sub> − Y<sub>i</sub></span>.</li>
+      <li>"זרוק" את ההפרשים השווים ל־0. נסמן <span class="term">n*</span> = מספר ההפרשים האפקטיביים (לא־אפסיים).</li>
+      <li>דרג את ה<strong>ערכים המוחלטים</strong> של ההפרשים מהקטן לגדול. הפרשים זהים → דרגה ממוצעת.</li>
+      <li>חשב <span class="term">R<sub>+</sub><sup>S</sup></span> = סכום הדרגות של ההפרשים <strong>החיוביים</strong> במדגם.</li>
+      <li>חשב את מובהקות התוצאה.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>התפלגות הסטטיסטי תחת H<sub>0</sub></div>
+  <div class="box-body">
+    <p>כאשר <span class="term">n* ≥ 12</span> (לעיתים מסתפקים ב־n* ≥ 8) — קירוב נורמלי:</p>
+    <p>$$R_+ \sim_{H_0} N\!\left(\frac{n^*(n^*+1)}{4},\ \frac{n^*(n^*+1)(2n^*+1)}{24}\right)$$</p>
+    <p>(ו־R<sub>−</sub> מתפלג זהה.) זה מסתמך על: <span class="term">R<sub>+</sub> + R<sub>−</sub> = n*(n*+1)/2</span> (סכום כל הדרגות 1..n*).</p>
+    <p>p-value:</p>
+    <ul>
+      <li>חד־צדדי ימני (H<sub>1</sub>: X &gt; Y): <span class="term">p.v = P(R<sub>+</sub> ≥ R<sub>+</sub><sup>S</sup>)</span></li>
+      <li>חד־צדדי שמאלי: <span class="term">p.v = P(R<sub>+</sub> ≤ R<sub>+</sub><sup>S</sup>)</span></li>
+      <li>דו־צדדי: פי 2 מהקטן מבין השניים (כפוף לבחירת הזנב הנכון).</li>
+    </ul>
+  </div>
+</div>
+
+<h2>3 · מבחן הסימן (Sign Test)</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>מבחן מזווג חלש יותר אבל הכי גנרי</div>
+  <div class="box-body">
+    <p>דורש רק <strong>כיוון</strong> ההבדל בזוג (חיובי או שלילי), לא את הערך הגולמי. מתאים למשתני סדר. מאבד מידע יחסית ל־Wilcoxon, ולכן חלש יותר — אבל יחיד שתקף כאשר המשתנה רק אורדינלי.</p>
+    <p>תחת H<sub>0</sub>: הסת׳ להפרש חיובי = הסת׳ להפרש שלילי = 0.5.</p>
+    <p>$$H_0: p^+ = 0.5 \quad,\quad H_1: p^+ \ne 0.5 \text{ (או } &gt;/&lt;\text{)}$$</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>שלבי המבחן + התפלגות</div>
+  <div class="box-body">
+    <ol>
+      <li>סופרים בכמה זוגות ההפרש שונה מ־0 → <span class="term">n*</span>.</li>
+      <li>סופרים בכמה ההפרש חיובי → <span class="term">S<sub>+</sub><sup>S</sup></span>.</li>
+      <li>תחת H<sub>0</sub>, <span class="term">S<sub>+</sub> ~ B(n*, 0.5)</span> בינומית.</li>
+      <li>לקירוב נורמלי (n* גדול):</li>
+    </ol>
+    <p>$$S_+ \sim_{H_0} N(0.5 n^*,\ 0.25 n^*)$$</p>
+    <p>p-value מחושב כרגיל לפי הכיוון.</p>
+  </div>
+</div>
+
+<h2>4 · מבחן Mann−Whitney (U-test)</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>הגרסה הא־פרמטרית של t לבלתי־תלויים</div>
+  <div class="box-body">
+    <p>שני מדגמים בלתי־תלויים, X ו־Y, ואנחנו בודקים אם הם מאותה התפלגות.</p>
+    <p>הנחות: <strong>שתי האוכלוסיות בעלות צורת התפלגות דומה</strong> (לא בהכרח נורמלית). תחת H<sub>1</sub> חד־צדדי: אחת ההתפלגויות זזה ימינה/שמאלה ביחס לשנייה.</p>
+    <p><strong>H<sub>0</sub>:</strong> ההתפלגויות זהות. <strong>H<sub>1</sub>:</strong> שונות (או הזזה ימינה / שמאלה).</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>שלבי המבחן</div>
+  <div class="box-body">
+    <ol>
+      <li>דרג את <strong>כל</strong> התצפיות ביחד (משתי הקבוצות) מהקטן לגדול. ערכים זהים → דרגה ממוצעת.</li>
+      <li>חשב <span class="term">R<sub>X</sub><sup>S</sup></span> = סכום הדרגות של הנתונים במדגם X.</li>
+      <li>חשב p-value לפי הכיוון.</li>
+    </ol>
+    <p><strong>הקשר בין R<sub>X</sub> ל־R<sub>Y</sub>:</strong></p>
+    <p>$$R_X + R_Y = \frac{n(n+1)}{2}, \quad n = n_X + n_Y$$</p>
+    <p>(כי דרגות 1..n).</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>התפלגות תחת H<sub>0</sub></div>
+  <div class="box-body">
+    <p>כאשר <span class="term">max{n<sub>X</sub>, n<sub>Y</sub>} ≥ 10</span>:</p>
+    <p>$$R_X \sim_{H_0} N\!\left(\frac{n_X(n+1)}{2},\ \frac{n_X n_Y (n+1)}{12}\right)$$</p>
+    <p>(ו־R<sub>Y</sub> סימטרית.) p-value כרגיל לפי הכיוון.</p>
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>סטטיסטי U של Mann−Whitney (שקול)</div>
+  <div class="box-body">
+    <p>סטטיסטי שקול: לכל תצפית ב־X, סופרים כמה תצפיות בקבוצת Y קטנות־שווה לה. נסכם → <span class="term">M<sub>X</sub></span>. הקשר:</p>
+    <p>$$M_X = R_X - \frac{n_X(n_X + 1)}{2}$$</p>
+    <p>תחת H<sub>0</sub>:</p>
+    <p>$$M_X \sim_{H_0} N\!\left(\frac{n_X n_Y}{2},\ \frac{n_X n_Y (n+1)}{12}\right)$$</p>
+    <p>scipy.stats.mannwhitneyu מחזיר את <span class="term">U</span> = <span class="term">M</span>.</p>
+  </div>
+</div>
+
+<h2>5 · השוואה כללית של מבחני הפרק</h2>
+
+<div class="box summary">
+  <div class="box-head"><span class="icon">📋</span>טבלת החלטה</div>
+  <div class="box-body">
+    <table>
+      <thead>
+        <tr><th>סיטואציה</th><th>מבחן פרמטרי</th><th>מבחן א־פרמטרי</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>מדגם בודד, σ ידועה</td><td>z</td><td>—</td></tr>
+        <tr><td>מדגם בודד, σ לא ידועה</td><td>t (פרק 8)</td><td>Sign על median</td></tr>
+        <tr><td>מזווג, נורמלי</td><td>t מזווג</td><td>Wilcoxon / Sign</td></tr>
+        <tr><td>2 ב"ת, נורמלי</td><td>t לב"ת + F</td><td>Mann−Whitney</td></tr>
+        <tr><td>2 ב"ת, סולם סדר</td><td>—</td><td>Mann−Whitney</td></tr>
+      </tbody>
+    </table>
+    <p><strong>כלל אצבע</strong>: אם המבחן הפרמטרי תקף — תמיד מועדף (עוצמה גבוהה יותר). אם לא ניתן (סדר/לא נורמלי/חשש) — עבר לא־פרמטרי.</p>
+  </div>
+</div>
+
+<h2>6 · תרגילי מבחן</h2>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 1 — Wilcoxon על מדגם קטן (דוגמה 1)</div>
+  <div class="box-body">
+    <p>ציוני 3 סטודנטים בשני קורסים:</p>
+    <table>
+      <thead><tr><th>סטודנט</th><th>הסתברות (X)</th><th>סטטיסטיקה (Y)</th></tr></thead>
+      <tbody>
+        <tr><td>דן</td><td class="num">80</td><td class="num">90</td></tr>
+        <tr><td>דני</td><td class="num">85</td><td class="num">83</td></tr>
+        <tr><td>דנידין</td><td class="num">90</td><td class="num">97</td></tr>
+      </tbody>
+    </table>
+    <p>בדקו ברמת 0.3 שציוני סטטיסטיקה גבוהים יותר.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><span class="term">D = Y − X = (10, −2, 7)</span>. <span class="term">|D| = (10, 2, 7)</span> מסודר: <span class="term">(2, 7, 10)</span> ↔ דרגות 1, 2, 3.</p>
+      <p>סימני ההפרשים המקוריים: דן +, דני −, דנידין +.</p>
+      <p>דרגות עם סימן +: דנידין (דרגה 3), דן (דרגה 2). <span class="term">R<sub>+</sub><sup>S</sup> = 3 + 2 = 5</span>.</p>
+      <p>n* = 3 קטן מדי לקירוב נורמלי → חישוב מדויק. סך הצירופים: 2<sup>3</sup> = 8. נציב את <span class="term">R<sub>+</sub></span> לכל אפשרות:</p>
+      <table>
+        <thead><tr><th>1</th><th>2</th><th>3</th><th>R<sub>+</sub></th></tr></thead>
+        <tbody>
+          <tr><td>−</td><td>−</td><td>−</td><td class="num">0</td></tr>
+          <tr><td>+</td><td>−</td><td>−</td><td class="num">1</td></tr>
+          <tr><td>−</td><td>+</td><td>−</td><td class="num">2</td></tr>
+          <tr><td>−</td><td>−</td><td>+</td><td class="num">3</td></tr>
+          <tr><td>+</td><td>+</td><td>−</td><td class="num">3</td></tr>
+          <tr><td>+</td><td>−</td><td>+</td><td class="num">4</td></tr>
+          <tr><td>−</td><td>+</td><td>+</td><td class="num">5</td></tr>
+          <tr><td>+</td><td>+</td><td>+</td><td class="num">6</td></tr>
+        </tbody>
+      </table>
+      <p>H<sub>1</sub>: Y &gt; X → חד־צדדי ימני → <span class="term">p.v = P(R<sub>+</sub> ≥ 5) = 2/8 = 0.25</span>.</p>
+      <p><span class="term">0.25 ≤ 0.3</span> → <strong>דוחים</strong> את H<sub>0</sub> ברמת 0.3. הציונים בסטטיסטיקה גבוהים יותר.</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 2 — מבחן הסימן (דוגמה 3)</div>
+  <div class="box-body">
+    <p>חוקר בדק רמת סוכרים ב־45 אנשים ביום ובלילה. ב־5 אנשים אין הבדל, ב־27 ביום גבוה יותר, ב־13 בלילה גבוה יותר. ידוע שההתפלגויות לא נורמליות.</p>
+    <p>(א) בדקו דו־צדדי ברמת 5% שיש הבדל. (ב) אם השאלה הייתה שהיום גבוה יותר — מה המסקנה ברמת 5%?</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><span class="term">n* = 27 + 13 = 40</span> (5 השוויונות מתעלמים). <span class="term">S<sub>+</sub><sup>S</sup> = 27</span>.</p>
+      <p>תחת H<sub>0</sub>: <span class="term">S<sub>+</sub> ~ N(20, 10)</span>. <span class="term">σ = √10 ≈ 3.162</span>.</p>
+      <p><span class="term">Z<sub>s</sub> = (27 − 20)/3.162 = 7/3.162 ≈ 2.214</span></p>
+      <p><strong>(א) דו־צדדי.</strong> p.v ≈ <span class="term">2 · (1 − Φ(2.214)) ≈ 2 · 0.0134 ≈ 0.0268</span>. <span class="term">0.0268 &lt; 0.05</span> → <strong>דוחים</strong>. יש הבדל.</p>
+      <p><strong>(ב) חד־צדדי ימני</strong> (H<sub>1</sub>: יום גבוה יותר → S<sub>+</sub> גדול). p.v ≈ <span class="term">1 − Φ(2.214) ≈ 0.0134 &lt; 0.05</span> → <strong>דוחים</strong>. רמת הסוכרים ביום גבוהה יותר.</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 3 — Mann−Whitney (דוגמה 5)</div>
+  <div class="box-body">
+    <p>קבוצה א' (10 משתתפים) ענו על שאלון <strong>עם שם</strong>: <span class="term">5, 5, 7, 6, 6, 7, 7, 8, 9, 8</span>.</p>
+    <p>קבוצה ב' (7 משתתפים) ענו <strong>אנונימית</strong>: <span class="term">4, 6, 4, 6, 8, 5, 6</span>.</p>
+    <p>בדקו ברמת 0.01 שבאנונימי הציונים נמוכים יותר.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p>(מערך סולם סדר — חובה Mann−Whitney.)</p>
+      <p>נסדר את כל 17 הערכים יחד מהקטן לגדול ונדרג. בגלל הקשרים — דרגות ממוצעות.</p>
+      <p>סידור (תוקן עם תיוג A/B): 4(B), 4(B), 5(A), 5(A), 5(B), 6(A), 6(A), 6(B), 6(B), 6(B), 7(A), 7(A), 7(A), 8(A), 8(A), 8(B), 9(A).</p>
+      <p>דרגות: 4 → ממוצע (1,2) = 1.5; 5 → ממוצע (3,4,5) = 4; 6 → ממוצע (6,7,8,9,10) = 8; 7 → ממוצע (11,12,13) = 12; 8 → ממוצע (14,15,16) = 15; 9 → 17.</p>
+      <p>סכום דרגות קבוצה A (אלה עם השם): <span class="term">5,5,7,6,6,7,7,8,9,8</span> → 4+4+12+8+8+12+12+15+17+15 = <strong>107</strong>.</p>
+      <p>נמיר ל־<span class="term">R<sub>B</sub><sup>S</sup></span> (האנונימיים — H<sub>1</sub>: נמוכים יותר): <span class="term">R<sub>A</sub> + R<sub>B</sub> = 17·18/2 = 153</span>. <span class="term">R<sub>B</sub><sup>S</sup> = 153 − 107 = 46</span>.</p>
+      <p>תחת H<sub>0</sub>: <span class="term">R<sub>B</sub> ~ N(7·18/2, 10·7·18/12) = N(63, 105)</span>. <span class="term">σ = √105 ≈ 10.25</span>.</p>
+      <p>H<sub>1</sub>: אנונימיים נמוכים יותר → R<sub>B</sub> קטן → חד־צדדי שמאלי.</p>
+      <p><span class="term">Z<sub>s</sub> = (46 − 63)/10.25 ≈ −1.659</span>. <span class="term">p.v = Φ(−1.659) ≈ 0.0486</span>.</p>
+      <p><span class="term">0.0486 &gt; 0.01</span> → <strong>לא דוחים</strong> ברמת 0.01. (היו דוחים ברמת 0.05.)</p>
+      <p>(scipy מחזיר p.v ≈ 0.050 — סטייה קטנה מהקירוב הנורמלי כי n קטן.)</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 4 — בחירת המבחן הנכון</div>
+  <div class="box-body">
+    <p>לכל סיטואציה: באיזה מבחן תשתמש?</p>
+    <p>(א) השוואת ציוני סקר שביעות רצון (1–7) של עובדי שני סניפים. n=30 בכל קבוצה.</p>
+    <p>(ב) משקל לפני ואחרי דיאטה אצל אותם 15 אנשים. ידוע שההפרשים מתפלגים סימטרית.</p>
+    <p>(ג) זמני ריצה של 50 רצים בשנים שונות (אותם 50 רצים), נורמליים.</p>
+    <p>(ד) ציון של "טוב/סביר/גרוע" של מוצר חדש לעומת הישן, אותם נבדקים.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p>(א) <strong>Mann−Whitney</strong>: סולם סדר (ציון 1–7), 2 ב"ת. אפשר להניח נורמליות בגלל n=30 + מ.ה.מ — וגם t לב"ת תקף. אבל כי המשתנה סולם סדר, יותר נכון מ"מ.</p>
+      <p>(ב) <strong>Wilcoxon</strong>: מזווג, ערכים מספריים, סימטריה ידועה. עדיף על Sign כי משתמש בערכים, לא רק בסימן.</p>
+      <p>(ג) <strong>t מזווג</strong>: מזווג, נורמליות → המבחן הפרמטרי תקף ועוצמתי יותר.</p>
+      <p>(ד) <strong>Sign</strong>: מזווג, סולם סדר בלבד (אין הפרש מספרי) → Sign היחיד שתקף.</p>
+    </div>
+  </div>
+</div>
+
+<div class="chap-nav">
+  <a class="prev" href="08-t-tests.html">→ פרק 8: מבחני t · F</a>
+  <a class="next" href="10-chi-squared.html">פרק 10: χ² ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 3 · שרשראות מרקוב</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a class="active" href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow">פרק 3 · תהליכים סטוכסטיים</span>
+<h1 class="page-title">שרשרת מרקוב<br>מטריצת מעבר, מיון מצבים, שיווי משקל</h1>
+<p class="page-subtitle">תיאור מערכת שמתפתחת עם הזמן — כאשר העתיד תלוי רק בהווה ולא בעבר.</p>
+
+<p class="lead">
+  זה הפרק שמתחיל את הצד ה"דינמי" של הקורס. כל שאלה במבחן תגיע באותו פורמט: <strong>(א) תאר כשרשרת מרקוב</strong> — מרחב מצבים, מטריצת מעבר $A$, התפלגות התחלתית $\varphi$. <strong>(ב) האם רגולרית?</strong> — צריך גם א־פריקה וגם א־מחזורית. <strong>(ג) אם רגולרית — שיווי משקל</strong> ($\pi A = \pi$). <strong>אחרת — התפלגות אחרי m צעדים</strong> ($\varphi \cdot A^m$).
+</p>
+
+<h2>1 · תהליך סטוכסטי ותכונת מרקוב</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>תהליך סטוכסטי</div>
+  <div class="box-body">
+    <p>אוסף של מ"מים $\{X_t\}$ אינדקסים על־ידי הזמן. אצלנו $t \in \{0, 1, 2, \ldots\}$ (זמן בדיד). כל $X_t$ מקבל ערכים ב־<strong>מרחב מצבים</strong> $S$ סופי.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>תכונת מרקוב</div>
+  <div class="box-body">
+    <p>"העתיד תלוי רק בהווה, לא בעבר":</p>
+    $$P(X_n = i_n \mid X_0 = i_0, \ldots, X_{n-1} = i_{n-1}) = P(X_n = i_n \mid X_{n-1} = i_{n-1})$$
+    <p><strong>הומוגניות בזמן</strong> — נניח שהמעבר לא תלוי בזמן:</p>
+    $$P(X_n = j \mid X_{n-1} = i) = P(X_1 = j \mid X_0 = i)$$
+    <p>תהליך עם שתי תכונות אלו נקרא <strong>שרשרת מרקוב</strong>.</p>
+  </div>
+</div>
+
+<h2>2 · מטריצת הסתברויות מעבר</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>הגדרת A</div>
+  <div class="box-body">
+    <p>מטריצה ריבועית $A$ בגודל $|S| \times |S|$, כאשר:</p>
+    $$A_{i,j} = P(X_1 = j \mid X_0 = i)$$
+    <p>הערך בשורה $i$ עמודה $j$ = הסתברות מעבר מ־$i$ ל־$j$ בצעד אחד.</p>
+    <div class="keypoint">
+      <strong>תכונה הכרחית של כל מטריצת מעבר:</strong> כל שורה מסתכמת ל־1.<br>
+      $\sum_j A_{i,j} = 1$ לכל $i$. במבחן — תמיד תבדוק את זה לפני שאתה ממשיך.
+    </div>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>התפלגות התחלתית ומסילות</div>
+  <div class="box-body">
+    <p><strong>התפלגות התחלתית</strong> $\varphi$ — וקטור שורה $(\varphi_1, \ldots, \varphi_n)$ עם $\varphi_i = P(X_0 = i)$.</p>
+    <p>הסתברות של מסילה ספציפית:</p>
+    $$P(X_0 = i_0, X_1 = i_1, \ldots, X_n = i_n) = \varphi(i_0) \cdot A_{i_0,i_1} \cdot A_{i_1,i_2} \cdots A_{i_{n-1},i_n}$$
+    <p>זו פעולת ההסתברות המותנית פעם אחר פעם — בעצם נוסחת הכפל המורחבת על השרשרת.</p>
+  </div>
+</div>
+
+<h2>3 · התפלגות לאחר m צעדים</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>חזקת המטריצה</div>
+  <div class="box-body">
+    <p><strong>משפט מפתח:</strong></p>
+    $$\bigl(A^m\bigr)_{i,j} = P(X_m = j \mid X_0 = i)$$
+    <p>כלומר חזקת $m$ של מטריצת המעבר נותנת את הסתברויות המעבר ב־$m$ צעדים. <em>זה לא במקרה</em> — חזקת מטריצה היא פעולת אגירה של מסילות באורך $m$, וכל מסילה תורמת מכפלת הסתברויות.</p>
+    <p><strong>התפלגות אחרי $m$ צעדים:</strong></p>
+    $$\varphi_m = \varphi \cdot A^m$$
+    <p>וקטור שורה כפול מטריצה. $(\varphi_m)_j = P(X_m = j)$.</p>
+  </div>
+</div>
+
+<h2>4 · מיון מצבים</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>קישוריות, נשנה/חולף/סופג, א־פריקות</div>
+  <div class="box-body">
+    <h4>קישוריות — $i \leftrightarrow j$</h4>
+    <p>שני מצבים $i, j$ נקראים קשירים אם קיימים $m, n \ge 0$ כך ש־$(A^m)_{i,j} > 0$ וגם $(A^n)_{j,i} > 0$. כלומר אפשר להגיע מ־$i$ ל־$j$ ולחזור.</p>
+    <p>זהו יחס שקילות — מחלק את המצבים ל־<strong>מחלקות שקילות</strong>.</p>
+
+    <h4>סוגי מצבים</h4>
+    <ul>
+      <li><strong>נשנה (recurrent):</strong> ההסתברות לחזור אליו ⩾ פעם אחת היא 1.</li>
+      <li><strong>חולף (transient):</strong> ההסתברות לחזור אליו &lt; 1.</li>
+      <li><strong>סופג (absorbing):</strong> $A_{i,i} = 1$. ברגע שנכנסים — לא יוצאים.</li>
+    </ul>
+
+    <h4>א־פריקה (irreducible)</h4>
+    <p>כל המצבים במחלקת שקילות אחת — כלומר אפשר להגיע מכל מצב לכל מצב. ⟺ הגרף המכוון שמתאר את השרשרת קשיר חזק.</p>
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>מחזוריות</div>
+  <div class="box-body">
+    <p>המחזור של מצב $i$:</p>
+    $$d(i) = \gcd\{n \ge 1 : (A^n)_{i,i} > 0\}$$
+    <p>אם $i \leftrightarrow j$ אז $d(i) = d(j)$ ⇐ במחלקת שקילות, כל המצבים בעלי אותו מחזור.</p>
+    <p><strong>א־מחזורית (aperiodic):</strong> $d = 1$.</p>
+    <div class="keypoint">
+      <strong>טריק מעשי:</strong> אם קיים $i$ עם $A_{i,i} > 0$ (סיכוי להישאר במצב), אז המחזור הוא 1 ⇐ א־מחזורית אוטומטית. רוב השאלות בקורס נופלות לפח הזה — תבדוק אם יש לולאה עצמית.
+    </div>
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>רגולרית</div>
+  <div class="box-body">
+    <p><strong>הגדרה:</strong> שרשרת היא רגולרית אם היא א־פריקה <em>וגם</em> א־מחזורית.</p>
+    <p><strong>הגדרה שקולה (יותר מעשית למבחן):</strong> קיים $n$ כך שכל הערכים ב־$A^n$ חיוביים ממש.</p>
+    <p>אם השרשרת רגולרית, ⇐ קיים וקטור שיווי משקל יחיד $\pi$ (נראה בקרוב).</p>
+  </div>
+</div>
+
+<h2>5 · שיווי משקל</h2>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>וקטור שיווי משקל</div>
+  <div class="box-body">
+    <p>אם השרשרת רגולרית, ⇐ קיים וקטור $\pi$ יחיד המקיים:</p>
+    $$\pi A = \pi, \qquad \sum_i \pi_i = 1$$
+    <p>$\pi$ הוא <strong>וקטור שיווי המשקל</strong> — ההתפלגות "בזמן אינסוף":</p>
+    $$\lim_{n \to \infty} \varphi A^n = \pi \qquad \text{(לכל } \varphi\text{)}$$
+    <div class="keypoint">
+      <strong>נקודה קריטית:</strong> הגבול הזה <em>לא תלוי בהתפלגות ההתחלתית</em> $\varphi$. גם אם תתחיל ב־$\varphi_a$ או $\varphi_b$ — בזמן אינסוף תגיע ל־$\pi$.
+    </div>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>איך לפתור πA = π</div>
+  <div class="box-body">
+    <p>שיטה מעשית: זה $|S|$ משוואות לינאריות, אבל לא בלתי־תלויות (יש תלות אחת בגלל $\pi A = \pi$). מוסיפים את התנאי $\sum \pi_i = 1$ ופותרים מערכת.</p>
+    <p>למשל אם $|S|=2$ עם:</p>
+    $$A = \begin{pmatrix} a & 1-a \\ b & 1-b \end{pmatrix}$$
+    <p>אז $\pi A = \pi$ נותן $\pi_1 a + \pi_2 b = \pi_1$, ועם $\pi_1 + \pi_2 = 1$ מקבלים:</p>
+    $$\pi_1 = \frac{b}{1 - a + b}, \qquad \pi_2 = \frac{1 - a}{1 - a + b}$$
+  </div>
+</div>
+
+<h2>6 · דוגמה מפורטת — מצב הרוח של פרופ' מודי</h2>
+
+<div class="box example">
+  <div class="box-head"><span class="icon">💡</span>שתי מצבים, שיווי משקל, ובדיקת רגולריות</div>
+  <div class="box-body">
+
+    <p>מצבים: <span class="term blue">1 = נחמד</span>, <span class="term blue">2 = לא־נחמד</span>. נשאר נחמד בסיכוי 0.8, נשאר לא־נחמד בסיכוי 0.4.</p>
+
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <div style="font-size:11px; font-weight:700; color:#047857; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:var(--mono);">צעד 1 · מטריצת המעבר</div>
+      $$A = \begin{pmatrix} 0.8 & 0.2 \\ 0.6 & 0.4 \end{pmatrix}$$
+      <p>שורה 1: מנחמד ⇐ 80% נחמד, 20% לא־נחמד. שורה 2: מלא־נחמד ⇐ 60% נחמד, 40% לא־נחמד. כל שורה מסתכמת ל־1 ✓.</p>
+    </div>
+
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <div style="font-size:11px; font-weight:700; color:#047857; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:var(--mono);">צעד 2 · רגולרית?</div>
+      <p>א־פריקה: ניתן להגיע מנחמד ללא־נחמד (0.2) ובחזרה (0.6). ✓<br>
+      א־מחזורית: $A_{1,1} = 0.8 > 0$ ⇐ לולאה עצמית קיימת ⇐ $d=1$. ✓<br>
+      ⇐ <strong>רגולרית</strong>.</p>
+    </div>
+
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <div style="font-size:11px; font-weight:700; color:#047857; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:var(--mono);">צעד 3 · שיווי משקל מ־πA = π</div>
+      $$\pi_1 \cdot 0.8 + \pi_2 \cdot 0.6 = \pi_1$$
+      $$\Rightarrow\ -0.2 \pi_1 + 0.6 \pi_2 = 0\ \Rightarrow\ \pi_2 = \tfrac{1}{3} \pi_1$$
+      <p>עם $\pi_1 + \pi_2 = 1$:</p>
+      $$\pi_1 = 0.75,\quad \pi_2 = 0.25$$
+    </div>
+
+    <div class="step" style="background:#fff; border-radius:8px; padding:14px 18px; margin:12px 0; border-right:3px solid #047857;">
+      <div style="font-size:11px; font-weight:700; color:#047857; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; font-family:var(--mono);">צעד 4 · אימות באמצעות A^n</div>
+      <p>מהמצגת: $A^8 \approx \begin{pmatrix} 0.75 & 0.25 \\ 0.75 & 0.25 \end{pmatrix}$. שתי השורות זהות — בדיוק כפי שצריך להיות כשמתקרבים לשיווי משקל. כל וקטור $\varphi$ שיכפיל את זה ⇐ $\pi$.</p>
+    </div>
+
+    <div class="final-answer">
+      $\pi = (0.75, 0.25)$. ב"זמן אינסוף", המודי יהיה נחמד 75% מהזמן.
+    </div>
+
+  </div>
+</div>
+
+<h2>7 · טעויות נפוצות</h2>
+
+<div class="box warn">
+  <div class="box-head"><span class="icon">⚠</span>חמש מלכודות במבחן</div>
+  <div class="box-body">
+    <ol>
+      <li>
+        <strong>בלבול בין שורה לעמודה במטריצה.</strong>
+        $A_{i,j}$ = הסתברות לעבור <em>מ־$i$ ל־$j$</em>. השורה היא ה"מקור". כל שורה מסתכמת ל־1, לא כל עמודה.
+      </li>
+      <li>
+        <strong>חישוב $\varphi \cdot A^m$ ב"כיוון הלא נכון".</strong>
+        $\varphi$ הוא וקטור שורה ($1 \times n$) ומכפילים אותו מימין ב־$A$ ($n \times n$). ⇐ התוצאה היא וקטור שורה $1 \times n$. אל תהפוך לוקטור עמודה.
+      </li>
+      <li>
+        <strong>לפתור $\pi A = \pi$ כשהשרשרת לא רגולרית.</strong>
+        אם לא רגולרית — שיווי משקל לא קיים בהכרח (או לא יחיד). תמיד בדוק רגולריות לפני.
+      </li>
+      <li>
+        <strong>"א־מחזורית" אמיתי לא תמיד גלוי.</strong>
+        אם אין לולאה עצמית — צריך לבדוק האם יש שני מסילות עם אורכים שאינם זרים. למשל מסילה באורך 2 ומסילה באורך 3 ⇐ $\gcd(2,3)=1$ ⇐ א־מחזורי.
+      </li>
+      <li>
+        <strong>"מצב סופג" אינו "מצב נשנה".</strong>
+        מצב סופג ($A_{i,i}=1$) הוא אכן נשנה, אבל הוא <em>טיפוס מיוחד</em> ולא נקרא "נשנה" בלבד. אם יש מצב סופג — השרשרת אינה א־פריקה (כי אי־אפשר לצאת ממנו).
+      </li>
+    </ol>
+  </div>
+</div>
+
+<h2>8 · תרגילים לבחינה</h2>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 1 · מטבע מודולו 5 (תרגיל בית 4, ש' 1)</div>
+  <div class="box-body">
+    <div class="exercise-card">
+      <div class="exercise-q">
+        <span class="exercise-tag">בניית שרשרת ממילים</span>
+        <p>זורקים מטבע עם $P(\text{עץ}) = 0.6$. השרשרת בודקת בכל רגע את מספר העצים עד לרגע זה <em>מודולו 5</em>.</p>
+        <ol style="margin: 10px 24px;">
+          <li>תאר את מרחב המצבים.</li>
+          <li>מצא התפלגות התחלתית ומטריצת מעבר.</li>
+        </ol>
+      </div>
+      <button class="reveal-btn" onclick="this.parentElement.classList.toggle('open')">הצג פתרון</button>
+      <div class="solution">
+
+        <div class="step">
+          <div class="step-label">צעד 1 · מרחב מצבים</div>
+          <p>$S = \{0, 1, 2, 3, 4\}$. מצב $i$ = מספר עצים מודולו 5.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 2 · התפלגות התחלתית</div>
+          <p>בתחילה (לפני זריקה) מספר עצים = 0 ⇐ $\varphi = (1, 0, 0, 0, 0)$.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 3 · מטריצת מעבר</div>
+          <p>בכל זריקה: בסיכוי 0.6 יוצא עץ ⇐ ${state}+1 \pmod 5$. בסיכוי 0.4 יוצא פלי ⇐ ${state}$.</p>
+          $$A = \begin{pmatrix}
+          0.4 & 0.6 & 0 & 0 & 0 \\
+          0 & 0.4 & 0.6 & 0 & 0 \\
+          0 & 0 & 0.4 & 0.6 & 0 \\
+          0 & 0 & 0 & 0.4 & 0.6 \\
+          0.6 & 0 & 0 & 0 & 0.4
+          \end{pmatrix}$$
+          <p>כל שורה מסתכמת ל־1 ✓.</p>
+        </div>
+
+        <div class="final-answer">
+          השרשרת רגולרית: יש לולאות עצמיות (סיכוי 0.4 להישאר במצב), והגרף קשיר חזק (אפשר להתקדם 0→1→2→3→4→0).
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 2 · מדוזה והפרסי (תרגיל בית 4, ש' 3)</div>
+  <div class="box-body">
+    <div class="exercise-card">
+      <div class="exercise-q">
+        <span class="exercise-tag">שרשרת לא־רגולרית — מצבים סופגים</span>
+        <p>פרסי כורת ראש. בסיכוי 0.5 הוא מספיק לזרות מלח (ולא צומח ראש). אחרת: בסיכוי 0.9 צומחים 2 ראשים במקום (מספר ראשים גדל ב־1), בסיכוי 0.1 צומח 1 ראש (נשאר אותו דבר).</p>
+        <p>הקרב מתחיל ב־2 ראשים. 0 ראשים ⇐ מדוזה מתה (סופג). 4 ראשים ⇐ פרסי בורח (סופג).</p>
+        <ol style="margin: 10px 24px;">
+          <li>תאר כשרשרת מרקוב.</li>
+          <li>רגולרית? נמק.</li>
+          <li>אם כן — שיווי משקל. אחרת — סיכוי שהקרב נגמר אחרי 2 מהלכים.</li>
+        </ol>
+      </div>
+      <button class="reveal-btn" onclick="this.parentElement.classList.toggle('open')">הצג פתרון</button>
+      <div class="solution">
+
+        <div class="step">
+          <div class="step-label">צעד 1 · ניתוח מהלך</div>
+          <p>במצב $i \in \{1, 2, 3\}$ ראשים — פרסי כורת ראש. במצב 0 או 4 — נגמר.</p>
+          <ul>
+            <li>סיכוי 0.5 ⇐ מלח ⇐ מצב $i-1$.</li>
+            <li>סיכוי 0.5 × 0.9 = 0.45 ⇐ צומחים 2 ⇐ מצב $i$.</li>
+            <li>סיכוי 0.5 × 0.1 = 0.05 ⇐ צומח 1 ⇐ מצב $i-1$.</li>
+          </ul>
+          <p>אז: $P(i \to i-1) = 0.5 + 0.05 = 0.55$; $P(i \to i) = 0.45$.</p>
+          <p>חריג ב־$i=3$: סיכוי 0.45 ⇐ מצב 4 (סופג).</p>
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 2 · מטריצת מעבר</div>
+          $$A = \begin{pmatrix}
+          1 & 0 & 0 & 0 & 0 \\
+          0.55 & 0.45 & 0 & 0 & 0 \\
+          0 & 0.55 & 0.45 & 0 & 0 \\
+          0 & 0 & 0.55 & 0 & 0.45 \\
+          0 & 0 & 0 & 0 & 1
+          \end{pmatrix}$$
+          <p>שורות במצבי {0,1,2,3,4}. התפלגות התחלתית $\varphi = (0,0,1,0,0)$.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 3 · רגולריות</div>
+          <p>יש שני מצבים סופגים: 0 ו־4. כל מסילה מסתיימת באחד מהם, בלי לחזור. ⇐ <strong>לא א־פריקה</strong> ⇐ <strong>לא רגולרית</strong>.</p>
+        </div>
+
+        <div class="step">
+          <div class="step-label">צעד 4 · התפלגות אחרי 2 מהלכים</div>
+          <p>מתחילים ב־2. אחרי מהלך 1: $(0, 0.55, 0.45, 0, 0)$.</p>
+          <p>מהלך 2: ממצב 1 — 0.55 ל־0, 0.45 ל־1. ממצב 2 — 0.55 ל־1, 0.45 ל־2.</p>
+          $$\varphi_2 = (0.55 \cdot 0.55,\ 0.55 \cdot 0.45 + 0.45 \cdot 0.55,\ 0.45 \cdot 0.45,\ 0,\ 0)$$
+          $$= (0.3025,\ 0.495,\ 0.2025,\ 0,\ 0)$$
+          <p>הקרב נגמר אחרי 2 מהלכים אם הגענו ל־0 או ל־4. $P(\text{נגמר}) = 0.3025 + 0 = 0.3025$.</p>
+        </div>
+
+        <div class="final-answer">
+          לא רגולרית (שני מצבים סופגים). $P(\text{הקרב נגמר אחרי 2 מהלכים}) = 0.3025$.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>9 · סיכום מהיר</h2>
+
+<div class="box summary">
+  <div class="box-head"><span class="icon">📌</span>מה לזכור ערב הבחינה</div>
+  <div class="box-body">
+    <ol>
+      <li><strong>פורמט שאלה סטנדרטי:</strong> (א) תיאור; (ב) רגולרית? (ג) אם כן — שיווי משקל, אם לא — התפלגות אחרי $m$ צעדים.</li>
+      <li><strong>תכונת מרקוב:</strong> "העתיד תלוי רק בהווה". אם בעיה נראית "עם זיכרון" — אולי צריך להרחיב את מרחב המצבים.</li>
+      <li><strong>בכל מטריצת מעבר:</strong> כל שורה מסתכמת ל־1. תבדוק לפני שאתה ממשיך.</li>
+      <li><strong>$\varphi$ הוא וקטור שורה.</strong> $\varphi_m = \varphi \cdot A^m$.</li>
+      <li><strong>רגולרית = א־פריקה + א־מחזורית.</strong> שתיהן ביחד, לא אחת מהן.</li>
+      <li><strong>בדיקה מהירה לא־מחזורי:</strong> יש $i$ עם $A_{i,i}>0$? אם כן ⇐ $d=1$ אוטומטית.</li>
+      <li><strong>מצב סופג ($A_{i,i}=1$):</strong> השרשרת לא א־פריקה. שיווי משקל לא יחיד.</li>
+      <li><strong>שיווי משקל $\pi$:</strong> פותרים $\pi A = \pi$ עם $\sum \pi_i = 1$. תוצאה: $|S|$ מספרים חיוביים שסכומם 1.</li>
+    </ol>
+  </div>
+</div>
+
+<div style="height: 60px"></div>
+
+<div style="display:flex; justify-content:space-between; padding-top:32px; border-top:1px solid var(--rule); margin-top:48px;">
+  <a href="02-normal-clt.html" style="color:var(--indigo-7); text-decoration:none; font-weight:600;">→ פרק 2: נורמלי + מ.ה.מ.</a>
+  <a href="04-hmm.html" style="color:var(--indigo-7); text-decoration:none; font-weight:600;">פרק 4: Hidden Markov ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>

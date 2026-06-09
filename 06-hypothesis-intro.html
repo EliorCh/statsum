@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פרק 6 · יסודות בדיקת השערות</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a class="active" href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow">פרק 6 · בדיקת השערות</span>
+<h1 class="page-title">יסודות בדיקת השערות —<br>H₀, H₁, α, β, ועוצמה</h1>
+<p class="page-subtitle">המסגרת הקונספטואלית של כל פרקים 7–10.</p>
+
+<p class="lead">
+  כל מבחני ההסקה שתפגוש בקורס — z, t מזווג, t לא־תלוי, F לשונויות, Wilcoxon, Mann−Whitney, χ² — הם <strong>וריאציות על אותה מסגרת</strong>. הפרק הזה מציג את המסגרת הזו: שתי השערות, אזור דחייה, שני סוגי טעויות, הסת׳ לכל אחד, ועוצמה. תפיסה נכונה של החומר כאן מקצרת את לימוד שאר הפרקים פי שניים. הדוגמה הקלאסית של פישר — Lady Tasting Tea — מציגה את הכל בארבע משפטים: מישהי טוענת משהו (H₁), שאר העולם חושב שלא (H₀), נערוך ניסוי לראות מי צודק.
+</p>
+
+<h2>1 · השפה הבסיסית</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>הגדרות חובה</div>
+  <div class="box-body">
+    <ul>
+      <li><strong>אוכלוסייה</strong> — כל הפרטים בעלי התכונה הנחקרת.</li>
+      <li><strong>פרמטר</strong> — גודל המאפיין את האוכלוסייה ואינו ידוע. אותיות יווניות: <span class="term">μ, σ, p</span>.</li>
+      <li><strong>מדגם</strong> — תת־קבוצה אקראית מהאוכלוסייה.</li>
+      <li><strong>סטטיסטי</strong> — כל חישוב שנעשה על המדגם. אותיות לטיניות: <span class="term">X̄, S, P̂</span>.</li>
+      <li><strong>אומד</strong> — סטטיסטי שמשמש לאמידת פרמטר באוכלוסייה. למשל <span class="term">X̄</span> אומד את <span class="term">μ</span>.</li>
+    </ul>
+    <p>הסקה סטטיסטית כוללת שני ענפים: <strong>אמידה</strong> (להעריך את ערך הפרמטר) ו<strong>בדיקת השערות</strong> (להחליט אם הנחה מסוימת על הפרמטר נכונה).</p>
+  </div>
+</div>
+
+<h2>2 · שתי ההשערות</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>H₀ נגד H₁</div>
+  <div class="box-body">
+    <p><strong>השערת האפס <span class="term">H<sub>0</sub></span></strong> — "שום דבר מעניין לא קורה". המצב הקיים, המצב הסטנדרטי, מה שמתחרים מנסים להפריך. נטל ההוכחה <strong>תמיד</strong> על מי שטוען נגדה.</p>
+    <p><strong>השערת המחקר <span class="term">H<sub>1</sub></span></strong> — מה שמישהו טוען שמתרחש (משהו חדש, שונה, יוצא דופן).</p>
+    <p>שתי החלטות אפשריות בלבד:</p>
+    <ol>
+      <li><strong>דחיית <span class="term">H<sub>0</sub></span></strong> — מסיקים ש־<span class="term">H<sub>1</sub></span> נכונה.</li>
+      <li><strong>אי־דחיית <span class="term">H<sub>0</sub></span></strong> — לא מספיק ראיות; נשארים עם <span class="term">H<sub>0</sub></span>. <em>זה לא בהכרח אומר ש־<span class="term">H<sub>0</sub></span> נכונה!</em> רק שאין מספיק ראיות נגדה.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="box warn">
+  <div class="box-head"><span class="icon">⚠️</span>תקלה רעיונית נפוצה</div>
+  <div class="box-body">
+    <p>"לא דחינו את H₀" ≠ "H₀ נכונה". המקבילה המשפטית: "לא הוכחה אשמה" ≠ "הוכחה חפות". המבחן יכול היה להיות חלש, המדגם קטן, האפקט אמיתי אבל קטן. הדרך הנכונה: "אין מספיק ראיות לדחות את H₀".</p>
+  </div>
+</div>
+
+<h2>3 · אזור דחייה ושתי טעויות</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>החלוקה הקריטית</div>
+  <div class="box-body">
+    <p><strong>אזור דחייה <span class="term">C</span></strong> — אוסף תוצאות המדגם שעבורן <strong>נדחה</strong> את <span class="term">H<sub>0</sub></span>.</p>
+    <p><strong>אזור קבלה <span class="term">C̄</span></strong> — אוסף תוצאות המדגם שעבורן <strong>לא נדחה</strong> את <span class="term">H<sub>0</sub></span>.</p>
+    <p>כל מדגם אפשרי נופל באחד מהשניים. <strong>החלטה על אזור הדחייה היא בעצם החלטה על המבחן עצמו</strong>.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>שתי טעויות אפשריות</div>
+  <div class="box-body">
+    <table>
+      <thead>
+        <tr><th></th><th>המציאות: H<sub>0</sub> נכונה</th><th>המציאות: H<sub>1</sub> נכונה</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>לא דחינו H<sub>0</sub></strong></td><td>☺ צדקנו</td><td>טעות מסוג שני (β)</td></tr>
+        <tr><td><strong>דחינו H<sub>0</sub></strong></td><td>טעות מסוג ראשון (α)</td><td>☺ צדקנו (עוצמה π)</td></tr>
+      </tbody>
+    </table>
+    <p><strong>טעות מסוג ראשון</strong> — דחינו H₀ למרות שהיא נכונה (false alarm).</p>
+    <p>$$\alpha = P_{H_0}(\text{דחייה}) = P_{H_0}(C)$$</p>
+    <p><strong>טעות מסוג שני</strong> — לא דחינו H₀ למרות שהיא לא נכונה (פספסנו).</p>
+    <p>$$\beta = P_{H_1}(\text{אי־דחייה}) = P_{H_1}(\bar C)$$</p>
+    <p><strong>עוצמת המבחן</strong> — ההסת׳ לדחות נכון כש־H₁ נכונה.</p>
+    <p>$$\pi = P_{H_1}(\text{דחייה}) = P_{H_1}(C) = 1 - \beta$$</p>
+  </div>
+</div>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>היחס בין α ו־β</div>
+  <div class="box-body">
+    <p>הם <strong>סותרים</strong>. אזור דחייה גדול יותר ← α עולה אבל β יורד. אזור קטן יותר ← α יורד אבל β עולה.</p>
+    <p>שיטת העבודה הסטנדרטית: <strong>קובעים מראש את α</strong> (בדרך כלל 0.05, 0.01, או 0.1) ואז מחפשים את האזור הטוב ביותר עם α הזה — כלומר את האזור שמביא את β למינימום (או את π למקסימום).</p>
+    <p>זה הרעיון של <strong>הלמה של ניימן־פירסון</strong> (סעיף 5).</p>
+  </div>
+</div>
+
+<div class="figure">
+  <svg viewBox="0 0 620 280" xmlns="http://www.w3.org/2000/svg" dir="ltr">
+    <defs>
+      <linearGradient id="h0grad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#4f46e5" stop-opacity="0.5"/>
+        <stop offset="1" stop-color="#4f46e5" stop-opacity="0.04"/>
+      </linearGradient>
+      <linearGradient id="h1grad" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0" stop-color="#10b981" stop-opacity="0.5"/>
+        <stop offset="1" stop-color="#10b981" stop-opacity="0.04"/>
+      </linearGradient>
+      <pattern id="alphaPat" patternUnits="userSpaceOnUse" width="6" height="6">
+        <path d="M-1,1 l2,-2 M0,6 l6,-6 M5,7 l2,-2" stroke="#ef4444" stroke-width="1"/>
+      </pattern>
+      <pattern id="betaPat" patternUnits="userSpaceOnUse" width="6" height="6">
+        <path d="M-1,1 l2,-2 M0,6 l6,-6 M5,7 l2,-2" stroke="#f59e0b" stroke-width="1"/>
+      </pattern>
+    </defs>
+
+    <!-- baseline axis -->
+    <line x1="40" y1="200" x2="580" y2="200" stroke="#78716c" stroke-width="1"/>
+
+    <!-- H0 distribution: centered at 200 (x=200) -->
+    <path d="M 40 200 C 100 200 140 190 175 165 C 195 145 205 110 220 80 C 235 110 245 145 265 165 C 300 190 340 200 380 200 Z"
+          fill="url(#h0grad)" opacity="0.7"/>
+    <path d="M 40 200 C 100 200 140 190 175 165 C 195 145 205 110 220 80 C 235 110 245 145 265 165 C 300 190 340 200 380 200"
+          stroke="#4f46e5" stroke-width="2" fill="none"/>
+
+    <!-- H1 distribution: centered at x=400 -->
+    <path d="M 220 200 C 280 200 320 190 355 165 C 375 145 385 110 400 80 C 415 110 425 145 445 165 C 480 190 520 200 580 200 Z"
+          fill="url(#h1grad)" opacity="0.7"/>
+    <path d="M 220 200 C 280 200 320 190 355 165 C 375 145 385 110 400 80 C 415 110 425 145 445 165 C 480 190 520 200 580 200"
+          stroke="#059669" stroke-width="2" fill="none"/>
+
+    <!-- critical value line at x=310 -->
+    <line x1="310" y1="60" x2="310" y2="200" stroke="#1c1917" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <text x="310" y="52" font-family="JetBrains Mono, monospace" font-size="11" fill="#1c1917" text-anchor="middle">cutoff</text>
+
+    <!-- alpha region: right tail of H0 -->
+    <path d="M 310 200 C 325 200 350 195 380 200 L 380 200 L 310 200 Z" fill="url(#alphaPat)" opacity="0.7"/>
+    <path d="M 310 200 L 310 195 C 320 195 350 198 380 200 Z" fill="#ef4444" opacity="0.4"/>
+    <!-- compact alpha shaded area: redo as the H0 tail right of 310 -->
+    <path d="M 310 200 C 320 200 340 198 360 199 C 370 199.5 380 200 380 200 L 310 200 Z" fill="#ef4444" opacity="0"/>
+    <!-- Better: use the H0 curve region from x=310 to 380 -->
+    <path d="M 310 195 C 320 198 340 199 360 200 L 380 200 L 310 200 Z" fill="#ef4444" opacity="0.55"/>
+
+    <!-- beta region: left tail of H1 (between 220 and 310) -->
+    <path d="M 220 200 L 220 200 C 250 200 275 195 290 188 C 300 184 305 180 310 178 L 310 200 Z" fill="#f59e0b" opacity="0.55"/>
+
+    <!-- Labels -->
+    <text x="180" y="65" font-family="Frank Ruhl Libre, serif" font-size="18" fill="#312e81" font-weight="700">H₀</text>
+    <text x="430" y="65" font-family="Frank Ruhl Libre, serif" font-size="18" fill="#047857" font-weight="700">H₁</text>
+
+    <!-- alpha label -->
+    <text x="345" y="218" font-family="Frank Ruhl Libre, serif" font-size="16" fill="#b91c1c" font-weight="700" font-style="italic">α</text>
+    <line x1="345" y1="213" x2="345" y2="200" stroke="#b91c1c" stroke-width="1"/>
+
+    <!-- beta label -->
+    <text x="275" y="218" font-family="Frank Ruhl Libre, serif" font-size="16" fill="#d97706" font-weight="700" font-style="italic">β</text>
+    <line x1="275" y1="213" x2="275" y2="200" stroke="#d97706" stroke-width="1"/>
+
+    <!-- region labels -->
+    <text x="170" y="245" font-family="Assistant, sans-serif" font-size="13" fill="#1c1917" text-anchor="middle">אזור הקבלה (C̄)</text>
+    <text x="450" y="245" font-family="Assistant, sans-serif" font-size="13" fill="#1c1917" text-anchor="middle">אזור הדחייה (C)</text>
+
+    <!-- arrow from labels -->
+    <path d="M 170 232 L 170 220" stroke="#1c1917" stroke-width="1" marker-end="url(#arr)"/>
+    <path d="M 450 232 L 450 220" stroke="#1c1917" stroke-width="1" marker-end="url(#arr)"/>
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+        <path d="M 0 0 L 10 5 L 0 10 z" fill="#1c1917"/>
+      </marker>
+    </defs>
+
+    <!-- pi note -->
+    <text x="500" y="270" font-family="Assistant, sans-serif" font-size="11" fill="#047857" text-anchor="middle">עוצמה π = 1 − β = שטח H₁ ימינה מ־cutoff</text>
+  </svg>
+  <div class="cap">
+    α (אדום) = שטח <span dir="ltr">H₀</span> בתוך אזור הדחייה — הסת׳ לטעות מסוג ראשון.
+    β (כתום) = שטח <span dir="ltr">H₁</span> בתוך אזור הקבלה — הסת׳ לטעות מסוג שני.
+    הזזת ה־cutoff שמאלה מגדילה α ומקטינה β, וההפך.
+  </div>
+</div>
+
+<h2>4 · דוגמה מסכמת</h2>
+
+<div class="box example">
+  <div class="box-head"><span class="icon">💡</span>דוגמה — סארק או מייקל</div>
+  <div class="box-body">
+    <p>זמן המדיטציה היומי של מייקל מתפלג <span class="term">X ~ N(20, 9)</span>, ושל סארק <span class="term">Y ~ N(30, 1)</span> (השונויות, לא סטיות תקן).</p>
+    <p>טילי רשמה זמן ולא יודעת של מי. <span class="term">H<sub>0</sub>:</span> סארק. <span class="term">H<sub>1</sub>:</span> מייקל. אזור דחייה: <span class="term">C = {זמן ≤ 28}</span>.</p>
+    <p><strong>α</strong> = P<sub>סארק</sub>(זמן ≤ 28) = P(Z ≤ (28−30)/1) = P(Z ≤ −2) = Φ(−2) ≈ <strong>0.0228</strong>.</p>
+    <p><strong>β</strong> = P<sub>מייקל</sub>(זמן &gt; 28) = P(Z &gt; (28−20)/3) = P(Z &gt; 2.67) = 1 − Φ(2.67) ≈ <strong>0.0038</strong>.</p>
+    <p><strong>עוצמה</strong> = 1 − β ≈ 0.9962. מבחן מצוין: שתי הטעויות נמוכות. הסיבה: ההתפלגויות מופרדות היטב (בעיקר בגלל ה־σ של סארק שהיא קטנה — σ=1).</p>
+  </div>
+</div>
+
+<h2>5 · הלמה של ניימן־פירסון</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>איך למצוא את המבחן בעל העוצמה המקסימלית</div>
+  <div class="box-body">
+    <p>נתון מדגם <span class="term">X<sub>1</sub>, …, X<sub>n</sub></span>, ופונקציית הנראות <span class="term">L</span>. ההשערות:</p>
+    <p>$$H_0: L = L_0 \quad,\quad H_1: L = L_1$$</p>
+    <p><strong>יחס הנראות:</strong></p>
+    <p>$$\lambda(X_1, \ldots, X_n) = \frac{L_{H_1}(X_1, \ldots, X_n)}{L_{H_0}(X_1, \ldots, X_n)}$$</p>
+    <p><strong>הלמה (Neyman−Pearson):</strong> המבחן בעל העוצמה המקסימלית, מבין כל המבחנים עם רמת מובהקות ≤ α, הוא:</p>
+    <p>$$C = \{ \lambda(X_1, \ldots, X_n) > K \}$$</p>
+    <p>כאשר <span class="term">K</span> נקבע כך ש־<span class="term">P<sub>H<sub>0</sub></sub>(λ &gt; K) = α</span>.</p>
+    <p><strong>אינטואיציה:</strong> דחה כאשר ההסת׳ של המדגם תחת H₁ הרבה יותר גדולה מתחת H₀ — אז המדגם "מעיד נגד" H₀.</p>
+  </div>
+</div>
+
+<h2>6 · מובהקות התוצאה (p-value)</h2>
+
+<div class="box theory">
+  <div class="box-head"><span class="icon">📘</span>הגדרה</div>
+  <div class="box-body">
+    <p>במקום לקבוע אזור דחייה מראש, אפשר לחשב את <strong>p-value</strong>: ההסת׳ לקבל תוצאה כפי שהתקבלה במדגם <strong>או קיצונית ממנה</strong>, תחת הנחת H₀.</p>
+    <p>כלל ההחלטה השקול:</p>
+    <ul>
+      <li><span class="term">p.v ≤ α</span> ← דחה את H₀.</li>
+      <li><span class="term">p.v &gt; α</span> ← אל תדחה את H₀.</li>
+    </ul>
+    <p><strong>היתרון של p-value</strong>: הוא קיצוניות־רציפה. p=0.049 ו־p=0.001 שניהם דוחים ב־α=0.05, אבל השני הרבה יותר חזק.</p>
+  </div>
+</div>
+
+<h2>7 · תרגילי מבחן</h2>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 1 — ניסוח השערות (תרגיל בית 6, שאלה 1: דוגמת מודי 4 שעות)</div>
+  <div class="box-body">
+    <p>חברת תרופות טוענת שהיא ייצרה תרופה שמקצרת את זמן ההחלמה משפעת (התוחלת המקורית: שבוע, σ = 2 ימים).</p>
+    <p>(א) רשמו את <span class="term">H<sub>0</sub></span> ואת <span class="term">H<sub>1</sub></span>. (ב) מה המשמעות של טעות מסוג ראשון? (ג) של טעות מסוג שני?</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p>(א) הטענה היא של החברה (משהו חדש קורה) → היא <strong>H<sub>1</sub></strong>:</p>
+      <p><span class="term">H<sub>0</sub>: μ = 7</span> (התרופה לא משנה כלום)</p>
+      <p><span class="term">H<sub>1</sub>: μ &lt; 7</span> (זמן ההחלמה התקצר)</p>
+      <p>(ב) <strong>טעות מסוג ראשון</strong>: דחינו את H₀ למרות שהיא נכונה. כלומר נכריז שהתרופה עובדת — אבל בעצם היא לא. תוצאה: התרופה תאושר לשיווק לחינם, אנשים יקבלו אותה לחינם, ואין שיפור. הסת׳ = α.</p>
+      <p>(ג) <strong>טעות מסוג שני</strong>: לא דחינו את H₀ למרות שהיא לא נכונה. התרופה עובדת — אבל לא הכרזנו על זה. תוצאה: תרופה מועילה לא מאושרת, אנשים סובלים יותר זמן. הסת׳ = β.</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 2 — מערכת המשפט (דוגמה 2(א))</div>
+  <div class="box-body">
+    <p>במערכת המשפט מקובלת חזקת החפות: נאשם חף מפשע עד שהוכחה אשמתו. נסחו את H₀, H₁, ושני סוגי הטעויות.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><span class="term">H<sub>0</sub>:</span> הנאשם חף מפשע (זה ה"מצב ההתחלתי" — נטל ההוכחה על התביעה).</p>
+      <p><span class="term">H<sub>1</sub>:</span> הנאשם אשם.</p>
+      <p><strong>טעות מסוג ראשון</strong>: הרשענו חף מפשע. <em>זה החמור יותר בעיני המשפט — לכן הסת׳ α קטנה מאוד</em>.</p>
+      <p><strong>טעות מסוג שני</strong>: זיכינו אשם.</p>
+      <p>סדר העדיפויות במערכת המשפט: עדיף לזכות אשם (β) מאשר להרשיע חף (α). זה אומר במונחים סטטיסטיים: α נמוכה מאוד, גם אם המחיר הוא β גבוה יותר.</p>
+    </div>
+  </div>
+</div>
+
+<div class="box exercise">
+  <div class="box-head"><span class="icon">📝</span>תרגיל 3 — חישוב α, β, π (תרגיל בית 6, שאלה 2)</div>
+  <div class="box-body">
+    <p>על מדף הספרים של ורד 5 ספרים של ג'יין אוסטן; אחד מהם 'גאווה ודעה קדומה' — האהוב עליה. ורד בוחרת באקראי עד שתמצא את הספר האהוב.</p>
+    <p><span class="term">H<sub>0</sub>:</span> בחירה <strong>ללא</strong> החזרה. <span class="term">H<sub>1</sub>:</span> בחירה <strong>עם</strong> החזרה.</p>
+    <p>אזור דחייה: <span class="term">C = {X &gt; 2}</span> (יותר מ־2 בחירות → עם החזרה).</p>
+    <p>חשבו α ו־β.</p>
+    <button class="reveal-btn" onclick="this.parentElement.parentElement.classList.toggle('open')">הצג פתרון</button>
+    <div class="solution">
+      <p><span class="term">X</span> = מספר הבחירות עד שמוצאים את הספר האהוב.</p>
+      <p><strong>תחת H<sub>0</sub> (ללא החזרה):</strong> <span class="term">X</span> מתפלג אחיד על <span class="term">{1, 2, 3, 4, 5}</span> בהסת׳ <span class="term">⅕</span> כל אחד.</p>
+      <p>α = P<sub>H<sub>0</sub></sub>(X &gt; 2) = P(X ∈ {3, 4, 5}) = <span class="term">⅗ = 0.6</span>. <em>α גבוהה מאוד</em> — אזור דחייה רע.</p>
+      <p><strong>תחת H<sub>1</sub> (עם החזרה):</strong> בכל ניסיון הסת׳ ¹⁄₅ למצוא. <span class="term">X ~ G(0.2)</span> גיאומטרית. <span class="term">P(X = k) = (0.8)<sup>k−1</sup> · 0.2</span>.</p>
+      <p>β = P<sub>H<sub>1</sub></sub>(X ≤ 2) = P(X=1) + P(X=2) = 0.2 + 0.16 = <span class="term">0.36</span>.</p>
+      <p>אזור דחייה רע — שתי הטעויות גבוהות. שיפור אפשרי: דרוש <span class="term">X &gt; 5</span> כדי לדחות H₀ (כי תחת H₀ זה <strong>בלתי אפשרי</strong> — α=0). אבל זה יעלה את β מאוד.</p>
+    </div>
+  </div>
+</div>
+
+<div class="chap-nav">
+  <a class="prev" href="05-descriptive.html">→ פרק 5: סטטיסטיקה תיאורית</a>
+  <a class="next" href="07-z-test.html">פרק 7: מבחן z ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>

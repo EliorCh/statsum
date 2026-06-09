@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סטטיסטיקה ללמידה · מדריך הכנה למבחן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --shadow-md: 0 8px 24px rgba(28,25,23,.08);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.7; font-size: 17px; -webkit-font-smoothing: antialiased; min-height: 100vh;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.06), transparent 45%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.06), transparent 45%);
+    background-attachment: fixed; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 80px 48px 120px; }
+  .hero { margin-bottom: 60px; }
+  .eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 14px; border-radius: 99px; margin-bottom: 20px; }
+  h1 { font-family: var(--serif); font-size: 56px; line-height: 1.05; font-weight: 700; letter-spacing: -.025em; margin-bottom: 18px; }
+  .subtitle { font-size: 21px; color: var(--ink-soft); max-width: 720px; line-height: 1.5; margin-bottom: 24px; }
+  .meta-bar { display: flex; gap: 24px; flex-wrap: wrap; font-size: 14px; color: var(--ink-mute); margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--rule); }
+  .meta-bar > span { display: flex; align-items: center; gap: 6px; }
+  .meta-bar strong { color: var(--ink); font-weight: 600; }
+  h2 { font-family: var(--serif); font-size: 30px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 24px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .card { background: var(--bg-paper); border: 1px solid var(--rule); border-radius: 14px; padding: 22px 24px; transition: all .2s ease; text-decoration: none; color: var(--ink); position: relative; display: block; box-shadow: var(--shadow-sm); }
+  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--indigo-3); }
+  .card-num { font-family: var(--mono); font-size: 12px; color: var(--ink-mute); font-weight: 700; letter-spacing: .08em; margin-bottom: 8px; }
+  .card h3 { font-family: var(--serif); font-size: 22px; line-height: 1.2; margin-bottom: 8px; font-weight: 700; letter-spacing: -.01em; }
+  .card p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.5; }
+  .card .source { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--rule); font-family: var(--mono); font-size: 11px; color: var(--ink-mute); direction: ltr; text-align: left; }
+  .group-label { font-size: 11px; text-transform: uppercase; letter-spacing: .15em; color: var(--ink-mute); font-weight: 700; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+  .group-label:first-of-type { margin-top: 32px; }
+  .ref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .ref-card { background: linear-gradient(135deg, #eef2ff, #fef3c7); border: 1px solid var(--indigo-3); border-radius: 14px; padding: 26px 28px; text-decoration: none; color: var(--ink); position: relative; display: block; box-shadow: var(--shadow-sm); transition: all .2s ease; }
+  .ref-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+  .ref-card .ref-icon { font-size: 30px; margin-bottom: 10px; display: block; line-height: 1; }
+  .ref-card h3 { font-family: var(--serif); font-size: 22px; line-height: 1.2; margin-bottom: 6px; font-weight: 700; }
+  .ref-card p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.5; }
+  .info-box { background: var(--bg-paper); border: 1px solid var(--rule); border-radius: 12px; padding: 22px 26px; margin: 32px 0; box-shadow: var(--shadow-sm); }
+  .info-box h4 { font-family: var(--serif); font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+  .info-box p { font-size: 15px; color: var(--ink-soft); margin-bottom: 8px; }
+  .info-box p:last-child { margin-bottom: 0; }
+  .info-box ul { margin: 8px 24px 0; color: var(--ink-soft); font-size: 15px; }
+  .info-box code { font-family: var(--mono); font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; direction: ltr; display: inline-block; }
+  footer { margin-top: 80px; padding-top: 32px; border-top: 1px solid var(--rule); color: var(--ink-mute); font-size: 13px; text-align: center; }
+  @media (max-width: 700px) { .wrap { padding: 48px 24px 80px; } h1 { font-size: 38px; } .subtitle { font-size: 18px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <span class="eyebrow">MTA · סמסטר ב׳ 2026 · סטטיסטיקה ללמידה · ד״ר נילי בק</span>
+  <h1>סטטיסטיקה<br>ללמידה</h1>
+  <p class="subtitle">מדריך הכנה למבחן — 10 פרקים מהסתברות בסיסית ועד מבחני χ², עם תרגילים מתוך תרגילי הבית, פתרונות מודרכים ודגשים מהמרצה.</p>
+  <div class="meta-bar">
+    <span>📚 <strong>10 פרקים</strong></span>
+    <span>📐 דף נוסחאות</span>
+    <span>🗂️ Cheat sheet ומפתח מושגים</span>
+    <span>📝 תרגילי בית 1–9 + שאלת HMM</span>
+  </div>
+</div>
+
+<div class="group-label">📐 חומרי עזר מהירים</div>
+<div class="ref-grid">
+  <a href="formulas.html" class="ref-card">
+    <span class="ref-icon">📐</span>
+    <h3>דף נוסחאות</h3>
+    <p>כל הנוסחאות של הקורס בעמוד אחד, מסודר לפי פרק. דף הדפסה לוקח לבחינה.</p>
+  </a>
+  <a href="cheat-sheet.html" class="ref-card">
+    <span class="ref-icon">🗂️</span>
+    <h3>Cheat sheet ומילון מושגים</h3>
+    <p>סיכום קצר לכל פרק + מפתח מושגים אלפביתי עם הגדרות תמציתיות.</p>
+  </a>
+</div>
+
+<div class="info-box">
+  <h4>🛠️ איך להשתמש במדריך</h4>
+  <p>
+    כל פרק עומד בפני עצמו — אפשר ללמוד בסדר כלשהו. הסדר המומלץ הוא לפי המספור (פרקים 1–2 בסיס הסתברותי, 3–4 שרשרת מרקוב ו־HMM, 5 סטטיסטיקה תיאורית, 6–10 כל מבחני ההשערות).
+    כל פרק מכיל את הקטעים הבאים בצבעים קבועים:
+  </p>
+  <ul>
+    <li>🟦 <strong>תיאוריה</strong> (כחול) — הגדרות, משפטים והסבר רעיוני</li>
+    <li>🟨 <strong>נוסחאות</strong> (זהב) — מה לזכור בעל פה, מסודר לפי שימוש</li>
+    <li>🟩 <strong>דוגמה מפורטת</strong> (ירוק) — חישוב צעד־צעד מתוך ההרצאה</li>
+    <li>🟥 <strong>טעויות נפוצות</strong> (אדום) — מה לא לעשות במבחן</li>
+    <li>🟪 <strong>תרגילי מבחן</strong> (סגול) — שאלות מתרגילי הבית/תרגולים, עם <code>הצג פתרון</code></li>
+    <li>⬜ <strong>סיכום מהיר</strong> (אפור) — נקודות לשנן ערב הבחינה</li>
+  </ul>
+</div>
+
+<div class="group-label">בסיס הסתברותי</div>
+<div class="grid">
+  <a href="01-revision.html" class="card">
+    <div class="card-num">פרק 1</div>
+    <h3>חזרה – הסתברות ומ״מ</h3>
+    <p>אקסיומות, הסתברות מותנה, חוק ההכפלה, נוסחת ההסתברות השלמה, התפלגויות בדידות (B, G, U) ורציפות (U, exp).</p>
+    <div class="source">פרק 1 · תרגיל בית 1</div>
+  </a>
+  <a href="02-normal-clt.html" class="card">
+    <div class="card-num">פרק 2</div>
+    <h3>נורמלי + משפט הגבול המרכזי</h3>
+    <p>תקנון, טבלת Φ, סכום/ממוצע נורמליים, מ.ה.מ., קירוב נורמלי לבינום ותיקון רציפות.</p>
+    <div class="source">פרק 2 · תרגילי בית 2, 3</div>
+  </a>
+</div>
+
+<div class="group-label">תהליכים סטוכסטיים</div>
+<div class="grid">
+  <a href="03-markov.html" class="card">
+    <div class="card-num">פרק 3</div>
+    <h3>שרשרת מרקוב</h3>
+    <p>מטריצת מעבר, התפלגות אחרי n צעדים, מיון מצבים, רגולריות, שיווי משקל (πA=π).</p>
+    <div class="source">פרק 3 · תרגיל בית 4 · תרגול 3</div>
+  </a>
+  <a href="04-hmm.html" class="card">
+    <div class="card-num">פרק 4</div>
+    <h3>Hidden Markov Model</h3>
+    <p>תצפיות מול מצבים נסתרים, Forward, Viterbi, Posterior. מתי משתמשים בכל אלגוריתם.</p>
+    <div class="source">פרק 4 · תרגילי בית 5, 6 · תרגול 4</div>
+  </a>
+</div>
+
+<div class="group-label">סטטיסטיקה תיאורית</div>
+<div class="grid">
+  <a href="05-descriptive.html" class="card">
+    <div class="card-num">פרק 5</div>
+    <h3>סטטיסטיקה תיאורית</h3>
+    <p>סולמות מדידה, מדדי מרכז ופיזור, אחוזונים, היסטוגרמות, הטיה ועקמומיות.</p>
+    <div class="source">פרק 5</div>
+  </a>
+</div>
+
+<div class="group-label">בדיקת השערות</div>
+<div class="grid">
+  <a href="06-hypothesis-intro.html" class="card">
+    <div class="card-num">פרק 6</div>
+    <h3>יסודות בדיקת השערות</h3>
+    <p>H₀ ו־H₁, טעויות מסוג α ו־β, עוצמה (1−β), אזור הדחייה, חד־ /דו־ צדדי, p-value.</p>
+    <div class="source">פרק 6 · תרגיל בית 6 · תרגול 6</div>
+  </a>
+  <a href="07-z-test.html" class="card">
+    <div class="card-num">פרק 7</div>
+    <h3>מבחן z על תוחלת (σ ידועה)</h3>
+    <p>סטטיסטי z, ערכי קריטיים, p-value, רווח סמך לתוחלת, גישור CI ↔ בדיקה דו־צדדית.</p>
+    <div class="source">פרק 7 · תרגיל בית 7</div>
+  </a>
+  <a href="08-t-tests.html" class="card">
+    <div class="card-num">פרק 8</div>
+    <h3>מבחני t · F · השוואת תוחלות</h3>
+    <p>t מדגם בודד, t מזווג, מבחן F לשונויות, t עם pooled / Welch, p-value בכל מבחן.</p>
+    <div class="source">פרק 8 · תרגילי בית 8, 9 · תרגול 8</div>
+  </a>
+  <a href="09-nonparametric.html" class="card">
+    <div class="card-num">פרק 9</div>
+    <h3>מבחנים א־פרמטריים</h3>
+    <p>מבחן הסימן, Wilcoxon לזוגות, Mann–Whitney — מתי לעבור מ־t לא־פרמטרי.</p>
+    <div class="source">פרק 9 · תרגול 9</div>
+  </a>
+  <a href="10-chi-squared.html" class="card">
+    <div class="card-num">פרק 10</div>
+    <h3>χ² · טיב התאמה ואי־תלות</h3>
+    <p>טבלת תצפיות, התפלגות תיאורטית, ערכים צפויים, סטטיסטי χ², דרגות חופש, חד־צדדי ימני.</p>
+    <div class="source">פרק 10</div>
+  </a>
+</div>
+
+<footer>
+  אליאור · MTA · קורס סטטיסטיקה ללמידה · ד״ר נילי בק · סמסטר ב׳ 2026 · המדריך מבוסס על ההרצאות, תרגילי הבית ותרגולי הקורס
+</footer>
+
+</div>
+<script>document.body.classList.add('ready');</script>
+</body>
+</html>

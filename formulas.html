@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📐 · דף נוסחאות</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css">
+<script defer src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+
+<script>
+  window.addEventListener('load', () => {
+    if (window.renderMathInElement) {
+      try { renderMathInElement(document.body, { delimiters: [{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false},{left:'\\(',right:'\\)',display:false}], throwOnError: false, strict: false }); } catch(e){}
+    }
+    if (window.hljs) { try { document.querySelectorAll('pre code').forEach(el => hljs.highlightElement(el)); } catch(e){} }
+    document.body.classList.add('ready');
+  });
+</script>
+
+<style>
+  :root {
+    --bg: #fbf9f3; --bg-paper: #fffefa; --ink: #1c1917; --ink-soft: #44403c; --ink-mute: #78716c;
+    --rule: #e7e5e0; --rule-soft: #f1efe9;
+    --indigo-9: #312e81; --indigo-7: #4f46e5; --indigo-3: #c7d2fe; --indigo-1: #eef2ff;
+    --c-theory-h: #1d4ed8; --c-theory-bg: #eff6ff; --c-theory-edge: #bfdbfe;
+    --c-formula-h: #b45309; --c-formula-bg: #fef9e7; --c-formula-edge: #fcd34d;
+    --c-example-h: #047857; --c-example-bg: #ecfdf5; --c-example-edge: #a7f3d0;
+    --c-warn-h: #be123c; --c-warn-bg: #fff1f2; --c-warn-edge: #fecdd3;
+    --c-exercise-h: #6d28d9; --c-exercise-bg: #f5f3ff; --c-exercise-edge: #ddd6fe;
+    --c-summary-h: #334155; --c-summary-bg: #f1f5f9; --c-summary-edge: #cbd5e1;
+    --code-bg: #0f172a; --code-bg-2: #1e293b; --code-ink: #e2e8f0;
+    --shadow-sm: 0 1px 2px rgba(28,25,23,.04), 0 1px 3px rgba(28,25,23,.06);
+    --shadow: 0 4px 12px rgba(28,25,23,.05), 0 1px 3px rgba(28,25,23,.04);
+    --serif: 'Frank Ruhl Libre', Georgia, serif;
+    --sans: 'Assistant', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', 'Courier New', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body { font-family: var(--sans); color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 17px; -webkit-font-smoothing: antialiased;
+    background-image: radial-gradient(circle at 20% 0%, rgba(99,102,241,.035), transparent 40%), radial-gradient(circle at 80% 100%, rgba(245,158,11,.035), transparent 40%);
+    background-attachment: fixed; opacity: 0; transition: opacity .2s ease; }
+  body.ready { opacity: 1; }
+  .app { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; max-width: 1480px; margin: 0 auto; }
+  .sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: linear-gradient(180deg, #1e1b4b 0%, #312e81 100%); color: #e0e7ff; padding: 32px 24px; border-left: 1px solid rgba(255,255,255,.06); }
+  .sidebar::-webkit-scrollbar { width: 6px; } .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+  .brand { font-family: var(--serif); font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; letter-spacing: -.01em; line-height: 1.2; }
+  .brand a { color: #fff; text-decoration: none; } .brand a:hover { color: #fbbf24; }
+  .brand-sub { font-size: 13px; color: #c7d2fe; margin-bottom: 28px; font-weight: 500; }
+  .brand-meta { font-size: 11px; color: #a5b4fc; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .nav-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #818cf8; font-weight: 700; margin: 24px 0 12px; padding-right: 8px; }
+  .nav-list { list-style: none; } .nav-list li { margin-bottom: 2px; }
+  .nav-list a { display: flex; align-items: center; gap: 10px; padding: 9px 12px; color: #c7d2fe; text-decoration: none; border-radius: 8px; font-size: 14.5px; font-weight: 500; transition: all .15s ease; }
+  .nav-list a:hover { background: rgba(255,255,255,.06); color: #fff; }
+  .nav-list a.active { background: rgba(255,255,255,.1); color: #fff; box-shadow: inset 3px 0 0 #fbbf24; }
+  .nav-list a.pending { opacity: .5; }
+  .nav-num { display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 11px; font-weight: 700; font-family: var(--mono); }
+  .nav-list a.active .nav-num { background: #fbbf24; color: #1e1b4b; }
+  main { padding: 56px 64px 120px; max-width: 960px; }
+  .page-eyebrow { display: inline-block; font-size: 12px; font-weight: 700; color: var(--indigo-7); letter-spacing: .15em; text-transform: uppercase; background: var(--indigo-1); padding: 6px 12px; border-radius: 99px; margin-bottom: 16px; }
+  h1.page-title { font-family: var(--serif); font-size: 48px; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; color: var(--ink); margin-bottom: 14px; }
+  .page-subtitle { font-size: 19px; color: var(--ink-soft); margin-bottom: 48px; font-weight: 400; line-height: 1.55; }
+  h2 { font-family: var(--serif); font-size: 32px; font-weight: 700; letter-spacing: -.015em; margin: 56px 0 20px; color: var(--ink); position: relative; padding-right: 20px; }
+  h2::before { content: ''; position: absolute; right: 0; top: 14px; bottom: 14px; width: 4px; background: var(--indigo-7); border-radius: 2px; }
+  h3 { font-family: var(--sans); font-size: 22px; font-weight: 700; margin: 32px 0 12px; color: var(--ink); letter-spacing: -.005em; }
+  h4 { font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: var(--ink-soft); }
+  p { margin-bottom: 14px; color: var(--ink-soft); } p strong { color: var(--ink); font-weight: 700; }
+  ul, ol { margin: 12px 24px 18px; color: var(--ink-soft); } li { margin-bottom: 8px; }
+  .term { font-family: var(--mono); direction: ltr; display: inline-block; font-size: .88em; background: #f5f5f4; padding: 1px 8px; border-radius: 5px; color: #be185d; border: 1px solid #e7e5e4; vertical-align: baseline; unicode-bidi: isolate; }
+  .term.blue { color: var(--c-theory-h); background: var(--c-theory-bg); border-color: var(--c-theory-edge); }
+  .term.green { color: var(--c-example-h); background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .term.amber { color: var(--c-formula-h); background: var(--c-formula-bg); border-color: var(--c-formula-edge); }
+  .katex-display { margin: 18px 0 !important; direction: ltr !important; text-align: center !important; unicode-bidi: isolate; } .katex { direction: ltr !important; unicode-bidi: isolate; }
+  .box { border-radius: 14px; margin: 24px 0; overflow: hidden; box-shadow: var(--shadow-sm); border: 1px solid var(--rule); background: var(--bg-paper); }
+  .box-head { display: flex; align-items: center; gap: 12px; padding: 14px 22px; font-weight: 700; font-size: 15px; border-bottom: 1px solid var(--rule-soft); }
+  .box-head .icon { width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; flex-shrink: 0; font-size: 16px; }
+  .box-body { padding: 22px 26px; } .box-body > *:last-child { margin-bottom: 0; }
+  .box.theory { border-color: var(--c-theory-edge); } .box.theory .box-head { background: var(--c-theory-bg); color: var(--c-theory-h); } .box.theory .box-head .icon { background: var(--c-theory-h); color: #fff; }
+  .box.formula { border-color: var(--c-formula-edge); background: var(--c-formula-bg); } .box.formula .box-head { background: transparent; color: var(--c-formula-h); border-bottom-color: rgba(180,83,9,.18); } .box.formula .box-head .icon { background: var(--c-formula-h); color: #fff; } .box.formula .box-body { background: var(--c-formula-bg); } .box.formula p { color: #78350f; }
+  .box.example { border-color: var(--c-example-edge); } .box.example .box-head { background: var(--c-example-bg); color: var(--c-example-h); } .box.example .box-head .icon { background: var(--c-example-h); color: #fff; }
+  .box.warn { border-color: var(--c-warn-edge); } .box.warn .box-head { background: var(--c-warn-bg); color: var(--c-warn-h); } .box.warn .box-head .icon { background: var(--c-warn-h); color: #fff; }
+  .box.exercise { border-color: var(--c-exercise-edge); } .box.exercise .box-head { background: var(--c-exercise-bg); color: var(--c-exercise-h); } .box.exercise .box-head .icon { background: var(--c-exercise-h); color: #fff; }
+  .box.summary { border-color: var(--c-summary-edge); } .box.summary .box-head { background: var(--c-summary-bg); color: var(--c-summary-h); } .box.summary .box-head .icon { background: var(--c-summary-h); color: #fff; }
+  pre { background: var(--code-bg) !important; border-radius: 0 0 12px 12px; padding: 18px 22px !important; margin: 0 0 16px 0; overflow-x: auto; direction: ltr; font-size: 14px; line-height: 1.7; box-shadow: var(--shadow); border: 1px solid var(--code-bg-2); border-top: none; }
+  pre code { font-family: var(--mono) !important; background: transparent !important; padding: 0 !important; border: none !important; color: var(--code-ink) !important; }
+  .code-label { display: flex; align-items: center; gap: 8px; background: var(--code-bg-2); color: #94a3b8; font-family: var(--mono); font-size: 12px; padding: 10px 16px; border-radius: 12px 12px 0 0; direction: ltr; border: 1px solid var(--code-bg-2); border-bottom: 1px solid #334155; margin-top: 18px; }
+  .code-label .dot { width: 8px; height: 8px; border-radius: 50%; background: #475569; }
+  .code-label .dot.red { background: #ef4444; } .code-label .dot.amber { background: #f59e0b; } .code-label .dot.green { background: #22c55e; }
+  .code-label .name { margin-right: auto; opacity: .9; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow-sm); font-size: 15px; }
+  th, td { padding: 11px 14px; text-align: right; border-bottom: 1px solid var(--rule-soft); border-left: 1px solid var(--rule-soft); }
+  th { background: var(--c-summary-bg); font-weight: 700; color: var(--c-summary-h); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { font-family: var(--mono); direction: ltr; text-align: center; font-size: 14px; }
+  td.highlight { background: var(--c-formula-bg); font-weight: 700; color: var(--c-formula-h); }
+  .ztable { font-family: var(--mono); direction: ltr; font-size: 12.5px; }
+  .ztable th, .ztable td { padding: 5px 8px; text-align: center; }
+  .exercise-card { background: #fff; border-radius: 10px; margin: 14px 0; border: 1px solid var(--c-exercise-edge); overflow: hidden; }
+  .exercise-tag { display: inline-block; font-size: 11px; font-weight: 700; background: var(--c-exercise-h); color: #fff; padding: 3px 10px; border-radius: 99px; margin-bottom: 10px; font-family: var(--mono); letter-spacing: .05em; direction: ltr; }
+  .exercise-q { padding: 20px 24px; background: #fafaf9; border-bottom: 1px solid var(--rule-soft); }
+  .exercise-q p:last-child { margin-bottom: 0; }
+  .reveal-btn { display: block; width: 100%; background: var(--c-exercise-bg); border: none; border-top: 1px solid var(--c-exercise-edge); padding: 13px; font-family: var(--sans); font-size: 14px; font-weight: 700; color: var(--c-exercise-h); cursor: pointer; transition: background .15s ease; }
+  .reveal-btn:hover { background: #ede9fe; } .reveal-btn::before { content: '▼ '; font-size: 10px; margin-left: 6px; transition: transform .2s ease; }
+  .exercise-card.open .reveal-btn::before { content: '▲ '; }
+  .solution { padding: 22px 26px; background: var(--c-example-bg); border-top: 1px solid var(--c-example-edge); display: none; border-radius: 8px; }
+  .exercise-card.open .solution { display: block; }
+  .box.exercise.open .solution { display: block; }
+  .box.exercise .solution { margin-top: 16px; }
+  .box.exercise.open .reveal-btn::before { content: '▲ '; }
+  .box.exercise .reveal-btn { margin-top: 8px; border-radius: 8px; border: 1px solid var(--c-exercise-edge); }
+  .solution .step { background: #fff; border-radius: 8px; padding: 14px 18px; margin: 12px 0; border-right: 3px solid var(--c-example-h); }
+  .solution .step-label { font-size: 11px; font-weight: 700; color: var(--c-example-h); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; font-family: var(--mono); }
+  .solution .final-answer { background: #fff; border: 2px solid var(--c-example-h); border-radius: 10px; padding: 14px 20px; margin-top: 16px; font-weight: 600; }
+  .solution .final-answer::before { content: '✓ '; color: var(--c-example-h); font-weight: 900; }
+  .lead { font-size: 19px; color: var(--ink-soft); border-right: 3px solid var(--indigo-7); padding-right: 20px; margin: 24px 0 32px; font-weight: 400; line-height: 1.6; }
+  .keypoint { background: linear-gradient(90deg, var(--c-formula-bg) 0%, transparent 100%); padding: 14px 18px; border-radius: 8px; margin: 16px 0; border-right: 3px solid var(--c-formula-h); }
+  .keypoint::before { content: '💡 '; font-size: 18px; margin-left: 4px; }
+  .mc-list { list-style: none; margin: 12px 0; padding: 0; }
+  .mc-list li { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fff; border: 1px solid var(--rule); border-radius: 8px; margin-bottom: 8px; transition: all .15s ease; }
+  .mc-list li .mc-marker { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--ink-mute); background: #fff; }
+  .mc-list li.correct { background: var(--c-example-bg); border-color: var(--c-example-edge); }
+  .mc-list li.correct .mc-marker { background: var(--c-example-h); color: #fff; border-color: var(--c-example-h); }
+  .mc-list li.correct .mc-marker::after { content: '✓'; }
+  .mc-list li.wrong { background: var(--c-warn-bg); border-color: var(--c-warn-edge); }
+  .mc-list li.wrong .mc-marker { background: var(--c-warn-h); color: #fff; border-color: var(--c-warn-h); }
+  .mc-list li.wrong .mc-marker::after { content: '✗'; }
+  .mc-list li .mc-text { flex: 1; line-height: 1.55; color: var(--ink-soft); }
+  .mc-list li .mc-text .why { display: block; margin-top: 6px; font-size: 13.5px; color: var(--ink-mute); font-style: italic; }
+  .figure { background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 18px; margin: 18px 0; text-align: center; box-shadow: var(--shadow-sm); }
+  .figure svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+  .figure .cap { font-size: 13px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  @media (max-width: 900px) { .app { grid-template-columns: 1fr; } .sidebar { position: static; height: auto; } main { padding: 32px 24px 80px; } h1.page-title { font-size: 36px; } h2 { font-size: 26px; } }
+</style>
+</head>
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand"><a href="index.html">סטטיסטיקה<br>ללמידה</a></div>
+  <div class="brand-sub">מדריך הכנה למבחן</div>
+  <div class="brand-meta">MTA · סמסטר ב׳ 2026<br>ד״ר נילי בק</div>
+
+  <!-- ============================================================
+       SIDEBAR: replace these <li> items with your course's chapters.
+       For the current chapter, add class="active" to its link.
+       Group chapters under <nav-label> sections (add/remove as needed).
+       ============================================================ -->
+
+  <div class="nav-label">בסיס הסתברותי</div>
+  <ul class="nav-list">
+    <li><a href="01-revision.html"><span class="nav-num">1</span>חזרה – הסתברות ומ״מ</a></li>
+    <li><a href="02-normal-clt.html"><span class="nav-num">2</span>נורמלי + מ.ה.מ.</a></li>
+  </ul>
+
+  <div class="nav-label">תהליכים סטוכסטיים</div>
+  <ul class="nav-list">
+    <li><a href="03-markov.html"><span class="nav-num">3</span>שרשרת מרקוב</a></li>
+    <li><a href="04-hmm.html"><span class="nav-num">4</span>Hidden Markov</a></li>
+  </ul>
+
+  <div class="nav-label">סטטיסטיקה תיאורית</div>
+  <ul class="nav-list">
+    <li><a href="05-descriptive.html"><span class="nav-num">5</span>סטטיסטיקה תיאורית</a></li>
+  </ul>
+
+  <div class="nav-label">בדיקת השערות</div>
+  <ul class="nav-list">
+    <li><a href="06-hypothesis-intro.html"><span class="nav-num">6</span>יסודות בדיקת השערות</a></li>
+    <li><a href="07-z-test.html"><span class="nav-num">7</span>מבחן z (σ ידועה)</a></li>
+    <li><a href="08-t-tests.html"><span class="nav-num">8</span>מבחני t · F</a></li>
+    <li><a href="09-nonparametric.html"><span class="nav-num">9</span>א־פרמטריים</a></li>
+    <li><a href="10-chi-squared.html"><span class="nav-num">10</span>χ² – טיב התאמה ואי־תלות</a></li>
+  </ul>
+
+  <div class="nav-label">חומרי עזר</div>
+  <ul class="nav-list">
+    <li><a class="active" href="formulas.html"><span class="nav-num">📐</span>דף נוסחאות</a></li>
+    <li><a href="cheat-sheet.html"><span class="nav-num">🗂️</span>Cheat sheet</a></li>
+  </ul>
+
+</aside>
+
+<main>
+
+<span class="page-eyebrow no-print">חומרי עזר · דף נוסחאות</span>
+<h1 class="page-title no-print">דף נוסחאות</h1>
+
+<div class="print-controls no-print">
+  <button onclick="window.print()" class="print-btn">🖨️ הדפס דף נוסחאות</button>
+  <!-- <p class="print-hint">
+    <strong>בדיאלוג ההדפסה:</strong>
+    Headers and footers — <strong>בטל ✗</strong>,
+    Background graphics — <strong>הפעל ✓</strong>,
+    Scale — <strong>100%</strong>.
+    הדף מתוכנן להיכנס בעמוד A4 אחד.
+  </p> -->
+</div>
+
+<style>
+  /* ============ SCREEN styles (default) ============ */
+  .fblock { background: #fff; border: 1px solid var(--rule); border-right: 3px solid var(--accent, #4f46e5); border-radius: 8px; padding: 12px 16px; margin: 10px 0; break-inside: avoid; overflow: hidden; }
+  .fblock h3 { font-family: var(--serif); font-size: 15px; color: var(--accent, #4f46e5); margin: 0 0 6px 0; padding-bottom: 4px; border-bottom: 1px dashed var(--rule); font-weight: 700; }
+  .fblock .use { font-size: 13.5px; color: var(--ink-soft); line-height: 1.45; margin-bottom: 6px; font-style: normal; padding: 5px 8px; background: #fafafa; border-radius: 4px; border-right: 2px solid #ddd; }
+  .fblock .use strong { color: var(--ink); font-style: normal; }
+  .fblock .sub { display: block; font-size: 12.5px; font-weight: 700; color: #555; margin-top: 6px; margin-bottom: 2px; }
+  .fblock p, .fblock li { font-size: 13.5px; line-height: 1.45; margin: 2px 0; }
+  .fblock ul { margin: 2px 18px 4px 0; padding: 0; }
+  .fblock .tag { display: inline-block; padding: 1px 7px; border-radius: 99px; font-size: 11px; font-weight: 700; margin: 0 2px; }
+  .fblock .tag.use-tag { background: #d1fae5; color: #065f46; }
+  .fblock .tag.warn { background: #fef3c7; color: #92400e; }
+  .fblock .tag.info { background: #dbeafe; color: #1e40af; }
+  .fblock .katex-display { max-width: 100%; overflow-x: auto; overflow-y: hidden; margin: 6px 0 !important; padding: 2px 0; }
+  .fblock .katex { font-size: 0.95em !important; }
+  .fblock .katex-display > .katex { display: inline-block; white-space: normal; }
+
+  /* Glossary grid (inside fblock) */
+  .gloss-grid { columns: 2; column-gap: 10px; font-size: 12.5px; line-height: 1.4; }
+  .gloss-grid > div { break-inside: avoid; padding: 1px 0; }
+  .gloss-grid b { color: var(--accent); font-family: var(--mono); font-weight: 700; display: inline-block; min-width: 1.8em; }
+
+  /* Color per chapter (matches Elior's c1-c10 accents) */
+  .c1  { --accent: #6d28d9; }
+  .c2  { --accent: #2563eb; }
+  .c3  { --accent: #059669; }
+  .c4  { --accent: #ea580c; }
+  .c5  { --accent: #92400e; }
+  .c6  { --accent: #be185d; }
+  .c7  { --accent: #0e7490; }
+  .c8  { --accent: #1d4ed8; }
+  .c9  { --accent: #047857; }
+  .c10 { --accent: #b91c1c; }
+  .cdec { --accent: #1c1917; }
+  .cglos { --accent: #4338ca; }
+
+  .formulas-wrap { column-count: 2; column-gap: 18px; }
+  @media (max-width: 900px) { .formulas-wrap { column-count: 1; } }
+
+  /* ============ PRINT styles — A4 (target: 1 page exactly, readable) ============ */
+  @page { size: A4; margin: 6mm 6mm; }
+
+  @media print {
+    html, body { background: #fff !important; font-size: 7.5pt !important; line-height: 1.2 !important; color: #000 !important; }
+    body { padding: 0 !important; margin: 0 !important; }
+    .sidebar, aside, .chap-nav, .no-print, .print-controls,
+    .page-eyebrow, .page-title, footer { display: none !important; }
+    .app, main, .wrap { display: block !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+    main { padding: 0 !important; }
+
+    .formulas-wrap {
+      column-count: 3 !important;
+      column-gap: 2.5mm !important;
+      column-rule: 0.3pt solid #ddd !important;
+      column-fill: auto !important;
+    }
+
+    .fblock {
+      padding: 0.8mm 1.2mm !important;
+      margin: 0 0 1mm 0 !important;
+      border: 0.3pt solid #bbb !important;
+      border-right: 1.5pt solid var(--accent) !important;
+      border-radius: 1pt !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+      background: #fff !important;
+      overflow: visible !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .fblock h3 {
+      font-size: 7.5pt !important; margin: 0 0 0.6mm 0 !important;
+      padding: 0 0 0.4mm 0 !important;
+      border-bottom: 0.3pt dashed #aaa !important;
+      color: var(--accent) !important; font-weight: 700;
+      line-height: 1.1 !important;
+    }
+    .fblock .use {
+      font-size: 6.8pt !important;
+      padding: 0.5mm 1mm !important;
+      margin: 0 0 0.6mm 0 !important;
+      background: #f8f8f4 !important;
+      border-right: 0.8pt solid #ccc !important;
+      border-radius: 0.5pt !important;
+      line-height: 1.2 !important;
+      -webkit-print-color-adjust: exact;
+    }
+    .fblock .sub {
+      font-size: 6.8pt !important; margin: 0.8mm 0 0.2mm 0 !important;
+      color: #444 !important; font-weight: 700; line-height: 1.1 !important;
+    }
+    .fblock p, .fblock li {
+      font-size: 7pt !important; line-height: 1.18 !important; margin: 0.2mm 0 !important;
+    }
+    .fblock ul { margin: 0.3mm 4mm 0.3mm 0 !important; padding: 0 !important; }
+
+    .fblock .tag {
+      font-size: 5.8pt !important; padding: 0.1mm 1mm !important;
+      border-radius: 4pt !important; margin: 0 0.3mm !important;
+    }
+    .fblock .tag.use-tag { background: #d1fae5 !important; color: #065f46 !important; -webkit-print-color-adjust: exact; }
+    .fblock .tag.warn { background: #fef3c7 !important; color: #92400e !important; -webkit-print-color-adjust: exact; }
+    .fblock .tag.info { background: #dbeafe !important; color: #1e40af !important; -webkit-print-color-adjust: exact; }
+
+    .fblock .katex { font-size: 7.5pt !important; }
+    .fblock .katex-display { margin: 0.3mm 0 !important; padding: 0 !important; text-align: right !important; padding-right: 1mm !important; overflow: visible !important; }
+    .fblock .katex .frac-line { border-bottom-width: 0.4pt !important; }
+
+    /* Glossary in print — 3 internal columns, very compact */
+    .gloss-grid { columns: 3 !important; column-gap: 1mm !important; font-size: 5.6pt !important; line-height: 1.1 !important; }
+    .gloss-grid > div { padding: 0 !important; break-inside: avoid !important; margin-bottom: 0.2mm !important; }
+    .gloss-grid b { color: var(--accent) !important; min-width: 1.2em !important; font-weight: 700 !important; display: inline-block; }
+    .cglos .use { font-size: 5.8pt !important; padding: 0.3mm 0.8mm !important; margin: 0 0 0.4mm 0 !important; line-height: 1.15 !important; }
+    .cglos h3 { font-size: 7pt !important; margin: 0 0 0.4mm 0 !important; }
+
+    a { color: inherit !important; text-decoration: none !important; }
+  }
+</style>
+
+<div class="formulas-wrap">
+
+<!-- ============ Chapter 1: Probability basics ============ -->
+<div class="fblock c1">
+  <h3>1 · יסודות הסתברות</h3>
+  <p class="use"><strong>בסיס לכל הקורס.</strong> השתמש לכל שאלת הסת׳ ראשונית: <strong>מותנית</strong> כשנתון "אם X קרה", <strong>הכפלה</strong> כש"א וגם ב", <strong>שלמה+בייס</strong> כשיש חלוקה לתתי־מקרים.</p>
+  <p><strong>אקסיומות:</strong> $0 \le P(A) \le 1$, $P(\Omega)=1$</p>
+  <p> זרים: $P(A \cup B)=P(A)+P(B)$.</p>
+  <p><strong>כללי:</strong> $P(A \cup B)=P(A)+P(B)-P(A \cap B)$, $P(A^c)=1-P(A)$.</p>
+  <span class="sub">מותנה והכפלה</span>
+  $$P(A \mid B) = \tfrac{P(A \cap B)}{P(B)}$$
+  $$P(A \cap B) = P(A) P(B \mid A)$$
+  <span class="sub">הסת׳ שלמה + בייס</span>
+  $$P(A) = \sum_i P(A \mid B_i) P(B_i)$$
+  $$P(B_j \mid A) = \tfrac{P(A \mid B_j) P(B_j)}{\sum_i P(A \mid B_i) P(B_i)}$$
+  <p><strong>אי־תלות:</strong> $P(A \cap B) = P(A) P(B)$ ⇔ $P(A|B) = P(A)$. <span class="tag warn">זרות ≠ אי־תלות</span></p>
+</div>
+
+<div class="fblock c1">
+  <h3>1 · התפלגויות בדידות</h3>
+  <p class="use">חוסר זיכרון יש רק ל־<strong>G</strong> (בדידה) ול־<strong>exp</strong> (רציפה).</p>
+  <span class="sub">B(n,p) — מספר הצלחות מתוך n</span>
+  $$P(X=k) = \binom{n}{k} p^k (1-p)^{n-k}$$
+  $$E=np, \quad V=np(1-p)$$
+  <span class="sub">G(p) — ניסיון ראשון להצלחה</span>
+  $$P(X=k) = (1-p)^{k-1} p, \quad E=\tfrac{1}{p}, \quad V=\tfrac{1-p}{p^2}$$
+  <span class="sub">U{m,…,n} — אחידה בדידה</span>
+  $$E=\tfrac{m+n}{2}, \quad V=\tfrac{(n-m+1)^2-1}{12}$$
+  <span class="sub">Pois(λ)</span>
+  $$P(X=k) = \tfrac{e^{-\lambda}\lambda^k}{k!}, \quad E=V=\lambda$$
+</div>
+
+<div class="fblock c1">
+  <h3>1 · התפלגויות רציפות</h3>
+  <span class="sub">U(a,b)</span>
+  $$f(x) = \tfrac{1}{b-a},\ a \le x \le b$$
+  $$E = \tfrac{a+b}{2}, \quad V = \tfrac{(b-a)^2}{12}$$
+  <span class="sub">exp(λ)</span>
+  $$f(x) = \lambda e^{-\lambda x},\ x \ge 0$$
+  $$E = \tfrac{1}{\lambda}, \quad V = \tfrac{1}{\lambda^2}$$
+  <p><strong>חוסר זיכרון:</strong> $P(X > s+t \mid X > s) = P(X > t)$</p>
+</div>
+
+<!-- ============ Chapter 2: Normal + CLT ============ -->
+<div class="fblock c2">
+  <h3>2 · נורמלית + תקנון</h3>
+  <p class="use"><strong>השתמש כאשר:</strong> ידוע ש־$X \sim N(\mu, \sigma^2)$, או כשרוצים לקרב סכומי בינום/בדיד גדול. <strong>שים לב:</strong> $\sigma^2$ זו שונות, לא ס"ת — בתקנון מחלקים ב־$\sigma$.</p>
+  <span class="sub">תקנון</span>
+  $$Z = \tfrac{X-\mu}{\sigma} \sim N(0,1)$$
+  <span class="sub">חישוב הסת׳ עם Φ</span>
+  $$P(Z > z) = 1 - \Phi(z), \quad \Phi(-z) = 1 - \Phi(z)$$
+  $$P(z_1 < Z < z_2) = \Phi(z_2) - \Phi(z_1)$$
+  <span class="sub">אחוזונים</span>
+  $$X_p = \mu + \sigma \cdot z_p, \quad z_p = -z_{1-p}$$
+</div>
+
+<div class="fblock c2">
+  <h3>2 · סכום/ממוצע · מ.ה.מ.</h3>
+  <p class="use"><strong>מ.ה.מ. — שימוש בקירוב נורמלי:</strong> ממוצע n גדול (n≥30) של תצפיות ב"ת מתפלג בקירוב נורמלי <em>מכל</em> התפלגות מקורית.</p>
+  <span class="sub">סכום נורמליים ב"ת</span>
+  $$\sum X_i \sim N\!\left(\sum \mu_i, \sum \sigma_i^2\right)$$
+  $$\bar X_n \sim N\!\left(\mu, \tfrac{\sigma^2}{n}\right)$$
+  <span class="sub">מ.ה.מ. (n גדול)</span>
+  $$\bar X_n \approx N\!\left(\mu, \tfrac{\sigma^2}{n}\right)$$
+  <span class="sub">קירוב לבינום + תיקון רציפות</span>
+  <p>תקף כש־$np \ge 5$ ו־$n(1-p) \ge 5$:</p>
+  $$B(n,p) \approx N(np, np(1-p))$$
+  <ul>
+    <li>$P(X=k) \to P(k-0.5 < Y \le k+0.5)$</li>
+    <li>$P(X \le k) \to P(Y \le k+0.5)$</li>
+    <li>$P(X \ge k) \to P(Y \ge k-0.5)$</li>
+  </ul>
+</div>
+
+<!-- ============ Chapter 3: Markov ============ -->
+<div class="fblock c3">
+  <h3>3 · שרשרת מרקוב</h3>
+  <p class="use"><strong>תכונת מרקוב:</strong> העתיד תלוי רק בהווה. השתמש בשיווי משקל רק אם השרשרת <strong>רגולרית</strong> (קיים m כך ש־$A^m$ חיובית).</p>
+  <p>מטריצת מעבר A: $A_{i,j}=P(X_{n+1}=j \mid X_n=i)$. שורות מסתכמות ל־1.</p>
+  <span class="sub">m צעדים</span>
+  $$\varphi_m = \varphi_0 \cdot A^m$$
+  <span class="sub">שיווי משקל (רגולרית)</span>
+  $$\pi A = \pi, \quad \sum_i \pi_i = 1$$
+  <p><span class="tag warn">תנאי</span> רגולרית ⇔ אי־פריקה + אפריודית. רק אז קיים $\pi$ יחיד.</p>
+</div>
+
+<!-- ============ Chapter 4: HMM ============ -->
+<div class="fblock c4">
+  <h3>4 · HMM</h3>
+  <p class="use"><strong>איזה אלגוריתם?</strong> מסלול חבוי הסביר ביותר ← <strong>Viterbi</strong>. הסת׳ סדרת תצפיות ← <strong>Forward</strong>. הסת׳ מצב בזמן i ספציפי ← <strong>Posterior</strong>.</p>
+  <p>רכיבים: A (מעבר), B (פלט תלוי במצב), S (התחלה).</p>
+  $$P(X,H) = S_{h_1} B_{h_1,x_1} \prod_{i=1}^{n-1} A_{h_i,h_{i+1}} B_{h_{i+1},x_{i+1}}$$
+  <span class="sub">Viterbi (max)</span>
+  $$V_1(\ell) = S_\ell B_{\ell, x_1}$$
+  $$V_{i+1}(\ell) = B_{\ell, x_{i+1}} \max_k \{V_i(k) A_{k,\ell}\}$$
+  <span class="sub">Forward (∑)</span>
+  $$f_{i+1}(\ell) = B_{\ell, x_{i+1}} \sum_k f_i(k) A_{k,\ell}$$
+  $$P(X) = \sum_\ell f_n(\ell)$$
+  <span class="sub">Posterior</span>
+  $$P(H_i=k \mid X) = \tfrac{f_i(k) b_i(k)}{P(X)}$$
+  <p><span class="tag info">log</span> Viterbi: עובדים ב־$\log$ למניעת underflow — סוכמים במקום להכפיל.</p>
+</div>
+
+<!-- ============ Chapter 5: Descriptive ============ -->
+<div class="fblock c5">
+  <h3>5 · סטטיסטיקה תיאורית</h3>
+  <p class="use"><strong>סולמות מדידה:</strong> שמי (נומינלי) ← רק שכיח. סדר (אורדינלי) ← גם חציון/אחוזונים. כמותי ← גם ממוצע ושונות.</p>
+  <span class="sub">מדדי מרכז</span>
+  $$\bar X = \tfrac{\sum X_i}{n}, \quad Me = X_{0.5}, \quad Q_1, Q_3$$
+  <span class="sub">פיזור (תיאורית, ÷ n)</span>
+  $$\sigma_X^2 = \tfrac{\sum(X_i-\bar X)^2}{n} = \tfrac{\sum X_i^2}{n} - \bar X^2$$
+  $$\text{IQR} = Q_3 - Q_1$$
+  <span class="sub">התמרה לינארית Y = aX + b</span>
+  $$\bar Y = a\bar X + b, \quad \sigma_Y^2 = a^2 \sigma_X^2$$
+  <p><strong>זיהוי הטיה:</strong></p>
+  <ul>
+    <li>זנב ימני: $Mo < Me < \bar X$</li>
+    <li>סימטרית: כולם שווים</li>
+    <li>זנב שמאלי: $\bar X < Me < Mo$</li>
+  </ul>
+</div>
+
+<!-- ============ Chapter 6: Hypothesis basics ============ -->
+<div class="fblock c6">
+  <h3>6 · יסודות בדיקת השערות</h3>
+  <p class="use"><strong>מסגרת לפרקים 7–10.</strong> H₀ = מצב קיים. נטל ההוכחה על מי שמכחיש. "לא דחינו" ≠ "H₀ נכונה".</p>
+  <ul>
+    <li>טעות I: דחיית H₀ נכון. $\alpha = P_{H_0}(C)$</li>
+    <li>טעות II: אי־דחייה כש־H₁. $\beta = P_{H_1}(\bar C)$</li>
+    <li>עוצמה: $\pi = 1 - \beta = P_{H_1}(C)$</li>
+  </ul>
+  <p><span class="tag warn">טרייד־אוף</span> אם α גדלה, β קטנה — ולהפך. הנוהל: קובעים α מראש (0.05 / 0.01 / 0.1) ובוחרים את המבחן עם β המינימלי.</p>
+  <span class="sub">למת ניימן־פירסון — מבחן חזק ביותר</span>
+  $$\lambda(x) = \tfrac{L_{H_1}(x)}{L_{H_0}(x)}, \ C^* = \{\lambda > K\}$$
+  <span class="sub">החלטה דרך p-value</span>
+  $$p.v \le \alpha \Leftrightarrow \text{דחה}$$
+</div>
+
+<!-- ============ Chapter 7: z-test ============ -->
+<div class="fblock c7">
+  <h3>7 · מבחן z על תוחלת</h3>
+  <p class="use"><strong>השתמש כאשר:</strong> $\sigma$ באוכלוסייה <strong>ידועה</strong>, ויש נורמליות (או n גדול לפי מ.ה.מ.). אם $\sigma$ לא ידועה ← פרק 8.</p>
+  $$Z = \tfrac{\bar X_n - \mu_0}{\sigma/\sqrt n} \sim_{H_0} N(0,1)$$
+  <span class="sub">חד־צדדית שמאלית</span>
+  $$C = \{\bar X_n \le \mu_0 - Z_{1-\alpha} \sigma/\sqrt n\}$$
+  <span class="sub">חד־צדדית ימנית</span>
+  $$C = \{\bar X_n \ge \mu_0 + Z_{1-\alpha} \sigma/\sqrt n\}$$
+  <span class="sub">דו־צדדית</span>
+  $$C = \{|\bar X_n - \mu_0| \ge Z_{1-\alpha/2} \sigma/\sqrt n\}$$
+  <span class="sub">רווח סמך 1−α</span>
+  $$\left[\bar X_n \pm Z_{1-\alpha/2} \tfrac{\sigma}{\sqrt n}\right]$$
+  <p><strong>קשר CI ↔ בדיקה דו־צדדית:</strong> $\mu_0$ ברווח ← לא דחה. $\mu_0$ מחוץ ← דחה.</p>
+  <p>אורך הרווח: $L = 2 Z_{1-\alpha/2} \sigma/\sqrt n$. לחתוך לחצי — n פי 4.</p>
+</div>
+
+<!-- ============ Chapter 8a: t single sample ============ -->
+<div class="fblock c8">
+  <h3>8 · t — מדגם בודד</h3>
+  <p class="use"><strong>השתמש כאשר:</strong> $\sigma$ <strong>לא</strong> ידועה, ויש נורמליות. דרגות חופש = n−1.</p>
+  $$S^2 = \tfrac{\sum(X_i - \bar X)^2}{n-1} = \tfrac{\sum X_i^2 - n\bar X^2}{n-1}$$
+  $$T = \tfrac{\bar X_n - \mu_0}{S/\sqrt n} \sim_{H_0} t_{n-1}$$
+  <p>אזורי דחייה זהים ל־z אבל עם $t_{n-1, 1-\alpha}$ במקום $Z_{1-\alpha}$.</p>
+  <span class="sub">רווח סמך 1−α</span>
+  $$\left[\bar X_n \pm t_{n-1, 1-\alpha/2} \tfrac{S}{\sqrt n}\right]$$
+</div>
+
+<!-- ============ Chapter 8b: paired + two-samples ============ -->
+<div class="fblock c8">
+  <h3>8 · t מזווג + 2 ב"ת + F</h3>
+  <p class="use"><strong>זווג vs ב"ת:</strong> כל נבדק תורם 2 ערכים (לפני/אחרי) ← מזווג. שתי קבוצות שונות ← ב"ת.</p>
+  <span class="sub">מזווג (D = X − Y)</span>
+  $$T = \tfrac{\bar D - \mu_{D,0}}{S_D/\sqrt n} \sim t_{n-1}$$
+  <span class="sub">F לשונויות (מקדים ב"ת)</span>
+  $$F = \tfrac{S_X^2}{S_Y^2} \sim F(n_X-1, n_Y-1)$$
+  <span class="sub">pooled (לא דחינו F - שונויות שוות)</span>
+  $$S_p^2 = \tfrac{(n_X-1) S_X^2 + (n_Y-1) S_Y^2}{n_X + n_Y - 2}$$
+  $$T = \tfrac{\bar Y - \bar X}{\sqrt{S_p^2(1/n_X + 1/n_Y)}} \sim t_{n_X+n_Y-2}$$
+    <p><span class="tag warn">דחינו F</span> ← Welch (Phyton).</p>
+</div>
+
+<!-- ============ Chapter 9: Nonparametric ============ -->
+<div class="fblock c9">
+  <h3>9 · א־פרמטריים</h3>
+  <p class="use"><strong>השתמש כאשר:</strong> סולם סדר, התפלגות לא נורמלית, או מדגם קטן עם חשד. תמיד <em>חלשים</em> יותר מהפרמטרי אם הוא תקף.</p>
+  <span class="sub">Wilcoxon מזווג — חליף ל־t מזווג</span>
+  <p>n* = #זוגות עם הפרש ≠ 0. דרגים על $|D_i|$. R₊ = סכום דרגות חיוביות.</p>
+  $$R_+ + R_- = \tfrac{n^*(n^*+1)}{2}$$
+  <p>תחת H₀ (n* ≥ 12):</p>
+  $$R_+ \sim N\!\left(\tfrac{n^*(n^*+1)}{4}, \tfrac{n^*(n^*+1)(2n^*+1)}{24}\right)$$
+  <span class="sub">מבחן הסימן — סולם סדר בלבד</span>
+  $$S_+ \sim_{H_0} B(n^*, 0.5) \approx N(0.5 n^*, 0.25 n^*)$$
+  <span class="sub">Mann−Whitney — 2 ב"ת</span>
+  <p>מדרגים את 2 הקבוצות יחד. $R_X$ = סכום דרגות מ־X.</p>
+  $$R_X + R_Y = \tfrac{n(n+1)}{2}$$
+  <p>תחת H₀ (max ≥ 10):</p>
+  $$R_X \sim N\!\left(\tfrac{n_X(n+1)}{2}, \tfrac{n_X n_Y (n+1)}{12}\right)$$
+  $$M_X = R_X - \tfrac{n_X(n_X+1)}{2}$$
+</div>
+
+<!-- ============ Chapter 10: Chi-squared ============ -->
+<div class="fblock c10">
+  <h3>10 · χ² — טיב התאמה ואי־תלות</h3>
+  <p class="use"><strong>שני שימושים:</strong> טיב התאמה (האם התפלגות תיאורטית מתאימה למדגם?) ואי־תלות (האם 2 משתנים שמיים תלויים?). <span class="tag warn">תמיד חד־צדדי ימני</span> ← ערך גבוה = דחייה.</p>
+  $$\chi^2_s = \sum \tfrac{(O_i - E_i)^2}{E_i} \sim \chi^2_{df}$$
+  <span class="sub">טיב התאמה</span>
+  <p>$E_i = p_i \cdot n$, df = k−1.</p>
+  <span class="sub">אי־תלות (טבלת r × c)</span>
+  $$E_{i,j} = \tfrac{(\text{שורה } i)(\text{עמודה } j)}{n}$$
+  <p>df = (r−1)(c−1).</p>
+  <p><span class="tag warn">דרישה</span> בכל תא $E \ge 5$. אחרת — איחוד קטגוריות.</p>
+</div>
+
+<!-- ============ Decision tree ============ -->
+<div class="fblock cdec">
+  <h3>🧭 בחירת מבחן — פלואו מהיר</h3>
+  <!-- <p class="use">אבחון מהיר לפי הסיטואציה. החץ ← מסמן "תוביל אותך אל".</p> -->
+  <ul>
+    <li>תוחלת, σ <strong>ידועה</strong>, נורמלי ← <strong>z</strong> (פרק 7)</li>
+    <li>תוחלת, σ <strong>לא</strong> ידועה, נורמלי ← <strong>t</strong> חד־מדגם (פרק 8)</li>
+    <li>תוחלת, לא נורמלי, סולם סדר ← <strong>Sign</strong> על Me (פרק 9)</li>
+    <li>זוגות מזווגים, נורמלי ← <strong>t מזווג</strong> (פרק 8)</li>
+    <li>זוגות מזווגים, סימטרי, לא נורמלי ← <strong>Wilcoxon</strong> (פרק 9)</li>
+    <li>זוגות מזווגים, סולם סדר ← <strong>Sign</strong> (פרק 9)</li>
+    <li>2 קבוצות ב"ת, נורמלי ← ראשית <strong>F</strong>, אז <strong>pooled t</strong> או <strong>Welch t</strong> (פרק 8)</li>
+    <li>2 קבוצות ב"ת, לא נורמלי / סדר ← <strong>Mann−Whitney</strong> (פרק 9)</li>
+    <li>התפלגות תיאורטית? ← <strong>χ² טיב התאמה</strong> (פרק 10)</li>
+    <li>תלות בין 2 משתנים שמיים? ← <strong>χ² אי־תלות</strong> (פרק 10)</li>
+  </ul>
+  <p style="margin-top: 4px;"><strong>בכל מבחן:</strong> ניסוח H₀ ו־H₁ ← חישוב סטטיסטי ← קביעת p.v. ← השוואה ל־α.</p>
+</div>
+
+<!-- ============ Symbol glossary ============ -->
+<div class="fblock cglos">
+  <h3>📚 מפתח סימנים</h3>
+  <!-- <p class="use">סימנים ספציפיים לקורס (כלליים מובנים מאליהם מושמטים).</p> -->
+  <div class="gloss-grid">
+    <div><b>μ</b> תוחלת באוכלוסייה</div>
+    <div><b>σ</b> סטיית תקן באוכלוסייה</div>
+    <div><b>σ²</b> שונות באוכלוסייה</div>
+    <div><b>μ₀</b> ערך התוחלת לפי H₀</div>
+    <div><b>X̄</b> ממוצע המדגם</div>
+    <div><b>S</b> סטיית תקן של המדגם</div>
+    <div><b>S²</b> שונות של המדגם</div>
+    <div><b>X<sub>p</sub></b> אחוזון p של המדגם</div>
+    <div><b>Mo</b> השכיח</div>
+    <div><b>Me</b> החציון</div>
+    <div><b>Q₁</b> הרבעון הראשון</div>
+    <div><b>Q₃</b> הרבעון השלישי</div>
+    <div><b>IQR</b> טווח בין־רבעוני</div>
+    <div><b>Φ(z)</b> התפלגות מצטברת של N(0,1)</div>
+    <div><b>Z<sub>p</sub></b> אחוזון p של N(0,1)</div>
+    <div><b>H₀</b> השערת האפס</div>
+    <div><b>H₁</b> השערה חלופית</div>
+    <div><b>α</b> סיכוי לטעות מסוג ראשון</div>
+    <div><b>β</b> סיכוי לטעות מסוג שני</div>
+    <div><b>π</b>  עוצמת המבחן $(1-β)$</div>
+    <div><b>C</b> אזור הדחייה</div>
+    <div><b>C̄</b> אזור הקבלה</div>
+    <div><b>p.v</b> p-value</div>
+    <div><b>L</b> פונקציית הנראות</div>
+    <div><b>λ</b> יחס הנראות</div>
+    <div><b>df</b> דרגות חופש</div>
+    <div><b>A</b> מטריצת מעבר במרקוב</div>
+    <div><b>φ</b> וקטור התפלגות במרקוב</div>
+    <div><b>π</b> וקטור שיווי משקל במרקוב</div>
+    <div><b>S</b> וקטור התחלה ב־HMM</div>
+    <div><b>B</b> מטריצת פליטה ב־HMM</div>
+    <div><b>V</b> סטטיסטי ויטרבי</div>
+    <div><b>f</b> סטטיסטי Forward</div>
+    <div><b>b</b> סטטיסטי Backward</div>
+    <div><b>O</b> שכיחות נצפית</div>
+    <div><b>E</b> שכיחות צפויה</div>
+    <div><b>R₊</b> סכום דרגות חיוביות</div>
+    <div><b>R₋</b> סכום דרגות שליליות</div>
+    <div><b>S₊</b> מספר הפרשים חיוביים</div>
+    <div><b>R<sub>X</sub></b> סכום דרגות במדגם X</div>
+    <div><b>M<sub>X</sub></b> סטטיסטי U של Mann−Whitney</div>
+    <div><b>n*</b> מספר הזוגות עם הפרש שונה מאפס</div>
+  </div>
+</div>
+
+</div><!-- /formulas-wrap -->
+
+<div class="chap-nav no-print">
+  <a class="prev" href="index.html">→ חזרה למפת הקורס</a>
+  <a class="next" href="cheat-sheet.html">Cheat sheet ←</a>
+</div>
+
+  <!-- chapter content ends above this line -->
+
+</main>
+
+</div>
+</body>
+</html>
