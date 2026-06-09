@@ -254,6 +254,20 @@
   </div>
 </div>
 
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>אזורי דחייה (קירוב נורמלי)</div>
+  <div class="box-body">
+    <p>נסמן <span class="term">μ<sub>R</sub> = n*(n*+1)/4</span>, <span class="term">σ<sub>R</sub> = √[n*(n*+1)(2n*+1)/24]</span>. אז תחת H<sub>0</sub>: <span class="term">Z<sub>s</sub> = (R<sub>+</sub><sup>S</sup> − μ<sub>R</sub>) / σ<sub>R</sub> ~ N(0,1)</span>.</p>
+    <p><strong>חד־צדדי ימני</strong> (H<sub>1</sub>: X &gt; Y, ערכי X נוטים לגדולים, R<sub>+</sub> גדול):</p>
+    $$C = \bigl\{ R_+ \ge \mu_R + Z_{1-\alpha}\, \sigma_R \bigr\} \;=\; \bigl\{ Z_s \ge Z_{1-\alpha} \bigr\}$$
+    <p><strong>חד־צדדי שמאלי</strong> (H<sub>1</sub>: X &lt; Y, R<sub>+</sub> קטן):</p>
+    $$C = \bigl\{ R_+ \le \mu_R - Z_{1-\alpha}\, \sigma_R \bigr\} \;=\; \bigl\{ Z_s \le -Z_{1-\alpha} \bigr\}$$
+    <p><strong>דו־צדדי</strong>:</p>
+    $$C = \bigl\{ |R_+ - \mu_R| \ge Z_{1-\alpha/2}\, \sigma_R \bigr\} \;=\; \bigl\{ |Z_s| \ge Z_{1-\alpha/2} \bigr\}$$
+    <p>הערה: לקפדנות יש להחיל גם פה תיקון רציפות (<span class="term">±0.5</span>) על <span class="term">R<sub>+</sub><sup>S</sup></span> לפני התקנון.</p>
+  </div>
+</div>
+
 <h2>3 · מבחן הסימן (Sign Test)</h2>
 
 <div class="box theory">
@@ -277,6 +291,20 @@
     <p>$$S_+ \sim_{H_0} N(0.5 n^*,\ 0.25 n^*)$$</p>
     <p>p-value מחושב כרגיל לפי הכיוון.</p>
     <p><strong>תיקון רציפות:</strong> <span class="term">S<sub>+</sub></span> בדיד (סופר אירועים), והקירוב הוא רציף. כשמחשבים <span class="term">P(S<sub>+</sub> ≥ k)</span> מקרבים ב־<span class="term">P(Y ≥ k − 0.5)</span>, וכן <span class="term">P(S<sub>+</sub> ≤ k)</span> ב־<span class="term">P(Y ≤ k + 0.5)</span> (בדומה לפרק 2).</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>אזורי דחייה (קירוב נורמלי)</div>
+  <div class="box-body">
+    <p>נסמן <span class="term">μ<sub>S</sub> = 0.5 n*</span>, <span class="term">σ<sub>S</sub> = √(0.25 n*) = 0.5√n*</span>. אז תחת H<sub>0</sub>: <span class="term">Z<sub>s</sub> = (S<sub>+</sub><sup>S</sup> − μ<sub>S</sub>) / σ<sub>S</sub> ~ N(0,1)</span>.</p>
+    <p><strong>חד־צדדי ימני</strong> (H<sub>1</sub>: <span class="term">p<sup>+</sup> &gt; 0.5</span>, נטייה לחיוביים, S<sub>+</sub> גדול):</p>
+    $$C = \bigl\{ S_+ \ge \mu_S + Z_{1-\alpha}\, \sigma_S \bigr\} \;=\; \bigl\{ Z_s \ge Z_{1-\alpha} \bigr\}$$
+    <p><strong>חד־צדדי שמאלי</strong> (H<sub>1</sub>: <span class="term">p<sup>+</sup> &lt; 0.5</span>):</p>
+    $$C = \bigl\{ S_+ \le \mu_S - Z_{1-\alpha}\, \sigma_S \bigr\} \;=\; \bigl\{ Z_s \le -Z_{1-\alpha} \bigr\}$$
+    <p><strong>דו־צדדי</strong>:</p>
+    $$C = \bigl\{ |S_+ - \mu_S| \ge Z_{1-\alpha/2}\, \sigma_S \bigr\} \;=\; \bigl\{ |Z_s| \ge Z_{1-\alpha/2} \bigr\}$$
+    <p>כתמיד מומלץ להחיל תיקון רציפות (<span class="term">±0.5</span>) על <span class="term">S<sub>+</sub><sup>S</sup></span> לפני התקנון.</p>
   </div>
 </div>
 
@@ -312,6 +340,20 @@
     <p>$$R_X \sim_{H_0} N\!\left(\frac{n_X(n+1)}{2},\ \frac{n_X n_Y (n+1)}{12}\right)$$</p>
     <p>(ו־R<sub>Y</sub> סימטרית.) p-value כרגיל לפי הכיוון.</p>
     <p><strong>תיקון רציפות:</strong> <span class="term">R<sub>X</sub></span> בדיד (סכום דרגות) — מקרבים <span class="term">P(R<sub>X</sub> ≥ k)</span> ב־<span class="term">P(Y ≥ k − 0.5)</span> ו־<span class="term">P(R<sub>X</sub> ≤ k)</span> ב־<span class="term">P(Y ≤ k + 0.5)</span>. במדגמים קטנים זה משמעותי.</p>
+  </div>
+</div>
+
+<div class="box formula">
+  <div class="box-head"><span class="icon">📐</span>אזורי דחייה (קירוב נורמלי)</div>
+  <div class="box-body">
+    <p>נסמן <span class="term">μ<sub>R</sub> = n<sub>X</sub>(n+1)/2</span>, <span class="term">σ<sub>R</sub> = √[n<sub>X</sub> n<sub>Y</sub> (n+1)/12]</span>. אז תחת H<sub>0</sub>: <span class="term">Z<sub>s</sub> = (R<sub>X</sub><sup>S</sup> − μ<sub>R</sub>) / σ<sub>R</sub> ~ N(0,1)</span>.</p>
+    <p><strong>חד־צדדי ימני</strong> (H<sub>1</sub>: X נוטה לערכים גדולים יותר מ־Y, R<sub>X</sub> גדול):</p>
+    $$C = \bigl\{ R_X \ge \mu_R + Z_{1-\alpha}\, \sigma_R \bigr\} \;=\; \bigl\{ Z_s \ge Z_{1-\alpha} \bigr\}$$
+    <p><strong>חד־צדדי שמאלי</strong> (H<sub>1</sub>: X נוטה לערכים קטנים יותר):</p>
+    $$C = \bigl\{ R_X \le \mu_R - Z_{1-\alpha}\, \sigma_R \bigr\} \;=\; \bigl\{ Z_s \le -Z_{1-\alpha} \bigr\}$$
+    <p><strong>דו־צדדי</strong>:</p>
+    $$C = \bigl\{ |R_X - \mu_R| \ge Z_{1-\alpha/2}\, \sigma_R \bigr\} \;=\; \bigl\{ |Z_s| \ge Z_{1-\alpha/2} \bigr\}$$
+    <p>(אותם אזורי דחייה מתאימים ל־R<sub>Y</sub> בהחלפת אינדקסים, ול־M<sub>X</sub> = U עם תוחלת ושונות מתאימות.) בקפדנות — תיקון רציפות (<span class="term">±0.5</span>) על <span class="term">R<sub>X</sub><sup>S</sup></span> לפני התקנון.</p>
   </div>
 </div>
 
